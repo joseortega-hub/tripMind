@@ -130,6 +130,21 @@ con fuente actualizada. Si no hay datos, mostrar categorías y permitir investig
 - Todo se ve en una franja de "Calendario del viaje" del itinerario, en el PDF/archivo
   interactivo y en el `.ics`.
 
+## 18. Lugares "trending" y redes sociales (añadido por el usuario)
+Viabilidad (oct. 2026, revisar términos antes de implementar):
+- **No viable**: leer tendencias de TikTok de forma automática. La Research API es solo para
+  académicos y ONG (excluye uso comercial) y el scraping incumple sus términos.
+- **Viable — "Guardar desde TikTok/Instagram"**: el usuario pega o comparte el enlace de un vídeo;
+  con el oEmbed público de la plataforma obtenemos título, autor y miniatura; detectamos el nombre
+  del lugar en el texto, lo buscamos en OSM/Wikidata y el usuario **confirma** cuál es antes de
+  añadirlo a "Guardados" (capa 7) con el vídeo embebido en la ficha. Nunca se asigna un lugar sin
+  confirmación ni se descarga el vídeo.
+- **Viable — señal de popularidad con fuentes abiertas**: visitas a artículos de Wikipedia
+  (Wikimedia Pageviews API, sin clave) para detectar lugares en auge frente a su media; etiquetarlo
+  como "Popular ahora (según visitas en Wikipedia)", nunca como "trending en TikTok".
+- **Futuro**: vídeos de TikTok embebidos en fichas si un creador/socio los aporta, o acuerdos con
+  creadores; Ticketdoor podría aportar sus atracciones más vendidas (ver `docs/TICKETDOOR.md`).
+
 ## 16. Integración con Ticketdoor (propuesta)
 Ver `docs/TICKETDOOR.md`. Ticketdoor como proveedor de entradas autorizado y "planifica tu día
 alrededor de tu entrada". Sin acuerdo firmado: solo adaptador demo y señalizado como propuesta.
