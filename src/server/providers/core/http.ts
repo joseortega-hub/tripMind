@@ -1,4 +1,20 @@
+import type { z } from "zod";
 import { ProviderError } from "./types";
+
+/** Valida la respuesta de un proveedor; un formato inesperado es un fallo del proveedor. */
+export function parseProviderResponse<T>(
+  schema: z.ZodType<T>,
+  raw: unknown,
+  providerId: string,
+): T {
+  const parsed = schema.safeParse(raw);
+  if (!parsed.success) {
+    throw new ProviderError(`Formato de respuesta inesperado de ${providerId}`, providerId, {
+      cause: parsed.error,
+    });
+  }
+  return parsed.data;
+}
 
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>;
 

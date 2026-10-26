@@ -1,0 +1,174 @@
+{
+  "recordedAt": "2026-10-26T21:33:43.876Z",
+  "entries": [
+    {
+      "query": "madrid",
+      "url": "https://nominatim.openstreetmap.org/search?q=madrid&format=jsonv2&addressdetails=1&limit=5&accept-language=es",
+      "response": [
+        {
+          "place_id": 296171364,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 5326784,
+          "lat": "40.4167820",
+          "lon": "-3.7035070",
+          "category": "boundary",
+          "type": "administrative",
+          "place_rank": 16,
+          "importance": 0.8186903991321961,
+          "addresstype": "city",
+          "name": "Madrid",
+          "display_name": "Madrid, Comunidad de Madrid, España",
+          "address": {
+            "city": "Madrid",
+            "state": "Comunidad de Madrid",
+            "ISO3166-2-lvl4": "ES-MD",
+            "country": "España",
+            "country_code": "es"
+          },
+          "boundingbox": ["40.3119774", "40.6437293", "-3.8889539", "-3.5183264"]
+        },
+        {
+          "place_id": 372691257,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 128521,
+          "lat": "41.8766526",
+          "lon": "-93.8232813",
+          "category": "boundary",
+          "type": "administrative",
+          "place_rank": 16,
+          "importance": 0.4633985020102336,
+          "addresstype": "town",
+          "name": "Madrid",
+          "display_name": "Madrid, Boone County, Iowa, 50156, Estados Unidos de América",
+          "address": {
+            "town": "Madrid",
+            "county": "Boone County",
+            "state": "Iowa",
+            "ISO3166-2-lvl4": "US-IA",
+            "postcode": "50156",
+            "country": "Estados Unidos de América",
+            "country_code": "us"
+          },
+          "boundingbox": ["41.8671252", "41.8852565", "-93.8373247", "-93.8093703"]
+        },
+        {
+          "place_id": 308580504,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 1413026,
+          "lat": "4.7367260",
+          "lon": "-74.2654685",
+          "category": "boundary",
+          "type": "administrative",
+          "place_rank": 12,
+          "importance": 0.4402686161245203,
+          "addresstype": "town",
+          "name": "Madrid",
+          "display_name": "Madrid, Sabana Occidente, Cundinamarca, RAP (Especial) Central, Colombia",
+          "address": {
+            "town": "Madrid",
+            "subregion": "Sabana Occidente",
+            "state": "Cundinamarca",
+            "ISO3166-2-lvl4": "CO-CUN",
+            "region": "RAP (Especial) Central",
+            "country": "Colombia",
+            "country_code": "co"
+          },
+          "boundingbox": ["4.6801375", "4.8596110", "-74.3287080", "-74.1727599"]
+        }
+      ]
+    },
+    {
+      "query": "museo del prado",
+      "url": "https://nominatim.openstreetmap.org/search?q=museo+del+prado&format=jsonv2&addressdetails=1&limit=5&accept-language=es",
+      "response": [
+        {
+          "place_id": 294327292,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 7726080,
+          "lat": "40.4137925",
+          "lon": "-3.6920407",
+          "category": "tourism",
+          "type": "museum",
+          "place_rank": 30,
+          "importance": 0.635572056486556,
+          "addresstype": "tourism",
+          "name": "Museo del Prado",
+          "display_name": "Museo del Prado, Paseo del Prado, Jerónimos, Retiro, Madrid, Comunidad de Madrid, 28014, España",
+          "address": {
+            "tourism": "Museo del Prado",
+            "road": "Paseo del Prado",
+            "quarter": "Jerónimos",
+            "suburb": "Retiro",
+            "city": "Madrid",
+            "state": "Comunidad de Madrid",
+            "ISO3166-2-lvl4": "ES-MD",
+            "postcode": "28014",
+            "country": "España",
+            "country_code": "es"
+          },
+          "boundingbox": ["40.4128535", "40.4147856", "-3.6927472", "-3.6904926"]
+        }
+      ]
+    },
+    {
+      "query": "barcelona",
+      "url": "https://nominatim.openstreetmap.org/search?q=barcelona&format=jsonv2&addressdetails=1&limit=5&accept-language=es",
+      "response": [
+        {
+          "place_id": 83784328,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 347950,
+          "lat": "41.3825802",
+          "lon": "2.1770730",
+          "category": "boundary",
+          "type": "administrative",
+          "place_rank": 16,
+          "importance": 0.8035003209691789,
+          "addresstype": "city",
+          "name": "Barcelona",
+          "display_name": "Barcelona, Barcelonés, Barcelona, Cataluña, España",
+          "address": {
+            "city": "Barcelona",
+            "county": "Barcelonés",
+            "province": "Barcelona",
+            "ISO3166-2-lvl6": "ES-B",
+            "state": "Cataluña",
+            "ISO3166-2-lvl4": "ES-CT",
+            "country": "España",
+            "country_code": "es"
+          },
+          "boundingbox": ["41.3170354", "41.4679135", "2.0524977", "2.2283555"]
+        },
+        {
+          "place_id": 83292845,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "relation",
+          "osm_id": 349035,
+          "lat": "41.7578700",
+          "lon": "2.0311820",
+          "category": "boundary",
+          "type": "administrative",
+          "place_rank": 10,
+          "importance": 0.6423758395013042,
+          "addresstype": "province",
+          "name": "Barcelona",
+          "display_name": "Barcelona, Cataluña, España",
+          "address": {
+            "province": "Barcelona",
+            "ISO3166-2-lvl6": "ES-B",
+            "state": "Cataluña",
+            "ISO3166-2-lvl4": "ES-CT",
+            "country": "España",
+            "country_code": "es"
+          },
+          "boundingbox": ["41.1927078", "42.3233011", "1.3603839", "2.7780029"]
+        }
+      ]
+    }
+  ]
+}

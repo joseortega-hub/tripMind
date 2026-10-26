@@ -1,0 +1,1339 @@
+{
+  "recordedAt": "2026-10-26T21:33:43.876Z",
+  "entries": [
+    {
+      "query": "madrid",
+      "url": "https://photon.komoot.io/api/?q=madrid&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 5326784,
+              "osm_key": "place",
+              "osm_value": "city",
+              "type": "city",
+              "name": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "countrycode": "ES",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-3.8889539, 40.6437293, -3.5183264, 40.3119774]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.703507, 40.416782]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 128521,
+              "osm_key": "place",
+              "osm_value": "town",
+              "type": "city",
+              "name": "Madrid",
+              "county": "Boone",
+              "state": "Iowa",
+              "country": "United States",
+              "postcode": "50156",
+              "countrycode": "US",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-93.8373247, 41.8852565, -93.8093703, 41.8671252]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-93.8232813, 41.8766526]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 1413026,
+              "osm_key": "place",
+              "osm_value": "town",
+              "type": "city",
+              "name": "Madrid",
+              "county": "Sabana Occidente",
+              "state": "Cundinamarca",
+              "country": "Colombia",
+              "countrycode": "CO",
+              "extra": {
+                "admin_level": "6"
+              },
+              "extent": [-74.328708, 4.859611, -74.1727599, 4.6801375]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-74.2654685, 4.736726]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 171667,
+              "osm_key": "place",
+              "osm_value": "hamlet",
+              "type": "district",
+              "name": "Madrid",
+              "county": "Santa Fe",
+              "state": "New Mexico",
+              "country": "United States",
+              "countrycode": "US",
+              "extent": [-106.164526, 35.415473, -106.138568, 35.388512]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-106.1520027, 35.4072959]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 171667,
+              "osm_key": "place",
+              "osm_value": "locality",
+              "type": "other",
+              "name": "Madrid",
+              "county": "Santa Fe",
+              "state": "New Mexico",
+              "country": "United States",
+              "countrycode": "US",
+              "extent": [-106.164526, 35.415473, -106.138568, 35.388512]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-106.1542368, 35.4023125]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 1548412238,
+              "osm_key": "place",
+              "osm_value": "town",
+              "type": "city",
+              "name": "Madrid",
+              "state": "Surigao del Sur",
+              "country": "Philippines",
+              "postcode": "8316",
+              "countrycode": "PH"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [125.9637534, 9.2617815]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 14386929,
+              "osm_key": "boundary",
+              "osm_value": "census",
+              "type": "other",
+              "name": "Madrid",
+              "city": "Town of Madrid",
+              "county": "Saint Lawrence",
+              "state": "New York",
+              "country": "United States",
+              "countrycode": "US",
+              "extent": [-75.158944, 44.76614, -75.1033, 44.734625]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-75.1308313, 44.750478]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 169630,
+              "osm_key": "place",
+              "osm_value": "village",
+              "type": "city",
+              "name": "Madrid",
+              "county": "Perkins",
+              "state": "Nebraska",
+              "country": "United States",
+              "countrycode": "US",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-101.552351, 40.8574645, -101.494455, 40.843438]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-101.5437395, 40.850206]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "query": "museo del prado",
+      "url": "https://photon.komoot.io/api/?q=museo+del+prado&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 7726080,
+              "osm_key": "tourism",
+              "osm_value": "museum",
+              "type": "house",
+              "name": "Museo del Prado",
+              "street": "Paseo del Prado",
+              "locality": "Jerónimos",
+              "district": "Los Jerónimos",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES",
+              "extent": [-3.6927472, 40.4147856, -3.6904926, 40.4128535]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6920407, 40.4137925]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 1869336,
+              "osm_key": "tourism",
+              "osm_value": "museum",
+              "type": "house",
+              "housenumber": "8",
+              "name": "Museo Thyssen-Bornemisza",
+              "street": "Paseo del Prado",
+              "locality": "Cortes",
+              "district": "Centro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES",
+              "extent": [-3.6956586, 40.416827, -3.6945407, 40.415618]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6949317, 40.4162159]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 292649859,
+              "osm_key": "tourism",
+              "osm_value": "museum",
+              "type": "house",
+              "housenumber": "3",
+              "name": "Museo Naval de Madrid",
+              "street": "Paseo del Prado",
+              "locality": "Jerónimos",
+              "district": "Los Jeronimos",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES",
+              "extent": [-3.692795, 40.4176699, -3.6919832, 40.4173666]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6923806, 40.4175258]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 5305176,
+              "osm_key": "tourism",
+              "osm_value": "museum",
+              "type": "house",
+              "name": "Museo Nacional de Bellas Artes",
+              "street": "Trocadero",
+              "district": "Prado",
+              "city": "La Habana",
+              "country": "Cuba",
+              "postcode": "10100",
+              "countrycode": "CU",
+              "extent": [-82.3578465, 23.1404566, -82.3568193, 23.1395712]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-82.3571161, 23.14001]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 23872614,
+              "osm_key": "tourism",
+              "osm_value": "museum",
+              "type": "house",
+              "name": "Museo de la Revolución",
+              "street": "Calle Refugio e/ Zulueta y Monserrate",
+              "district": "Prado",
+              "city": "La Habana",
+              "country": "Cuba",
+              "postcode": "10202",
+              "countrycode": "CU",
+              "extent": [-82.3569729, 23.1418381, -82.356402, 23.1413433]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-82.356688, 23.1415603]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 59708756,
+              "osm_key": "highway",
+              "osm_value": "living_street",
+              "type": "street",
+              "name": "Calle del Museo del Prado",
+              "district": "Urbanización Vista Naharros",
+              "city": "Pelabravo",
+              "county": "Salamanca",
+              "state": "Castilla y León",
+              "country": "España",
+              "postcode": "37350",
+              "countrycode": "ES",
+              "extent": [-5.5742056, 40.9617324, -5.5730154, 40.9588565]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-5.5736112, 40.9602939]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 829241893,
+              "osm_key": "highway",
+              "osm_value": "residential",
+              "type": "street",
+              "name": "Calle Museo del Prado",
+              "district": "Zurbarán",
+              "city": "Villanueva de la Serena",
+              "county": "Badajoz",
+              "state": "Extremadura",
+              "country": "España",
+              "countrycode": "ES",
+              "extent": [-5.7206612, 39.0658787, -5.7196962, 39.0649105]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-5.7200817, 39.065582]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 155063637,
+              "osm_key": "highway",
+              "osm_value": "living_street",
+              "type": "street",
+              "name": "Calle Museo del Prado",
+              "locality": "Punta Valdepeñas 1",
+              "city": "Zapopan",
+              "county": "Zapopan",
+              "state": "Jalisco",
+              "country": "México",
+              "postcode": "45133",
+              "countrycode": "MX",
+              "extent": [-103.405899, 20.7586314, -103.4049919, 20.7569056]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-103.4054428, 20.7577699]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "query": "puerta del sol",
+      "url": "https://photon.komoot.io/api/?q=puerta+del+sol&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 7424032,
+              "osm_key": "place",
+              "osm_value": "square",
+              "type": "street",
+              "name": "Puerta del Sol",
+              "locality": "Barrio de los Austrias",
+              "district": "Centro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28013",
+              "countrycode": "ES",
+              "extent": [-3.7047263, 40.4172442, -3.7022633, 40.4164803]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.7038762, 40.416863]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 7424032,
+              "osm_key": "place",
+              "osm_value": "square",
+              "type": "locality",
+              "name": "Puerta del Sol",
+              "district": "Centro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28013",
+              "countrycode": "ES",
+              "extent": [-3.7047263, 40.4172442, -3.7022633, 40.4164803]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.7038762, 40.416863]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 150564182,
+              "osm_key": "historic",
+              "osm_value": "city_gate",
+              "type": "house",
+              "name": "Puerta del Sol",
+              "street": "Calle Carretas",
+              "district": "Santa Bárbara",
+              "city": "Toledo",
+              "county": "Toledo",
+              "state": "Castilla-La Mancha",
+              "country": "España",
+              "postcode": "45071",
+              "countrycode": "ES",
+              "extent": [-4.024002, 39.861129, -4.023909, 39.86098]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-4.0239554, 39.8610696]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 877180132,
+              "osm_key": "tourism",
+              "osm_value": "attraction",
+              "type": "house",
+              "name": "Puerta del Sol",
+              "district": "Tiawanacu",
+              "city": "Tiahuanacu",
+              "county": "Ingavi",
+              "state": "La Paz",
+              "country": "Bolivia",
+              "countrycode": "BO"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-68.673936, -16.5544181]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 9133186,
+              "osm_key": "place",
+              "osm_value": "neighbourhood",
+              "type": "locality",
+              "name": "Puerta del Sol",
+              "district": "Comuna 14",
+              "city": "Cali",
+              "county": "Cali",
+              "state": "Valle del Cauca",
+              "country": "Colombia",
+              "countrycode": "CO",
+              "extra": {
+                "admin_level": "9"
+              },
+              "extent": [-76.476151, 3.4342696, -76.470827, 3.4277861]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-76.4729226, 3.4311213]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 5968012363,
+              "osm_key": "place",
+              "osm_value": "hamlet",
+              "type": "district",
+              "name": "Puerta del Sol",
+              "city": "La Serena",
+              "county": "Provincia de Elqui",
+              "state": "Región de Coquimbo",
+              "country": "Chile",
+              "countrycode": "CL"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-71.1286479, -29.9789423]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 703490816,
+              "osm_key": "place",
+              "osm_value": "hamlet",
+              "type": "district",
+              "name": "Puerta Del Sol",
+              "county": "San Miguel (La Dorada)",
+              "state": "Putumayo",
+              "country": "Colombia",
+              "countrycode": "CO"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-76.8804321, 0.2635033]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 3260433003,
+              "osm_key": "place",
+              "osm_value": "hamlet",
+              "type": "district",
+              "name": "Puerta del Sol",
+              "city": "San Borja",
+              "county": "General José Ballivián Segurola",
+              "state": "Beni",
+              "country": "Bolivia",
+              "countrycode": "BO"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-67.0657246, -15.2209961]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "query": "retiro",
+      "url": "https://photon.komoot.io/api/?q=retiro&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 356879,
+              "osm_key": "place",
+              "osm_value": "suburb",
+              "type": "district",
+              "name": "Retiro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "countrycode": "ES",
+              "extra": {
+                "admin_level": "9"
+              },
+              "extent": [-3.6941293, 40.4217289, -3.6587726, 40.394508]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6760566, 40.4111495]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 5303272000,
+              "osm_key": "railway",
+              "osm_value": "station",
+              "type": "house",
+              "name": "Retiro",
+              "street": "Calle de Alcalá",
+              "locality": "Recoletos",
+              "district": "Salamanca",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28009",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6864269, 40.4204626]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 255333,
+              "osm_key": "place",
+              "osm_value": "town",
+              "type": "city",
+              "name": "Retiro",
+              "county": "Provincia de Linares",
+              "state": "Región del Maule",
+              "country": "Chile",
+              "countrycode": "CL",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-72.0394059, -35.8180021, -71.5650004, -36.2180355]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-71.7650623, -36.0554429]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 1085915826,
+              "osm_key": "railway",
+              "osm_value": "station",
+              "type": "house",
+              "name": "Retiro (E)",
+              "street": "Avenida Del Libertador",
+              "locality": "Catalinas Norte",
+              "district": "Retiro",
+              "city": "Buenos Aires",
+              "county": "Comuna 1",
+              "state": "Ciudad Autónoma de Buenos Aires",
+              "country": "Argentina",
+              "postcode": "C1006AAD",
+              "countrycode": "AR"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-58.3761678, -34.5921903]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 5272710067,
+              "osm_key": "railway",
+              "osm_value": "station",
+              "type": "house",
+              "name": "Retiro (C)",
+              "street": "Avenida Doctor José María Ramos Mejía",
+              "locality": "Catalinas Norte",
+              "district": "Retiro",
+              "city": "Buenos Aires",
+              "county": "Comuna 1",
+              "state": "Ciudad Autónoma de Buenos Aires",
+              "country": "Argentina",
+              "postcode": "C1104AJN",
+              "countrycode": "AR"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-58.3741803, -34.5913025]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 303051460,
+              "osm_key": "railway",
+              "osm_value": "station",
+              "type": "house",
+              "name": "Retiro",
+              "street": "Rodovia Engenheiro Vasco Filho",
+              "district": "Retiro",
+              "city": "Salvador",
+              "state": "Bahia",
+              "country": "Brasil",
+              "postcode": "41152-060",
+              "countrycode": "BR",
+              "extent": [-38.4723736, -12.9553831, -38.4718854, -12.9566791]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-38.4721285, -12.9560021]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 19278600,
+              "osm_key": "boundary",
+              "osm_value": "administrative",
+              "type": "district",
+              "name": "Retiro",
+              "city": "Urrao",
+              "county": "Suroeste",
+              "state": "Antioquia",
+              "country": "Colombia",
+              "countrycode": "CO",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-76.412091, 6.514258, -76.382699, 6.481644]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-76.3990422, 6.496713]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 362441,
+              "osm_key": "place",
+              "osm_value": "municipality",
+              "type": "city",
+              "name": "Retirolândia",
+              "state": "Bahia",
+              "country": "Brasil",
+              "postcode": "48750-000",
+              "countrycode": "BR",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-39.5361578, -11.371613, -39.2852295, -11.6012003]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-39.4113699, -11.4926833]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "query": "atocha",
+      "url": "https://photon.komoot.io/api/?q=atocha&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 5299219122,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Atocha",
+              "street": "Paseo de la Infanta Isabel",
+              "locality": "Jerónimos",
+              "district": "Retiro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6885928, 40.4069495]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 5299314576,
+              "osm_key": "railway",
+              "osm_value": "station",
+              "type": "house",
+              "name": "Atocha",
+              "street": "Paseo de la Infanta Isabel",
+              "locality": "Jerónimos",
+              "district": "Retiro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6886008, 40.4069749]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 26494721,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Atocha",
+              "street": "Paseo de la Infanta Isabel",
+              "locality": "Jerónimos",
+              "district": "Retiro",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.688582, 40.406975]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 9241616,
+              "osm_key": "place",
+              "osm_value": "quarter",
+              "type": "locality",
+              "name": "Atocha",
+              "district": "Arganzuela",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "countrycode": "ES",
+              "extra": {
+                "admin_level": "10"
+              },
+              "extent": [-3.693828, 40.4090618, -3.6733291, 40.3923315]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6821763, 40.4002598]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 4137627,
+              "osm_key": "place",
+              "osm_value": "village",
+              "type": "city",
+              "name": "Atocha",
+              "county": "Sur Chichas",
+              "state": "Sur Chichas",
+              "country": "Bolivia",
+              "countrycode": "BO",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-66.4913559, -20.8714504, -65.8533401, -21.3309212]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-66.2215123, -20.9333477]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "W",
+              "osm_id": 255246391,
+              "osm_key": "building",
+              "osm_value": "train_station",
+              "type": "house",
+              "name": "Atocha-Cercanías",
+              "street": "Intercambiador de Atocha",
+              "locality": "Atocha",
+              "district": "Arganzuela",
+              "city": "Madrid",
+              "state": "Comunidad de Madrid",
+              "country": "España",
+              "postcode": "28014",
+              "countrycode": "ES",
+              "extent": [-3.6894845, 40.4063837, -3.6866894, 40.4042278]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-3.6878589, 40.4051406]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 2636670403,
+              "osm_key": "place",
+              "osm_value": "suburb",
+              "type": "district",
+              "name": "Atocha",
+              "city": "Salta",
+              "county": "Capital",
+              "state": "Salta",
+              "country": "Argentina",
+              "postcode": "A4400GHA",
+              "countrycode": "AR"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-65.4778938, -24.8154285]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 5580571370,
+              "osm_key": "place",
+              "osm_value": "hamlet",
+              "type": "district",
+              "name": "Atocha",
+              "city": "Cusubamba",
+              "county": "Salcedo",
+              "state": "Cotopaxi",
+              "country": "Ecuador",
+              "countrycode": "EC"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-78.7299961, -1.0855109]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "query": "barcelona",
+      "url": "https://photon.komoot.io/api/?q=barcelona&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 347950,
+              "osm_key": "place",
+              "osm_value": "city",
+              "type": "city",
+              "name": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "countrycode": "ES",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [2.0524977, 41.4679135, 2.2283555, 41.3170354]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.177073, 41.3825802]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 349035,
+              "osm_key": "place",
+              "osm_value": "province",
+              "type": "county",
+              "name": "Barcelona",
+              "state": "Catalunya",
+              "country": "España",
+              "countrycode": "ES",
+              "extra": {
+                "admin_level": "6"
+              },
+              "extent": [1.3603839, 42.3233011, 2.7780029, 41.1927078]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.031182, 41.75787]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 14451189,
+              "osm_key": "place",
+              "osm_value": "city",
+              "type": "city",
+              "name": "Barcelona",
+              "county": "Municipio Simón Bolívar",
+              "state": "Anzoátegui",
+              "country": "Venezuela",
+              "countrycode": "VE",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-64.8149371, 10.178994, -64.5829046, 10.0137778]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-64.6819583, 10.1325951]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 301130,
+              "osm_key": "place",
+              "osm_value": "municipality",
+              "type": "city",
+              "name": "Barcelona",
+              "state": "Rio Grande do Norte",
+              "country": "Brasil",
+              "postcode": "59410-000",
+              "countrycode": "BR",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-36.031832, -5.8932581, -35.8328975, -6.0693894]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-35.9260284, -5.9514918]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 546290479,
+              "osm_key": "place",
+              "osm_value": "hamlet",
+              "type": "locality",
+              "name": "Barcelona",
+              "district": "Pelynt",
+              "city": "Pelynt",
+              "county": "Kernow / Cornwall",
+              "state": "England",
+              "country": "United Kingdom",
+              "postcode": "PL13 2JU",
+              "countrycode": "GB"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-4.5028673, 50.3547004]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 911666218,
+              "osm_key": "place",
+              "osm_value": "town",
+              "type": "city",
+              "name": "Barcelona",
+              "state": "Sorsogon",
+              "country": "Philippines",
+              "countrycode": "PH"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [124.1418908, 12.8682088]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 2158044594,
+              "osm_key": "railway",
+              "osm_value": "station",
+              "type": "house",
+              "housenumber": "1-7",
+              "name": "Barcelona - Sants",
+              "street": "Plaça dels Països Catalans",
+              "locality": "Sants",
+              "district": "Sants-Montjuïc",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08014",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1400042, 41.3790068]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 7215418555,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Barcelona-Estació de França",
+              "street": "Passeig de Circumval·lació",
+              "locality": "la Ribera",
+              "district": "Ciutat Vella",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08003",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1880415, 41.3842421]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "query": "sagrada familia",
+      "url": "https://photon.komoot.io/api/?q=sagrada+familia&limit=8",
+      "response": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 541829,
+              "osm_key": "place",
+              "osm_value": "town",
+              "type": "city",
+              "name": "Sagrada Familia",
+              "county": "Provincia de Curicó",
+              "state": "Región del Maule",
+              "country": "Chile",
+              "postcode": "3400000",
+              "countrycode": "CL",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-71.6980916, -34.976296, -71.2488297, -35.2453533]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-71.3817116, -34.9990365]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 242721,
+              "osm_key": "place",
+              "osm_value": "municipality",
+              "type": "city",
+              "name": "Sagrada Família",
+              "state": "Rio Grande do Sul",
+              "country": "Brasil",
+              "countrycode": "BR",
+              "extra": {
+                "admin_level": "8"
+              },
+              "extent": [-53.1971612, -27.6420665, -53.0678138, -27.7606584]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.1364113, -27.7085454]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 1902990,
+              "osm_key": "place",
+              "osm_value": "village",
+              "type": "district",
+              "name": "Sagrada Família",
+              "city": "Alfredo Chaves",
+              "state": "Espírito Santo",
+              "country": "Brasil",
+              "postcode": "29253-000",
+              "countrycode": "BR",
+              "extra": {
+                "admin_level": "9"
+              },
+              "extent": [-40.7282371, -20.5365626, -40.6696853, -20.6073732]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-40.6985161, -20.5789219]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "R",
+              "osm_id": 9194723,
+              "osm_key": "amenity",
+              "osm_value": "place_of_worship",
+              "type": "house",
+              "name": "Basílica de la Sagrada Família",
+              "street": "Carrer de Mallorca",
+              "locality": "la Sagrada Família",
+              "district": "l'Eixample",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08013",
+              "countrycode": "ES",
+              "extent": [2.1735675, 41.4039672, 2.1749928, 41.4030422]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1744283, 41.4035046]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 3397396652,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Sagrada Família",
+              "street": "Carrer de la Marina",
+              "locality": "la Sagrada Família",
+              "district": "l'Eixample",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08013",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1751243, 41.4039894]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 3397396651,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Sagrada Família",
+              "street": "Carrer de la Marina",
+              "locality": "la Sagrada Família",
+              "district": "l'Eixample",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08013",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1750985, 41.403972]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 3398928342,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Sagrada Família",
+              "street": "Carrer de Provença",
+              "locality": "la Sagrada Família",
+              "district": "l'Eixample",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08013",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1738598, 41.4040512]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "osm_type": "N",
+              "osm_id": 462295964,
+              "osm_key": "railway",
+              "osm_value": "stop",
+              "type": "house",
+              "name": "Sagrada Família",
+              "street": "Carrer de Provença",
+              "locality": "la Sagrada Família",
+              "district": "l'Eixample",
+              "city": "Barcelona",
+              "county": "Barcelonès",
+              "state": "Catalunya",
+              "country": "España",
+              "postcode": "08013",
+              "countrycode": "ES"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [2.1738918, 41.4040242]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
