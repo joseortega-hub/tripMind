@@ -102,3 +102,18 @@ con fuente actualizada. Si no hay datos, mostrar categorías y permitir investig
 - **C.** "Tengo tres horas libres": tiempo + ubicación → actividades cercanas realistas.
 - **D.** Modo lluvia: sustituir actividades al aire libre por interiores; usar previsión solo con fuente real.
 - *(El prompt original se cortó aquí. Añadir el resto cuando el usuario lo envíe.)*
+
+## 15. Exportación del viaje (añadido por el usuario)
+- **PDF**: documento cuidado listo para imprimir o enviar: portada, resumen, mapa por día,
+  itinerario por franjas con tiempos y transporte, hoteles, restaurantes, entradas (con su estado y
+  enlaces), presupuesto, alternativas y fuentes/atribuciones. Se genera con Playwright renderizando
+  una vista `/trips/[id]/print` (mismo diseño que la web, mapas incluidos).
+- **Archivo interactivo**: un `.html` autónomo (un solo archivo, funciona sin servidor) con mapa
+  navegable, días, fichas y enlaces; las teselas necesitan conexión y, sin ella, se muestran las
+  listas. Además: `.ics` (calendario) y `.gpx`/`.kml` (apps de mapas).
+- Enlace compartible de solo lectura `/share/[token]`.
+- Nunca incluir datos de pago ni códigos de entradas.
+
+## 16. Integración con Ticketdoor (propuesta)
+Ver `docs/TICKETDOOR.md`. Ticketdoor como proveedor de entradas autorizado y "planifica tu día
+alrededor de tu entrada". Sin acuerdo firmado: solo adaptador demo y señalizado como propuesta.

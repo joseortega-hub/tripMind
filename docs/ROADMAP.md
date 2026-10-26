@@ -90,6 +90,15 @@ capa 6; presupuesto acumulado con confirmado/orientativo/sin precio. (§12, §6.
 "Descubre algo diferente" + eventos Ticketmaster; mapa de calor de oportunidades; modo
 "tengo 3 horas libres"; modo lluvia con Open-Meteo. (§13, §14) + resto del prompt pendiente.
 
-### ⬜ Fase 10 — QA y entrega
+### ⬜ Fase 10 — Exportación y compartir
+PDF con Playwright desde `/trips/[id]/print`, `.html` interactivo autónomo, `.ics`, `.gpx`/`.kml`
+y enlace de solo lectura. (§15)
+
+### ⬜ Fase 11 — Demo Ticketdoor
+Adaptador `tickets/ticketdoor` (interfaz + demo señalizado como propuesta), flujo "planifica tu día
+alrededor de tu entrada" (`/plan?attraction&date&time`, entrada bloqueada en el itinerario) y
+viaje demo pulido para la reunión. (§16, `docs/TICKETDOOR.md`)
+
+### ⬜ Fase 12 — QA y entrega
 E2E completos (escritorio/móvil), accesibilidad, rendimiento, estados vacíos/error, README final
 con activación de cada proveedor y sus limitaciones/licencias.
