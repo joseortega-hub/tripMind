@@ -16,6 +16,10 @@ que pida la fase.
 - Sin reservas ni pagos automáticos; un enlace abierto no es una reserva.
 - Si un proveedor falla o no está configurado: indicarlo en la UI y ofrecer enlace externo.
 
+## Diseño
+- Toda pantalla sigue `docs/DISENO.md`: **mobile-first** (375 px → tablet → escritorio) y WCAG 2.2 AA.
+- Usa las skills de diseño instaladas (`frontend-design`, `Design`, `Axe Accessibility`) en cada fase con UI.
+
 ## Stack
 Next.js 15 App Router · React 19 · TypeScript estricto · Tailwind v4 · shadcn/ui · MapLibre
 (react-map-gl) · Prisma + PostgreSQL · Zod · Zustand · TanStack Query · Vitest · Playwright · pnpm.
