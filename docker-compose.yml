@@ -6,7 +6,8 @@ services:
       POSTGRES_PASSWORD: tripmind
       POSTGRES_DB: tripmind
     ports:
-      - "5432:5432"
+      # Puerto del host configurable (TRIPMIND_DB_PORT en .env) por si 5432 está ocupado.
+      - "${TRIPMIND_DB_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 volumes:

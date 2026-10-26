@@ -1,4 +1,5 @@
-// Esquema inicial. Los modelos de dominio completos llegan en la Fase 1.
+// Esquema de TripMind. Los objetos anidados (preferencias, ritmo, presupuesto, snapshots de
+// lugares, precios) se guardan como JSON y se validan con los esquemas Zod de `src/domain`.
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -8,11 +9,168 @@ datasource db {
   provider = "postgresql"
 }
 
+enum BookingStatus {
+  pending
+  booked
+  ticket_purchased
+  cancelled
+}
+
+enum BookingRequirement {
+  ticket_required
+  booking_recommended
+  free
+  no_booking
+  unverified
+}
+
+enum ActivityKind {
+  visit
+  meal
+  event
+  free_time
+  custom
+}
+
+enum TravelMode {
+  walk
+  car
+  transit
+  bike
+}
+
+enum LegQuality {
+  routed
+  approximate
+}
+
 model Trip {
-  id          String   @id @default(cuid())
-  destination String
-  startDate   DateTime
-  endDate     DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                       String         @id @default(cuid())
+  title                    String?
+  /// GeocodeResult (con source e isDemo)
+  destination              Json
+  destinationName          String
+  startDate                DateTime       @db.Date
+  endDate                  DateTime       @db.Date
+  adults                   Int
+  children                 Int            @default(0)
+  /// Preferences
+  preferences              Json
+  /// Pace
+  pace                     Json
+  /// Budget
+  budget                   Json
+  /// AccommodationPreferences
+  accommodationPreferences Json?
+  hotel                    Hotel?
+  days                     ItineraryDay[]
+  favorites                Favorite[]
+  createdAt                DateTime       @default(now())
+  updatedAt                DateTime       @updatedAt
+}
+
+model Hotel {
+  id            String        @id @default(cuid())
+  tripId        String        @unique
+  trip          Trip          @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  /// Id del proveedor ("osm:node/…") si el hotel viene de una fuente; null si es manual
+  placeId       String?
+  /// Snapshot Place
+  place         Json?
+  name          String
+  lat           Float
+  lng           Float
+  /// Address
+  address       Json?
+  checkIn       DateTime      @db.Date
+  checkOut      DateTime      @db.Date
+  /// Price
+  price         Json?
+  bookingStatus BookingStatus @default(pending)
+  bookingUrl    String?
+}
+
+model ItineraryDay {
+  id         String     @id @default(cuid())
+  tripId     String
+  trip       Trip       @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  date       DateTime   @db.Date
+  isRestDay  Boolean    @default(false)
+  activities Activity[]
+  legs       Leg[]
+
+  @@unique([tripId, date])
+}
+
+model Activity {
+  id                 String             @id @default(cuid())
+  dayId              String
+  day                ItineraryDay       @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  position           Int
+  kind               ActivityKind
+  title              String
+  placeId            String?
+  /// Snapshot Place
+  place              Json?
+  /// "HH:MM"
+  startTime          String?
+  durationMinutes    Int
+  locked             Boolean            @default(false)
+  bookingRequirement BookingRequirement @default(unverified)
+  bookingStatus      BookingStatus?
+  /// BookingLink[]
+  bookingLinks       Json               @default("[]")
+  /// Price
+  price              Json?
+  notes              String?
+
+  @@index([dayId, position])
+}
+
+model Leg {
+  id              String       @id @default(cuid())
+  dayId           String
+  day             ItineraryDay @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  position        Int
+  fromActivityId  String?
+  toActivityId    String?
+  fromLat         Float
+  fromLng         Float
+  toLat           Float
+  toLng           Float
+  mode            TravelMode
+  quality         LegQuality
+  durationMinutes Float?
+  distanceMeters  Float?
+  /// [lng, lat][]
+  geometry        Json?
+  externalUrl     String?
+  /// Source (obligatoria si quality = routed)
+  source          Json?
+  isDemo          Boolean?
+
+  @@index([dayId, position])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  tripId    String
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  placeId   String
+  /// Snapshot Place
+  place     Json
+  createdAt DateTime @default(now())
+
+  @@unique([tripId, placeId])
+}
+
+/// Caché de respuestas de proveedores externos (clave + TTL) para no repetir llamadas.
+model ProviderCache {
+  key       String   @id
+  provider  String
+  value     Json
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([expiresAt])
 }
