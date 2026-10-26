@@ -89,6 +89,8 @@ capa 6; presupuesto acumulado con confirmado/orientativo/sin precio. (§12, §6.
 ### ⬜ Fase 9 — Descubrimiento y diferenciales
 "Descubre algo diferente" + eventos Ticketmaster; mapa de calor de oportunidades; modo
 "tengo 3 horas libres"; modo lluvia con Open-Meteo. (§13, §14) + resto del prompt pendiente.
+Calendario del destino: festivos (Nager.Date), eventos especiales con fuente y cambio de hora
+(zona IANA) con avisos por día y su efecto en horarios del optimizador. (§17)
 
 ### ⬜ Fase 10 — Exportación y compartir
 PDF con Playwright desde `/trips/[id]/print`, `.html` interactivo autónomo, `.ics`, `.gpx`/`.kml`

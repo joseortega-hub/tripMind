@@ -114,6 +114,22 @@ con fuente actualizada. Si no hay datos, mostrar categorías y permitir investig
 - Enlace compartible de solo lectura `/share/[token]`.
 - Nunca incluir datos de pago ni códigos de entradas.
 
+## 17. Calendario del destino: festivos, eventos especiales y cambio de hora (añadido por el usuario)
+- **Festivos**: nacionales y regionales/locales del destino en las fechas del viaje
+  (p. ej. Nager.Date, sin clave; para fiestas locales que no cubra, fuentes oficiales). Mostrar
+  aviso en el día afectado: "Festivo: muchos comercios y museos pueden cerrar o cambiar horario".
+  El optimizador usa el festivo al evaluar `opening_hours` (regla `PH` de OSM) y, si el horario
+  festivo no está verificado, marca la visita como "pendiente de confirmar".
+- **Eventos especiales** (fiestas populares, ferias, maratones, grandes conciertos, Semana Santa…):
+  con fuente fechada (Ticketmaster, webs oficiales de turismo o Wikidata). Mostrar si suponen
+  oportunidad (verlo) o impacto (cierres, cortes de tráfico, hoteles más caros). Nunca inventarlos.
+- **Cambio de hora**: si el horario de verano/invierno cambia durante el viaje (zona horaria IANA
+  del destino, `Intl`/`date-fns-tz`), avisar en el día exacto ("esta noche a las 3:00 los relojes
+  se atrasan a las 2:00") y ajustar las horas del itinerario. Mostrar también la diferencia
+  horaria con la zona del usuario si es distinta.
+- Todo se ve en una franja de "Calendario del viaje" del itinerario, en el PDF/archivo
+  interactivo y en el `.ics`.
+
 ## 16. Integración con Ticketdoor (propuesta)
 Ver `docs/TICKETDOOR.md`. Ticketdoor como proveedor de entradas autorizado y "planifica tu día
 alrededor de tu entrada". Sin acuerdo firmado: solo adaptador demo y señalizado como propuesta.

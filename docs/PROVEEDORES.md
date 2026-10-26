@@ -14,6 +14,8 @@ las condiciones antes de producción. Implementados (Fase 1): geocodificación y
 | Transporte público | Transitous (MOTIS) | No | Cobertura según feeds GTFS disponibles; uso no comercial razonable |
 | Tiempo | Open-Meteo | No | Gratis para uso no comercial; previsión hasta 16 días |
 | Eventos | Ticketmaster Discovery | Sí (gratis) | 5000 peticiones/día; cobertura desigual por país |
+| Festivos | Nager.Date | No | Nacionales y regionales; las fiestas locales pueden faltar (avisar y enlazar a fuente oficial) |
+| Cambio de hora | Base de datos IANA (`Intl` / `date-fns-tz`) | No | Local, sin llamadas externas |
 | Hoteles (precios) | — | — | Requiere acuerdo con proveedor autorizado; hasta entonces solo OSM + enlaces de búsqueda |
 
 ## Arquitectura (`src/server/providers/`)
