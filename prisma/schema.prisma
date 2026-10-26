@@ -1,0 +1,18 @@
+// Esquema inicial. Los modelos de dominio completos llegan en la Fase 1.
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Trip {
+  id          String   @id @default(cuid())
+  destination String
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
