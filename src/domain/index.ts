@@ -6,3 +6,4 @@ export * from "./place";
 export * from "./preferences";
 export * from "./source";
 export * from "./trip";
+export * from "./wizard";
