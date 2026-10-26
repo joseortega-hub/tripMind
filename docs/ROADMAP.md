@@ -41,11 +41,23 @@ respuestas reales (marcados `isDemo: true` y visibles en la UI con una etiqueta 
 Next.js + TS estricto + Tailwind + shadcn/ui + ESLint/Prettier + Vitest + Playwright + Docker
 Postgres + Prisma inicial + `.env.example` + CI de GitHub Actions + docs.
 
-### ⬜ Fase 1 — Dominio y proveedores
+### ✅ Fase 1 — Dominio y proveedores
 Modelos de dominio (Trip, Place, Hotel, ItineraryDay, Activity, Leg, BookingStatus, Budget) con Zod;
 esquema Prisma; interfaz `Provider` + registro + caché en BD + modo demo; adaptadores de
 **geocodificación (Photon/Nominatim)** y **POIs (Overpass + Wikidata)**. Tests unitarios.
 > Prompt: *"Fase 1 de docs/ROADMAP.md. Lee REQUISITOS §3. Implementa, prueba y haz commit por funcionalidad."*
+
+Decisiones Fase 1:
+- Dominio en `src/domain` (Zod 4). Los objetos anidados (preferencias, ritmo, presupuesto, snapshots
+  de `Place`, precios, enlaces) se guardan como JSON en Prisma y se validan con esos esquemas.
+- `Price` exige `origin` y, si viene de un proveedor, `source`; `unknown` no lleva importe.
+  `Leg` `routed` exige `source`/`isDemo`; `approximate` es una línea recta que la UI marcará.
+- Registro: `auto` usa real solo con `CONTACT_EMAIL` (política de Nominatim/Overpass/Wikimedia);
+  un fallo real → 502 + enlace externo, nunca relleno con demo. Detalles en `docs/PROVEEDORES.md`.
+- Caché en tabla `ProviderCache` con TTL; si la BD falla, la petición sigue sin caché.
+- Fixtures demo grabados de respuestas reales (`scripts/record-fixtures.mts`): Madrid centro para
+  lugares; Madrid y Barcelona para geocodificación.
+- Docker: puerto del host configurable con `TRIPMIND_DB_PORT` (en esta máquina 5432 está ocupado).
 
 ### ⬜ Fase 2 — Asistente de creación de viaje
 Wizard de 6 pasos (REQUISITOS §6) con autocompletado real, validación Zod, guardado en BD y
