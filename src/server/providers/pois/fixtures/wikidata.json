@@ -1,0 +1,1169 @@
+{
+  "recordedAt": "2026-10-26T21:33:43.876Z",
+  "note": "Declaraciones recortadas a P18 y P856",
+  "entries": [
+    {
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q886485%7CQ3516764%7CQ5910638%7CQ111111724%7CQ57446899%7CQ25400165%7CQ111388635%7CQ9067089%7CQ2473940%7CQ52301686%7CQ111388630%7CQ112011738%7CQ2016175%7CQ112011737%7CQ29566893%7CQ111388745%7CQ6139886%7CQ56670711%7CQ111388748%7CQ64657695%7CQ2056503%7CQ5754774%7CQ57446751%7CQ3567521%7CQ3034186%7CQ105622942%7CQ111388637%7CQ29566707%7CQ111388750%7CQ6091784%7CQ37469265%7CQ6063736%7CQ26834211%7CQ1794858%7CQ42912700%7CQ140265523%7CQ1026041%7CQ460889%7CQ4274351%7CQ111388645%7CQ56611912%7CQ111388648%7CQ72172868%7CQ111388646%7CQ948580%7CQ111871749%7CQ6080203%7CQ1647048%7CQ1815235%7CQ4867355&props=claims&format=json",
+      "response": {
+        "entities": {
+          "Q886485": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monumento a los Abogados de Atocha, Madrid, España, 2015.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q3516764": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monumental Cinema-Atocha-01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "http://www.rtve.es/orquesta-coro"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q5910638": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Iglesia de San Lorenzo (Madrid) 03.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111111724": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q57446899": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q25400165": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Espectáculo 70 años Leo Bassi en Teatro del Barrio de Madrid marzo 2022 lb.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://teatrodelbarrio.com/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q111388635": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q9067089": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Real Monasterio de Santa Isabel (Madrid) 02.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q2473940": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Estacion de Antón Martín, 2024 (02).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q52301686": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Estatua de Claudio Moyano. 03.JPG"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388630": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "NH Madrid Nacional.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q112011738": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q2016175": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Letrero de la Estación del Arte, Metro de Madrid.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q112011737": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q29566893": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monumento a Pío Baroja.JPG"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388745": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q6139886": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Teatro Reina Victoria (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q56670711": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monumento a Cervantes (1835) Madrid 03.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388748": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q64657695": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Madrid - Taberna Stop Madrid (35381580953).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q2056503": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Sevilla 7885.jpg"
+                    }
+                  }
+                },
+                {
+                  "rank": "preferred",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Madrid - Metro Sevilla (2019).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q5754774": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Casa de Cervantes (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q57446751": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q3567521": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Palace Hotel (Madrid) 03.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "http://www.westinpalacemadrid.com/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q3034186": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monumento a los Caídos por España - SW.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q105622942": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monument to Francisco de Goya by Benlliure, Madrid 2.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388637": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q29566707": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Monolito al Alférez Provisional, Madrid (anterior) 02.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388750": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q6091784": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Puerta de Felipe IV 1.JPG"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q37469265": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Cinema Monumental.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q6063736": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Parroquia de San Salvador y San Nicolás (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q26834211": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Madrid - Hotel Tryp Atocha - 20110418 161648.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q1794858": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "RealJardinBotanico Puerta del Rey.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://rjb.csic.es/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q42912700": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Medialab Prado, Madrid 2007.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q140265523": {
+            "claims": {
+              "P18": [],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.petitpalace.com/es/itc-mora/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q1026041": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Caixaforum Madrid 2024.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://caixaforum.es/es/madrid/home"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q460889": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "MNCARS 05.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.museoreinasofia.es/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q4274351": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Real Observatorio de Madrid en abril de 2023 10.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://astronomia.ign.es"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q111388645": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q56611912": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Gran Hotel Ingles - Calle de Echegaray 8 - Madrid 03.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388648": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q72172868": {
+            "claims": {
+              "P18": [],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://doubletree3.hilton.com/en/hotels/spain/doubletree-by-hilton-madrid-prado-MADPRDI/index.html"
+                    }
+                  }
+                },
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.hilton.com/en/hotels/madprdi-doubletree-madrid-prado"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q111388646": {
+            "claims": {
+              "P18": [],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://en.vinccisoho.com/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q948580": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Casa-Museo de Lope de Vega (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.casamuseolopedevega.org/es/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q111871749": {
+            "claims": {
+              "P18": [],
+              "P856": []
+            }
+          },
+          "Q6080203": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Plaza de la Lealtad, panorámica.JPG"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q1647048": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Madrid - Paseo del Prado, Fuente de Apolo 1.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q1815235": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Museo Naval Madrid 2024.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "http://www.armada.mde.es/museonaval"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q4867355": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Basílica de Jesús de Medinaceli (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q1472798%7CQ7414379%7CQ52084080%7CQ111388743%7CQ111388744%7CQ3321174%7CQ1131807%7CQ5166200%7CQ3321632%7CQ6139588%7CQ111516031%7CQ9054619%7CQ176251%7CQ3145654%7CQ160112%7CQ48782205%7CQ5361303&props=claims&format=json",
+      "response": {
+        "entities": {
+          "Q1472798": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Fuente de Neptuno en Madrid.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q7414379": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Iglesia de San Jerónimo el Real (Madrid) 04.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "http://sanjeronimoelreal.es/San_Jeronimo_el_Real/Bienvenida.html"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q52084080": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Jerónimos, Madrid, Spain - panoramio.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q111388743": {
+            "claims": {
+              "P18": [],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.petitpalace.com/en/petit-palace-lealtad-plaza/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q111388744": {
+            "claims": {
+              "P18": [],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.petitpalace.com/en/petit-palace-savoy-alfonso-xii/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q3321174": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Casón del Buen Retiro - Este.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q1131807": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "June Parc Retiro Madrid - Mythos Spain Photography 2014 - panoramio (8).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.esmadrid.com/informacion-turistica/parque-del-retiro"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q5166200": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Convento de las Trinitarias Descalzas (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q3321632": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Teatro de la Zarzuela (Madrid) 02.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://teatrodelazarzuela.inaem.gob.es/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q6139588": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Teatro Alcázar Madrid.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://gruposmedia.com/teatro-alcazar/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q111516031": {
+            "claims": {
+              "P18": [],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://en.vinccicentrum.com/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q9054619": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Congreso de los Diputados (España) 17.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.congreso.es/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q176251": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Site of the Retiro and the Prado in Madrid 49 (29684554308).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.museothyssen.org/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q3145654": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Hotel Ritz (Madrid) 03.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "http://www.ritzmadrid.com/web/orit/hotel_ritz_madrid.jsp"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q160112": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Museo del Prado 2016 (25185969599).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.museodelprado.es/"
+                    }
+                  }
+                },
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.museodelprado.es/en/"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "Q48782205": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Madrid - wow! (33202610303).jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": []
+            }
+          },
+          "Q5361303": {
+            "claims": {
+              "P18": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "Museo Nacional de Artes Decorativas (Madrid) 01.jpg"
+                    }
+                  }
+                }
+              ],
+              "P856": [
+                {
+                  "rank": "normal",
+                  "mainsnak": {
+                    "snaktype": "value",
+                    "datavalue": {
+                      "value": "https://www.cultura.gob.es/mnartesdecorativas/portada.html"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

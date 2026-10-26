@@ -1,0 +1,2023 @@
+{
+  "recordedAt": "2026-10-26T21:33:43.876Z",
+  "entries": [
+    {
+      "url": "https://commons.wikimedia.org/w/api.php?action=query&titles=File%3AMonumento+a+los+Abogados+de+Atocha%2C+Madrid%2C+Espa%C3%B1a%2C+2015.jpg%7CFile%3AMonumental+Cinema-Atocha-01.jpg%7CFile%3AIglesia+de+San+Lorenzo+%28Madrid%29+03.jpg%7CFile%3AEspect%C3%A1culo+70+a%C3%B1os+Leo+Bassi+en+Teatro+del+Barrio+de+Madrid+marzo+2022+lb.jpg%7CFile%3AReal+Monasterio+de+Santa+Isabel+%28Madrid%29+02.jpg%7CFile%3AEstacion+de+Ant%C3%B3n+Mart%C3%ADn%2C+2024+%2802%29.jpg%7CFile%3AEstatua+de+Claudio+Moyano.+03.JPG%7CFile%3ANH+Madrid+Nacional.jpg%7CFile%3ALetrero+de+la+Estaci%C3%B3n+del+Arte%2C+Metro+de+Madrid.jpg%7CFile%3AMonumento+a+P%C3%ADo+Baroja.JPG%7CFile%3ATeatro+Reina+Victoria+%28Madrid%29+01.jpg%7CFile%3AMonumento+a+Cervantes+%281835%29+Madrid+03.jpg%7CFile%3AMadrid+-+Taberna+Stop+Madrid+%2835381580953%29.jpg%7CFile%3AMadrid+-+Metro+Sevilla+%282019%29.jpg%7CFile%3ACasa+de+Cervantes+%28Madrid%29+01.jpg%7CFile%3APalace+Hotel+%28Madrid%29+03.jpg%7CFile%3AMonumento+a+los+Ca%C3%ADdos+por+Espa%C3%B1a+-+SW.jpg%7CFile%3AMonument+to+Francisco+de+Goya+by+Benlliure%2C+Madrid+2.jpg%7CFile%3AMonolito+al+Alf%C3%A9rez+Provisional%2C+Madrid+%28anterior%29+02.jpg%7CFile%3APuerta+de+Felipe+IV+1.JPG%7CFile%3ACinema+Monumental.jpg%7CFile%3AParroquia+de+San+Salvador+y+San+Nicol%C3%A1s+%28Madrid%29+01.jpg%7CFile%3AMadrid+-+Hotel+Tryp+Atocha+-+20110418+161648.jpg%7CFile%3ARealJardinBotanico+Puerta+del+Rey.jpg%7CFile%3AMedialab+Prado%2C+Madrid+2007.jpg%7CFile%3ACaixaforum+Madrid+2024.jpg%7CFile%3AMNCARS+05.jpg%7CFile%3AReal+Observatorio+de+Madrid+en+abril+de+2023+10.jpg%7CFile%3AGran+Hotel+Ingles+-+Calle+de+Echegaray+8+-+Madrid+03.jpg%7CFile%3ACasa-Museo+de+Lope+de+Vega+%28Madrid%29+01.jpg%7CFile%3APlaza+de+la+Lealtad%2C+panor%C3%A1mica.JPG%7CFile%3AMadrid+-+Paseo+del+Prado%2C+Fuente+de+Apolo+1.jpg%7CFile%3AMuseo+Naval+Madrid+2024.jpg%7CFile%3ABas%C3%ADlica+de+Jes%C3%BAs+de+Medinaceli+%28Madrid%29+01.jpg%7CFile%3AFuente+de+Neptuno+en+Madrid.jpg%7CFile%3AIglesia+de+San+Jer%C3%B3nimo+el+Real+%28Madrid%29+04.jpg%7CFile%3AJer%C3%B3nimos%2C+Madrid%2C+Spain+-+panoramio.jpg%7CFile%3ACas%C3%B3n+del+Buen+Retiro+-+Este.jpg%7CFile%3AJune+Parc+Retiro+Madrid+-+Mythos+Spain+Photography+2014+-+panoramio+%288%29.jpg%7CFile%3AConvento+de+las+Trinitarias+Descalzas+%28Madrid%29+01.jpg%7CFile%3ATeatro+de+la+Zarzuela+%28Madrid%29+02.jpg%7CFile%3ATeatro+Alc%C3%A1zar+Madrid.jpg%7CFile%3ACongreso+de+los+Diputados+%28Espa%C3%B1a%29+17.jpg%7CFile%3ASite+of+the+Retiro+and+the+Prado+in+Madrid+49+%2829684554308%29.jpg%7CFile%3AHotel+Ritz+%28Madrid%29+03.jpg%7CFile%3AMuseo+del+Prado+2016+%2825185969599%29.jpg%7CFile%3AMadrid+-+wow%21+%2833202610303%29.jpg%7CFile%3AMuseo+Nacional+de+Artes+Decorativas+%28Madrid%29+01.jpg&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=640&iiextmetadatafilter=Artist%7CLicenseShortName%7CLicenseUrl&format=json&formatversion=2",
+      "response": {
+        "batchcomplete": true,
+        "query": {
+          "pages": [
+            {
+              "pageid": 1544705,
+              "ns": 6,
+              "title": "File:RealJardinBotanico Puerta del Rey.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/RealJardinBotanico_Puerta_del_Rey.jpg/960px-RealJardinBotanico_Puerta_del_Rey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 695,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/RealJardinBotanico_Puerta_del_Rey.jpg/1280px-RealJardinBotanico_Puerta_del_Rey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/RealJardinBotanico_Puerta_del_Rey.jpg/960px-RealJardinBotanico_Puerta_del_Rey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 695,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/RealJardinBotanico_Puerta_del_Rey.jpg/1280px-RealJardinBotanico_Puerta_del_Rey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/RealJardinBotanico_Puerta_del_Rey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:RealJardinBotanico_Puerta_del_Rey.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=1544705",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Håkan Svensson (Xauxa)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 2.5",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/2.5",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 2154408,
+              "ns": 6,
+              "title": "File:Casa-Museo de Lope de Vega (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Casa-Museo_de_Lope_de_Vega_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                  "thumbwidth": 640,
+                  "thumbheight": 853,
+                  "thumbattribs": {
+                    "src": "https://upload.wikimedia.org/wikipedia/commons/a/af/Casa-Museo_de_Lope_de_Vega_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 853
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Casa-Museo_de_Lope_de_Vega_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Casa-Museo_de_Lope_de_Vega_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=2154408",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/zaqarbal/\">Luis García</a> from <a href=\"https://en.wikipedia.org/wiki/en:Madrid\" class=\"extiw\" title=\"w:en:Madrid\"><span title=\"capital of Spain\">Madrid</span></a> (<a href=\"https://en.wikipedia.org/wiki/en:Spain\" class=\"extiw\" title=\"w:en:Spain\"><span title=\"country in southwestern Europe with territories in Africa\">Spain</span></a>).",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 2273982,
+              "ns": 6,
+              "title": "File:Teatro Alcázar Madrid.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Teatro_Alc%C3%A1zar_Madrid.jpg/960px-Teatro_Alc%C3%A1zar_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 965,
+                  "responsiveUrls": {
+                    "2": "https://upload.wikimedia.org/wikipedia/commons/6/63/Teatro_Alc%C3%A1zar_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Teatro_Alc%C3%A1zar_Madrid.jpg/960px-Teatro_Alc%C3%A1zar_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 965,
+                    "srcset": "https://upload.wikimedia.org/wikipedia/commons/6/63/Teatro_Alc%C3%A1zar_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Teatro_Alc%C3%A1zar_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Teatro_Alc%C3%A1zar_Madrid.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=2273982",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:William_Avery\" title=\"User:William Avery\">William Avery</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "http://creativecommons.org/licenses/by-sa/3.0/",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 3181923,
+              "ns": 6,
+              "title": "File:Palace Hotel (Madrid) 03.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Palace_Hotel_%28Madrid%29_03.jpg/960px-Palace_Hotel_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 424,
+                  "responsiveUrls": {
+                    "2": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Palace_Hotel_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Palace_Hotel_%28Madrid%29_03.jpg/960px-Palace_Hotel_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 424,
+                    "srcset": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Palace_Hotel_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Palace_Hotel_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Palace_Hotel_(Madrid)_03.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=3181923",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/ciukes/\">ciukes</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 4545349,
+              "ns": 6,
+              "title": "File:Iglesia de San Jerónimo el Real (Madrid) 04.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg/960px-Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 853,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg/1280px-Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg/960px-Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 853,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg/1280px-Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Iglesia_de_San_Jer%C3%B3nimo_el_Real_%28Madrid%29_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Iglesia_de_San_Jer%C3%B3nimo_el_Real_(Madrid)_04.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=4545349",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/expc/\">Ernesto Paz Caínzos</a> from <a href=\"https://en.wikipedia.org/wiki/en:Spain\" class=\"extiw\" title=\"w:en:Spain\"><span title=\"country in southwestern Europe with territories in Africa\">Spain</span></a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 5373454,
+              "ns": 6,
+              "title": "File:Puerta de Felipe IV 1.JPG",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Puerta_de_Felipe_IV_1.JPG/960px-Puerta_de_Felipe_IV_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Puerta_de_Felipe_IV_1.JPG/1280px-Puerta_de_Felipe_IV_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Puerta_de_Felipe_IV_1.JPG/960px-Puerta_de_Felipe_IV_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Puerta_de_Felipe_IV_1.JPG/1280px-Puerta_de_Felipe_IV_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Puerta_de_Felipe_IV_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Puerta_de_Felipe_IV_1.JPG",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=5373454",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Gryffindor\" title=\"User:Gryffindor\">Gryffindor</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 6024992,
+              "ns": 6,
+              "title": "File:Museo Nacional de Artes Decorativas (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg/960px-Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 714,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg/1280px-Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg/960px-Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 714,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg/1280px-Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Museo_Nacional_de_Artes_Decorativas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Museo_Nacional_de_Artes_Decorativas_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=6024992",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 11616515,
+              "ns": 6,
+              "title": "File:Fuente de Neptuno en Madrid.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Fuente_de_Neptuno_en_Madrid.jpg/960px-Fuente_de_Neptuno_en_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Fuente_de_Neptuno_en_Madrid.jpg/1280px-Fuente_de_Neptuno_en_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Fuente_de_Neptuno_en_Madrid.jpg/960px-Fuente_de_Neptuno_en_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Fuente_de_Neptuno_en_Madrid.jpg/1280px-Fuente_de_Neptuno_en_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Fuente_de_Neptuno_en_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Fuente_de_Neptuno_en_Madrid.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=11616515",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Dirección General de Turismo. Consejería de Economía e Innovación Tecnológica. Comunidad de Madrid.",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 3.0 es",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/3.0/es/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 13268131,
+              "ns": 6,
+              "title": "File:MNCARS 05.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/MNCARS_05.jpg/960px-MNCARS_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 468,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/MNCARS_05.jpg/1280px-MNCARS_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/MNCARS_05.jpg/960px-MNCARS_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 468,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/MNCARS_05.jpg/1280px-MNCARS_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/MNCARS_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:MNCARS_05.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=13268131",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 14788032,
+              "ns": 6,
+              "title": "File:Real Monasterio de Santa Isabel (Madrid) 02.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg/960px-Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg/1280px-Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg/960px-Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg/1280px-Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Real_Monasterio_de_Santa_Isabel_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Real_Monasterio_de_Santa_Isabel_(Madrid)_02.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=14788032",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 14987806,
+              "ns": 6,
+              "title": "File:Madrid - Hotel Tryp Atocha - 20110418 161648.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg/960px-Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg/1280px-Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg/960px-Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg/1280px-Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Madrid_-_Hotel_Tryp_Atocha_-_20110418_161648.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=14987806",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Barcex\" title=\"User:Barcex\">Barcex</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 15076489,
+              "ns": 6,
+              "title": "File:Teatro Reina Victoria (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Teatro_Reina_Victoria_%28Madrid%29_01.jpg/960px-Teatro_Reina_Victoria_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Teatro_Reina_Victoria_%28Madrid%29_01.jpg/1280px-Teatro_Reina_Victoria_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Teatro_Reina_Victoria_%28Madrid%29_01.jpg/960px-Teatro_Reina_Victoria_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Teatro_Reina_Victoria_%28Madrid%29_01.jpg/1280px-Teatro_Reina_Victoria_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Teatro_Reina_Victoria_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Teatro_Reina_Victoria_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=15076489",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 15094704,
+              "ns": 6,
+              "title": "File:Monumental Cinema-Atocha-01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Monumental_Cinema-Atocha-01.jpg/960px-Monumental_Cinema-Atocha-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 960,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Monumental_Cinema-Atocha-01.jpg/1280px-Monumental_Cinema-Atocha-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Monumental_Cinema-Atocha-01.jpg/960px-Monumental_Cinema-Atocha-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 960,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Monumental_Cinema-Atocha-01.jpg/1280px-Monumental_Cinema-Atocha-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Monumental_Cinema-Atocha-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monumental_Cinema-Atocha-01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=15094704",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Tamorlan\" title=\"User:Tamorlan\">Tamorlan</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 15850331,
+              "ns": 6,
+              "title": "File:Parroquia de San Salvador y San Nicolás (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg/960px-Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 522,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg/1280px-Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg/960px-Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 522,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg/1280px-Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Parroquia_de_San_Salvador_y_San_Nicol%C3%A1s_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=15850331",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 16039589,
+              "ns": 6,
+              "title": "File:Basílica de Jesús de Medinaceli (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg/960px-Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 472,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg/1280px-Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg/960px-Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 472,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg/1280px-Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Bas%C3%ADlica_de_Jes%C3%BAs_de_Medinaceli_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=16039589",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 16248903,
+              "ns": 6,
+              "title": "File:Convento de las Trinitarias Descalzas (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg/960px-Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 488,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg/1280px-Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg/960px-Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 488,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg/1280px-Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Convento_de_las_Trinitarias_Descalzas_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Convento_de_las_Trinitarias_Descalzas_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=16248903",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 20487831,
+              "ns": 6,
+              "title": "File:Hotel Ritz (Madrid) 03.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Hotel_Ritz_%28Madrid%29_03.jpg/960px-Hotel_Ritz_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 490,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Hotel_Ritz_%28Madrid%29_03.jpg/1280px-Hotel_Ritz_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Hotel_Ritz_%28Madrid%29_03.jpg/960px-Hotel_Ritz_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 490,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Hotel_Ritz_%28Madrid%29_03.jpg/1280px-Hotel_Ritz_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Hotel_Ritz_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Hotel_Ritz_(Madrid)_03.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=20487831",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 32191370,
+              "ns": 6,
+              "title": "File:Medialab Prado, Madrid 2007.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Medialab_Prado%2C_Madrid_2007.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "thumbattribs": {
+                    "src": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Medialab_Prado%2C_Madrid_2007.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Medialab_Prado%2C_Madrid_2007.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Medialab_Prado,_Madrid_2007.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=32191370",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//www.flickr.com/people/44124408791@N01\" class=\"extiw\" title=\"flickruser:44124408791@N01\">régine debatty</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 33730957,
+              "ns": 6,
+              "title": "File:Madrid - Paseo del Prado, Fuente de Apolo 1.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg/960px-Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 853,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg/1280px-Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg/960px-Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 853,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg/1280px-Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Madrid_-_Paseo_del_Prado%2C_Fuente_de_Apolo_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Madrid_-_Paseo_del_Prado,_Fuente_de_Apolo_1.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=33730957",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Zarateman\" title=\"User:Zarateman\">Zarateman</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 38349348,
+              "ns": 6,
+              "title": "File:Teatro de la Zarzuela (Madrid) 02.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg/960px-Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 373,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg/1280px-Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg/960px-Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 373,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg/1280px-Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Teatro_de_la_Zarzuela_%28Madrid%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Teatro_de_la_Zarzuela_(Madrid)_02.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=38349348",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0 es",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0/es/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 39359467,
+              "ns": 6,
+              "title": "File:Monumento a Cervantes (1835) Madrid 03.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Monumento_a_Cervantes_%281835%29_Madrid_03.jpg/960px-Monumento_a_Cervantes_%281835%29_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 791,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Monumento_a_Cervantes_%281835%29_Madrid_03.jpg/1280px-Monumento_a_Cervantes_%281835%29_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Monumento_a_Cervantes_%281835%29_Madrid_03.jpg/960px-Monumento_a_Cervantes_%281835%29_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 791,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Monumento_a_Cervantes_%281835%29_Madrid_03.jpg/1280px-Monumento_a_Cervantes_%281835%29_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Monumento_a_Cervantes_%281835%29_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monumento_a_Cervantes_(1835)_Madrid_03.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=39359467",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0 es",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0/es/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 39516042,
+              "ns": 6,
+              "title": "File:Iglesia de San Lorenzo (Madrid) 03.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg/960px-Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 496,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg/1280px-Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg/960px-Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 496,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg/1280px-Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Iglesia_de_San_Lorenzo_%28Madrid%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Iglesia_de_San_Lorenzo_(Madrid)_03.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=39516042",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0 es",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0/es/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 39700252,
+              "ns": 6,
+              "title": "File:Monumento a los Abogados de Atocha, Madrid, España, 2015.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg/960px-Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 853,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg/1280px-Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg/960px-Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 853,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg/1280px-Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Monumento_a_los_Abogados_de_Atocha%2C_Madrid%2C_Espa%C3%B1a%2C_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monumento_a_los_Abogados_de_Atocha,_Madrid,_Espa%C3%B1a,_2015.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=39700252",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Benjam%C3%ADn_N%C3%BA%C3%B1ez_Gonz%C3%A1lez\" title=\"User:Benjamín Núñez González\">Benjamín Núñez González</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 47609043,
+              "ns": 6,
+              "title": "File:Casa de Cervantes (Madrid) 01.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Casa_de_Cervantes_%28Madrid%29_01.jpg/960px-Casa_de_Cervantes_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 913,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Casa_de_Cervantes_%28Madrid%29_01.jpg/1280px-Casa_de_Cervantes_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Casa_de_Cervantes_%28Madrid%29_01.jpg/960px-Casa_de_Cervantes_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 913,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Casa_de_Cervantes_%28Madrid%29_01.jpg/1280px-Casa_de_Cervantes_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Casa_de_Cervantes_%28Madrid%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Casa_de_Cervantes_(Madrid)_01.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=47609043",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a rel=\"mw:WikiLink\" href=\"https://commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0 es",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0/es/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 47964018,
+              "ns": 6,
+              "title": "File:Plaza de la Lealtad, panorámica.JPG",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG/960px-Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 202,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG/1280px-Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG/960px-Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 202,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG/1280px-Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Plaza_de_la_Lealtad%2C_panor%C3%A1mica.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Plaza_de_la_Lealtad,_panor%C3%A1mica.JPG",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=47964018",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Malopez_21\" title=\"User:Malopez 21\">Malopez 21</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 50386583,
+              "ns": 6,
+              "title": "File:Museo del Prado 2016 (25185969599).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Museo_del_Prado_2016_%2825185969599%29.jpg/960px-Museo_del_Prado_2016_%2825185969599%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 478,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Museo_del_Prado_2016_%2825185969599%29.jpg/1280px-Museo_del_Prado_2016_%2825185969599%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Museo_del_Prado_2016_%2825185969599%29.jpg/960px-Museo_del_Prado_2016_%2825185969599%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 478,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Museo_del_Prado_2016_%2825185969599%29.jpg/1280px-Museo_del_Prado_2016_%2825185969599%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Museo_del_Prado_2016_%2825185969599%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Museo_del_Prado_2016_(25185969599).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=50386583",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<bdi><a href=\"https://meta.wikimedia.org/wiki/User:Emijrp\" class=\"extiw\" title=\"meta:User:Emijrp\">Emilio J. Rodríguez Posada</a></bdi>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 51307407,
+              "ns": 6,
+              "title": "File:Monolito al Alférez Provisional, Madrid (anterior) 02.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg/960px-Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 1225,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg/1280px-Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg/960px-Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 1225,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg/1280px-Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Monolito_al_Alf%C3%A9rez_Provisional%2C_Madrid_%28anterior%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monolito_al_Alf%C3%A9rez_Provisional,_Madrid_(anterior)_02.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=51307407",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Discasto\" title=\"User:Discasto\">Discasto</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 53693261,
+              "ns": 6,
+              "title": "File:Jerónimos, Madrid, Spain - panoramio.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg/960px-Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 853,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg/1280px-Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg/960px-Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 853,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg/1280px-Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Jer%C3%B3nimos%2C_Madrid%2C_Spain_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Jer%C3%B3nimos,_Madrid,_Spain_-_panoramio.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=53693261",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://web.archive.org/web/20161013201100/http://www.panoramio.com/user/967090?with_photo_id=26062687\">7777777kz</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 57889957,
+              "ns": 6,
+              "title": "File:June Parc Retiro Madrid - Mythos Spain Photography 2014 - panoramio (8).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg/960px-June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 481,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg/1280px-June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg/960px-June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 481,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg/1280px-June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:June_Parc_Retiro_Madrid_-_Mythos_Spain_Photography_2014_-_panoramio_(8).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=57889957",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://web.archive.org/web/20161029153541/http://www.panoramio.com/user/7383557?with_photo_id=107924538\">pictures Jettcom</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 58301830,
+              "ns": 6,
+              "title": "File:Monumento a Pío Baroja.JPG",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Monumento_a_P%C3%ADo_Baroja.JPG/960px-Monumento_a_P%C3%ADo_Baroja.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 960,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Monumento_a_P%C3%ADo_Baroja.JPG/1280px-Monumento_a_P%C3%ADo_Baroja.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Monumento_a_P%C3%ADo_Baroja.JPG/960px-Monumento_a_P%C3%ADo_Baroja.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 960,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Monumento_a_P%C3%ADo_Baroja.JPG/1280px-Monumento_a_P%C3%ADo_Baroja.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Monumento_a_P%C3%ADo_Baroja.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monumento_a_P%C3%ADo_Baroja.JPG",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=58301830",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Asqueladd\" title=\"User:Asqueladd\">Asqueladd</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 63827829,
+              "ns": 6,
+              "title": "File:Madrid - wow! (33202610303).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Madrid_-_wow%21_%2833202610303%29.jpg/960px-Madrid_-_wow%21_%2833202610303%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 360,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Madrid_-_wow%21_%2833202610303%29.jpg/1280px-Madrid_-_wow%21_%2833202610303%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Madrid_-_wow%21_%2833202610303%29.jpg/960px-Madrid_-_wow%21_%2833202610303%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 360,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Madrid_-_wow%21_%2833202610303%29.jpg/1280px-Madrid_-_wow%21_%2833202610303%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Madrid_-_wow%21_%2833202610303%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Madrid_-_wow!_(33202610303).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=63827829",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/141999355@N08\">dziambel</a> from Polska",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 66142295,
+              "ns": 6,
+              "title": "File:Madrid - Taberna Stop Madrid (35381580953).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg/960px-Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 427,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg/1280px-Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg/960px-Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 427,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg/1280px-Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Madrid_-_Taberna_Stop_Madrid_%2835381580953%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Madrid_-_Taberna_Stop_Madrid_(35381580953).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=66142295",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/129231073@N06\">Fred Romero</a> from Paris, France",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 68634798,
+              "ns": 6,
+              "title": "File:Estatua de Claudio Moyano. 03.JPG",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Estatua_de_Claudio_Moyano._03.JPG/960px-Estatua_de_Claudio_Moyano._03.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 960,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Estatua_de_Claudio_Moyano._03.JPG/1280px-Estatua_de_Claudio_Moyano._03.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Estatua_de_Claudio_Moyano._03.JPG/960px-Estatua_de_Claudio_Moyano._03.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 960,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Estatua_de_Claudio_Moyano._03.JPG/1280px-Estatua_de_Claudio_Moyano._03.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/1/14/Estatua_de_Claudio_Moyano._03.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Estatua_de_Claudio_Moyano._03.JPG",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=68634798",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Asqueladd\" title=\"User:Asqueladd\">Asqueladd</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 71060536,
+              "ns": 6,
+              "title": "File:Site of the Retiro and the Prado in Madrid 49 (29684554308).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg/960px-Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg/1280px-Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg/960px-Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg/1280px-Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Site_of_the_Retiro_and_the_Prado_in_Madrid_49_%2829684554308%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Site_of_the_Retiro_and_the_Prado_in_Madrid_49_(29684554308).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=71060536",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/68444185@N04\">Kyle Magnuson</a> from Los Angeles, United States",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 2.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/2.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 73304264,
+              "ns": 6,
+              "title": "File:Congreso de los Diputados (España) 17.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg/960px-Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 325,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg/1280px-Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg/960px-Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 325,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg/1280px-Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Congreso_de_los_Diputados_%28Espa%C3%B1a%29_17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Congreso_de_los_Diputados_(Espa%C3%B1a)_17.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=73304264",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "Luis García (<a href=\"//commons.wikimedia.org/wiki/User:Zaqarbal\" title=\"User:Zaqarbal\">Zaqarbal</a>)",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 80990424,
+              "ns": 6,
+              "title": "File:Madrid - Metro Sevilla (2019).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Madrid_-_Metro_Sevilla_%282019%29.jpg/960px-Madrid_-_Metro_Sevilla_%282019%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 427,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Madrid_-_Metro_Sevilla_%282019%29.jpg/1280px-Madrid_-_Metro_Sevilla_%282019%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Madrid_-_Metro_Sevilla_%282019%29.jpg/960px-Madrid_-_Metro_Sevilla_%282019%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 427,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Madrid_-_Metro_Sevilla_%282019%29.jpg/1280px-Madrid_-_Metro_Sevilla_%282019%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Madrid_-_Metro_Sevilla_%282019%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Madrid_-_Metro_Sevilla_(2019).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80990424",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:AngryHarpy\" title=\"User:AngryHarpy\">AngryHarpy</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 130426729,
+              "ns": 6,
+              "title": "File:Real Observatorio de Madrid en abril de 2023 10.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg/960px-Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg/1280px-Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg/960px-Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg/1280px-Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Real_Observatorio_de_Madrid_en_abril_de_2023_10.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=130426729",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<bdi><a href=\"https://meta.wikimedia.org/wiki/User:Emijrp\" class=\"extiw\" title=\"meta:User:Emijrp\">Emilio J. Rodríguez Posada</a></bdi>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 140727544,
+              "ns": 6,
+              "title": "File:Cinema Monumental.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Cinema_Monumental.jpg/960px-Cinema_Monumental.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 482,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Cinema_Monumental.jpg/1280px-Cinema_Monumental.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Cinema_Monumental.jpg/960px-Cinema_Monumental.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 482,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Cinema_Monumental.jpg/1280px-Cinema_Monumental.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Cinema_Monumental.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Cinema_Monumental.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=140727544",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Olea\" title=\"User:Olea\">Olea</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 3.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 144326052,
+              "ns": 6,
+              "title": "File:Espectáculo 70 años Leo Bassi en Teatro del Barrio de Madrid marzo 2022 lb.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg/960px-Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 480,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg/1280px-Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg/960px-Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 480,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg/1280px-Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Espect%C3%A1culo_70_a%C3%B1os_Leo_Bassi_en_Teatro_del_Barrio_de_Madrid_marzo_2022_lb.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=144326052",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Lalviarez\" title=\"User:Lalviarez\">Lalviarez</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 146524238,
+              "ns": 6,
+              "title": "File:NH Madrid Nacional.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/NH_Madrid_Nacional.jpg/960px-NH_Madrid_Nacional.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 481,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/NH_Madrid_Nacional.jpg/1280px-NH_Madrid_Nacional.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/NH_Madrid_Nacional.jpg/960px-NH_Madrid_Nacional.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 481,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/NH_Madrid_Nacional.jpg/1280px-NH_Madrid_Nacional.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/NH_Madrid_Nacional.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:NH_Madrid_Nacional.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=146524238",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Mentxuwiki\" title=\"User:Mentxuwiki\">Mentxuwiki</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 156327136,
+              "ns": 6,
+              "title": "File:Estacion de Antón Martín, 2024 (02).jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg/960px-Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 417,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg/1280px-Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg/960px-Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 417,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg/1280px-Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Estacion_de_Ant%C3%B3n_Mart%C3%ADn%2C_2024_%2802%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Estacion_de_Ant%C3%B3n_Mart%C3%ADn,_2024_(02).jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=156327136",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Draceane\" title=\"User:Draceane\">Draceane</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 157265514,
+              "ns": 6,
+              "title": "File:Museo Naval Madrid 2024.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Museo_Naval_Madrid_2024.jpg/960px-Museo_Naval_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 360,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Museo_Naval_Madrid_2024.jpg/1280px-Museo_Naval_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Museo_Naval_Madrid_2024.jpg/960px-Museo_Naval_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 360,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Museo_Naval_Madrid_2024.jpg/1280px-Museo_Naval_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Museo_Naval_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Museo_Naval_Madrid_2024.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=157265514",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Fernando\" title=\"User:Fernando\">Fernando</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 157265521,
+              "ns": 6,
+              "title": "File:Casón del Buen Retiro - Este.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg/960px-Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 512,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg/1280px-Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg/960px-Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 512,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg/1280px-Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Cas%C3%B3n_del_Buen_Retiro_-_Este.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=157265521",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Fernando\" title=\"User:Fernando\">Fernando</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 157265539,
+              "ns": 6,
+              "title": "File:Monumento a los Caídos por España - SW.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg/960px-Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 960,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg/1280px-Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg/960px-Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 960,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg/1280px-Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monumento_a_los_Ca%C3%ADdos_por_Espa%C3%B1a_-_SW.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=157265539",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Fernando\" title=\"User:Fernando\">Fernando</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 157668867,
+              "ns": 6,
+              "title": "File:Gran Hotel Ingles - Calle de Echegaray 8 - Madrid 03.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg/960px-Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 959,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg/1280px-Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg/960px-Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 959,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg/1280px-Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Gran_Hotel_Ingles_-_Calle_de_Echegaray_8_-_Madrid_03.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=157668867",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Nerve_net\" title=\"User:Nerve net\">Javier Perez Montes</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 157787016,
+              "ns": 6,
+              "title": "File:Caixaforum Madrid 2024.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Caixaforum_Madrid_2024.jpg/960px-Caixaforum_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 512,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Caixaforum_Madrid_2024.jpg/1280px-Caixaforum_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Caixaforum_Madrid_2024.jpg/960px-Caixaforum_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 512,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Caixaforum_Madrid_2024.jpg/1280px-Caixaforum_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Caixaforum_Madrid_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Caixaforum_Madrid_2024.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=157787016",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Fernando\" title=\"User:Fernando\">Fernando</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY-SA 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by-sa/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 163956254,
+              "ns": 6,
+              "title": "File:Letrero de la Estación del Arte, Metro de Madrid.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg/960px-Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 389,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg/1280px-Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg/960px-Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 389,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg/1280px-Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Letrero_de_la_Estaci%C3%B3n_del_Arte%2C_Metro_de_Madrid.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Letrero_de_la_Estaci%C3%B3n_del_Arte,_Metro_de_Madrid.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=163956254",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Lojwe\" title=\"User:Lojwe\">Lojwe</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "pageid": 194350607,
+              "ns": 6,
+              "title": "File:Monument to Francisco de Goya by Benlliure, Madrid 2.jpg",
+              "imagerepository": "local",
+              "imageinfo": [
+                {
+                  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg/960px-Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                  "thumbwidth": 640,
+                  "thumbheight": 960,
+                  "responsiveUrls": {
+                    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg/1280px-Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+                  },
+                  "thumbattribs": {
+                    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg/960px-Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "decoding": "async",
+                    "loading": "lazy",
+                    "width": 640,
+                    "height": 960,
+                    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg/1280px-Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+                  },
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Monument_to_Francisco_de_Goya_by_Benlliure%2C_Madrid_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monument_to_Francisco_de_Goya_by_Benlliure,_Madrid_2.jpg",
+                  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=194350607",
+                  "extmetadata": {
+                    "Artist": {
+                      "value": "<a href=\"//commons.wikimedia.org/wiki/User:Joseolgon\" title=\"User:Joseolgon\">Joseolgon</a>",
+                      "source": "commons-desc-page"
+                    },
+                    "LicenseShortName": {
+                      "value": "CC BY 4.0",
+                      "source": "commons-desc-page",
+                      "hidden": ""
+                    },
+                    "LicenseUrl": {
+                      "value": "https://creativecommons.org/licenses/by/4.0",
+                      "source": "commons-desc-page"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
