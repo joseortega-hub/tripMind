@@ -1,10 +1,18 @@
 import { create } from "zustand";
-import type { BBox } from "@/domain/geo";
+import type { BBox, LatLng } from "@/domain/geo";
 import type { LineGeometry, RouteMode } from "@/domain/route";
 import { type ActiveLayers, DEFAULT_LAYERS, type MapLayerKey, toggleLayer } from "./layers";
 
 /** Vistas de la barra inferior en móvil (docs/DISENO.md). */
-export const WORKSPACE_VIEWS = ["map", "list", "itinerary", "lodging", "bookings", "trip"] as const;
+export const WORKSPACE_VIEWS = [
+  "map",
+  "list",
+  "itinerary",
+  "discover",
+  "lodging",
+  "bookings",
+  "trip",
+] as const;
 export type WorkspaceView = (typeof WORKSPACE_VIEWS)[number];
 
 /** Alturas del bottom sheet en móvil. */
@@ -56,6 +64,8 @@ export interface MapUiState {
   itineraryDate?: string;
   /** Contador para encuadrar la ruta del día. */
   dayFitRequest: number;
+  /** Punto a centrar (p. ej. un evento del calendario, que no es un lugar del mapa). */
+  pointFocus?: { location: LatLng; request: number };
   toggleLayer: (layer: MapLayerKey) => void;
   showAllLayers: () => void;
   select: (id: string | undefined, origin: SelectionOrigin) => void;
@@ -65,6 +75,7 @@ export interface MapUiState {
   recenter: () => void;
   showRoute: (route: MapRoute | undefined) => void;
   setItineraryDate: (date: string | undefined, fit?: boolean) => void;
+  focusPoint: (location: LatLng) => void;
 }
 
 export const createMapUiStore = () =>
@@ -101,6 +112,12 @@ export const createMapUiStore = () =>
     setBounds: (bounds) => set({ bounds }),
     recenter: () => set((state) => ({ recenterRequest: state.recenterRequest + 1 })),
     showRoute: (route) => set({ route }),
+    focusPoint: (location) =>
+      set((state) => ({
+        pointFocus: { location, request: (state.pointFocus?.request ?? 0) + 1 },
+        view: "map" as const,
+        sheet: state.selectedId ? ("half" as const) : ("peek" as const),
+      })),
     setItineraryDate: (itineraryDate, fit = true) =>
       set((state) => ({
         itineraryDate,

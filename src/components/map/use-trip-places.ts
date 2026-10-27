@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { BBoxStringSchema } from "@/domain/geo";
+import type { SavedMedia } from "@/domain/discover";
 import type { Place } from "@/domain/place";
 import type { Trip } from "@/domain/trip";
 import { ApiError, getJson, postJson, type ProviderMeta } from "@/lib/api-client";
@@ -26,6 +27,9 @@ async function deleteFavorite(tripId: string, placeId: string) {
   if (!response.ok) throw new ApiError("No se ha podido quitar de guardados.", response.status);
 }
 
+export const favoritesQueryKey = (tripId: string) => ["favorites", tripId] as const;
+export const favoritesMediaKey = (tripId: string) => ["favorites-media", tripId] as const;
+
 /** Máximo de lugares que se piden a `/api/places` (el límite del endpoint). */
 export const PLACES_LIMIT = 500;
 
@@ -33,7 +37,7 @@ export const PLACES_LIMIT = 500;
 export function useTripPlaces(trip: Trip, { transport }: { transport: boolean }) {
   const area = areaAround(trip.destination.location);
   const queryClient = useQueryClient();
-  const favoritesKey = ["favorites", trip.id] as const;
+  const favoritesKey = favoritesQueryKey(trip.id);
   const [favoriteError, setFavoriteError] = useState<string>();
 
   const places = useQuery({
@@ -61,10 +65,20 @@ export function useTripPlaces(trip: Trip, { transport }: { transport: boolean })
   const favorites = useQuery({
     queryKey: favoritesKey,
     queryFn: ({ signal }) =>
-      getJson<{ results: Place[] }>(`/api/trips/${trip.id}/favorites`, signal).then(
-        (body) => body.results,
-      ),
+      getJson<{ results: Place[]; media?: Record<string, SavedMedia> }>(
+        `/api/trips/${trip.id}/favorites`,
+        signal,
+      ).then((body) => {
+        // Vídeos de TikTok/Instagram desde los que se guardaron lugares (ficha del lugar).
+        queryClient.setQueryData(favoritesMediaKey(trip.id), body.media ?? {});
+        return body.results;
+      }),
     retry: false,
+  });
+  const media = useQuery({
+    queryKey: favoritesMediaKey(trip.id),
+    queryFn: () => ({}) as Record<string, SavedMedia>,
+    enabled: false,
   });
 
   const toggle = useMutation({
@@ -103,6 +117,7 @@ export function useTripPlaces(trip: Trip, { transport }: { transport: boolean })
     stops,
     favorites,
     toggleFavorite: (place: Place, save: boolean) => toggle.mutate({ place, save }),
+    media: media.data ?? {},
     favoritePending: toggle.isPending,
     favoriteError,
   };

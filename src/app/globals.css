@@ -44,6 +44,14 @@
   --color-layer-saved: var(--layer-saved);
   --color-layer-tickets: var(--layer-tickets);
   --color-layer-foreground: var(--layer-foreground);
+  --color-notice-holiday: var(--notice-holiday);
+  --color-notice-event: var(--notice-event);
+  --color-notice-dst: var(--notice-dst);
+  --color-notice-closure: var(--notice-closure);
+  --color-notice-transport: var(--notice-transport);
+  --color-notice-weather: var(--notice-weather);
+  --color-notice-booking: var(--notice-booking);
+  --color-notice-foreground: var(--notice-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -102,6 +110,15 @@
   /* Entradas (capa 6): pizarra neutra, distinta de los tonos de las demás capas. */
   --layer-tickets: #3d4654;
   --layer-foreground: #ffffff;
+  /* Avisos del calendario (REQUISITOS §17): letra + color; letra blanca con contraste ≥ 5:1. */
+  --notice-holiday: #b42318;
+  --notice-event: #6941c6;
+  --notice-dst: #0e6a7f;
+  --notice-closure: #8a4b08;
+  --notice-transport: #166534;
+  --notice-weather: #1d4ed8;
+  --notice-booking: #b0245a;
+  --notice-foreground: #ffffff;
 }
 
 .dark {
@@ -145,6 +162,14 @@
   --layer-saved: #f490b6;
   --layer-tickets: #c9d1dc;
   --layer-foreground: #17191b;
+  --notice-holiday: #fda29b;
+  --notice-event: #c4b5fd;
+  --notice-dst: #7dd3e6;
+  --notice-closure: #f5c26b;
+  --notice-transport: #86efac;
+  --notice-weather: #93c5fd;
+  --notice-booking: #f490b6;
+  --notice-foreground: #17191b;
 }
 
 @layer base {

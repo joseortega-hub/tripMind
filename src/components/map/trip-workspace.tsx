@@ -8,6 +8,7 @@ import {
   Map as MapIcon,
   PanelLeftClose,
   PanelLeftOpen,
+  Sparkles,
   Ticket,
 } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -15,6 +16,11 @@ import { Tabs } from "radix-ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BookingsPanel } from "@/components/bookings/bookings-panel";
 import { PlaceTickets } from "@/components/bookings/place-tickets";
+import { CalendarPanel } from "@/components/calendar/calendar-panel";
+import { RainMode } from "@/components/calendar/rain-mode";
+import { useNoticeFilters, useTripCalendar } from "@/components/calendar/use-calendar";
+import { DiscoverPanel } from "@/components/discover/discover-panel";
+import { SavedVideo } from "@/components/discover/saved-video";
 import { useBookings } from "@/components/bookings/use-bookings";
 import { DemoBadge } from "@/components/data-source";
 import { AddToItinerary } from "@/components/itinerary/add-to-itinerary";
@@ -28,6 +34,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { LatLng } from "@/domain/geo";
 import type { Place } from "@/domain/place";
 import type { Trip } from "@/domain/trip";
+import { applyNoticeFilters } from "@/lib/calendar/filters";
+import { locatedNotices } from "@/lib/calendar/notices";
+import { opportunityPoints } from "@/lib/discover";
 import { numberedStops } from "@/lib/itinerary-labels";
 import { UseForMeal } from "@/components/food/use-for-meal";
 import { type MapPlace, placesInBounds, visiblePlaces } from "@/lib/map/layers";
@@ -104,6 +113,16 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
   const planDays = itinerary.data.days;
   const bookings = useBookings(trip, itinerary.data);
   const setView = useMapUi((state) => state.setView);
+  const focusPoint = useMapUi((state) => state.focusPoint);
+  // Calendario del viaje (§17): avisos y filtros recordados por viaje, iguales en lista y mapa.
+  const calendar = useTripCalendar(trip.id, planDays);
+  const noticeFilters = useNoticeFilters(trip.id);
+  const mapNotices = useMemo(
+    () => locatedNotices(applyNoticeFilters(calendar.notices, noticeFilters.filters)),
+    [calendar.notices, noticeFilters.filters],
+  );
+  // Mapa de calor de oportunidades (§14B): apagado por defecto.
+  const [heatShown, setHeatShown] = useState(false);
   const firstPlanDay = planDays.find((day) => day.activities.length > 0)?.date ?? planDays[0]?.date;
   const shownDate = itineraryDate ?? firstPlanDay;
   const shownDay = planDays.find((day) => day.date === shownDate);
@@ -197,6 +216,10 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
     ? [...results, ...(favorites ?? [])].find((place) => place.id === previousId)
     : undefined;
   const tourism = useMemo(() => results.filter((place) => place.layer === "tourism"), [results]);
+  const heatPoints = useMemo(
+    () => opportunityPoints(tourism, trip.preferences),
+    [tourism, trip.preferences],
+  );
 
   /** Elegir un lugar desde una respuesta (estación cercana, lugar a pie): enciende su capa. */
   const selectPlace = (place: Place) => {
@@ -229,6 +252,12 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         toggle: () => data.toggleFavorite(selected.place, !favoriteIds.has(selected.place.id)),
       }}
     >
+      {data.media[selected.place.id] ? (
+        <SavedVideo
+          media={data.media[selected.place.id]!}
+          headingLevel={layout === "desktop" ? 3 : 4}
+        />
+      ) : null}
       {selected.place.layer === "lodging" ? (
         <ChooseHotel
           tripId={trip.id}
@@ -300,7 +329,11 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       mapAvailable={!mapFailure}
     />
   );
-  const itineraryPanel = (
+  const showPlace = (place: Place) => {
+    setPinned(place);
+    selectPlace(place);
+  };
+  const itineraryPanelBody = (
     <ItineraryPanel
       trip={trip}
       itinerary={itinerary}
@@ -322,6 +355,65 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         if (dayRouteHidden) setItineraryDate(shownDate);
         setDayRouteHidden(!dayRouteHidden);
       }}
+    />
+  );
+  const itineraryPanel = (
+    <div className="flex flex-col gap-4">
+      <CalendarPanel
+        startDate={trip.startDate}
+        endDate={trip.endDate}
+        destinationName={trip.destination.name}
+        calendar={calendar}
+        filterState={noticeFilters}
+        selectedDate={shownDate}
+        onSelectDate={(date) => {
+          setDayRouteHidden(false);
+          setItineraryDate(date);
+        }}
+        onShowOnMap={(notice) => {
+          const place = notice.activityId
+            ? planDays
+                .flatMap((day) => day.activities)
+                .find((activity) => activity.id === notice.activityId)?.place
+            : undefined;
+          if (place) {
+            setPinned(place);
+            select(place.id, "list");
+          } else if (notice.location) {
+            focusPoint(notice.location);
+          }
+        }}
+        headingLevel={layout === "mobile" ? 3 : 2}
+      />
+      {shownDay ? (
+        <RainMode
+          tripId={trip.id}
+          day={shownDay}
+          forecast={calendar.calendar?.forecast.find((f) => f.date === shownDay.date)}
+          itinerary={itinerary}
+          onSelectPlace={showPlace}
+          headingLevel={layout === "mobile" ? 3 : 2}
+        />
+      ) : null}
+      {itineraryPanelBody}
+    </div>
+  );
+  const discoverPanel = (
+    <DiscoverPanel
+      trip={trip}
+      days={planDays}
+      shownDate={shownDate}
+      places={results}
+      placesLoading={data.places.isLoading}
+      calendar={calendar}
+      heat={{
+        shown: heatShown,
+        toggle: () => setHeatShown((shown) => !shown),
+        points: heatPoints,
+      }}
+      selectedPlace={selected?.place}
+      onSelectPlace={showPlace}
+      headingLevel={layout === "mobile" ? 3 : 2}
     />
   );
   const lodgingPanel = (
@@ -382,6 +474,8 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
             styleUrl={mapStyleUrl}
             items={mapItems}
             dayRoute={dayRoute}
+            notices={mapNotices}
+            heat={heatShown ? heatPoints : undefined}
             area={data.area}
             failure={mapFailure}
             onFailure={setMapFailure}
@@ -394,6 +488,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         }
         list={panel}
         itinerary={itineraryPanel}
+        discover={discoverPanel}
         lodging={lodgingPanel}
         bookings={bookingsPanel}
         overview={overview}
@@ -442,11 +537,15 @@ function MapArea({
   layout,
   toggles,
   dayRoute,
+  notices,
+  heat,
 }: {
   trip: Trip;
   styleUrl: string;
   items: ReturnType<typeof visiblePlaces>;
   dayRoute?: DayRoute;
+  notices: React.ComponentProps<typeof TripMap>["notices"];
+  heat?: React.ComponentProps<typeof TripMap>["heat"];
   area: [number, number, number, number];
   failure?: MapFailureReason;
   onFailure: (reason: MapFailureReason) => void;
@@ -485,10 +584,24 @@ function MapArea({
           attributionPosition={layout === "mobile" ? "top-right" : "bottom-right"}
           onFailure={onFailure}
           dayRoute={dayRoute}
+          notices={notices}
+          heat={heat}
         />
       )}
       {toggles ? (
         <div className="absolute top-3 left-3 z-[1] max-w-[calc(100%-5rem)]">{toggles}</div>
+      ) : null}
+      {heat && heat.length > 0 ? (
+        <p
+          data-testid="heat-legend"
+          className="bg-card/95 absolute bottom-20 left-3 z-[1] flex max-w-64 items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs shadow-sm max-md:top-3 max-md:bottom-auto max-md:max-w-52"
+        >
+          <span
+            aria-hidden
+            className="h-2.5 w-10 shrink-0 rounded-full bg-gradient-to-r from-[#7ab2c2] via-[#1f5c6e] to-[#a8432f]"
+          />
+          Oportunidades: puntuación interna de TripMind según tus intereses, no valoraciones.
+        </p>
       ) : null}
       {loading ? (
         <p
@@ -506,6 +619,7 @@ const VIEW_TABS: { view: WorkspaceView; label: string; icon: typeof MapIcon }[] 
   { view: "map", label: "Mapa", icon: MapIcon },
   { view: "list", label: "Lista", icon: List },
   { view: "itinerary", label: "Itinerario", icon: CalendarDays },
+  { view: "discover", label: "Descubre", icon: Sparkles },
   { view: "lodging", label: "Hotel", icon: BedDouble },
   { view: "bookings", label: "Reservas", icon: Ticket },
   { view: "trip", label: "Viaje", icon: Info },
@@ -516,6 +630,7 @@ function Layouts({
   map,
   list,
   itinerary,
+  discover,
   lodging,
   bookings,
   overview,
@@ -527,6 +642,7 @@ function Layouts({
   map: React.ReactNode;
   list: React.ReactNode;
   itinerary: React.ReactNode;
+  discover: React.ReactNode;
   lodging: React.ReactNode;
   bookings: React.ReactNode;
   overview: React.ReactNode;
@@ -558,6 +674,7 @@ function Layouts({
       onChange={setTab}
       list={list}
       itinerary={itinerary}
+      discover={discover}
       lodging={lodging}
       bookings={bookings}
       overview={overview}
@@ -575,6 +692,8 @@ function Layouts({
         </div>
       ) : view === "itinerary" ? (
         itinerary
+      ) : view === "discover" ? (
+        discover
       ) : view === "lodging" ? (
         lodging
       ) : view === "bookings" ? (
@@ -607,7 +726,7 @@ function Layouts({
           aria-label="Vistas del viaje"
           className="bg-card shrink-0 border-t pb-[env(safe-area-inset-bottom)]"
         >
-          <ul className="grid grid-cols-6">
+          <ul className="grid grid-cols-7">
             {VIEW_TABS.map(({ view: item, label: text, icon: Icon }) => (
               <li key={item}>
                 <button
@@ -615,14 +734,14 @@ function Layouts({
                   aria-pressed={view === item}
                   onClick={() => setView(item)}
                   className={cn(
-                    "focus-visible:ring-ring/50 flex min-h-14 w-full flex-col items-center justify-center gap-0.5 text-xs font-medium outline-none focus-visible:ring-3 focus-visible:ring-inset",
+                    "focus-visible:ring-ring/50 flex min-h-14 w-full flex-col items-center justify-center gap-0.5 text-[0.6875rem] font-medium outline-none focus-visible:ring-3 focus-visible:ring-inset",
                     view === item ? "text-primary" : "text-muted-foreground",
                   )}
                 >
                   <span
                     aria-hidden
                     className={cn(
-                      "flex h-7 w-12 items-center justify-center rounded-full",
+                      "flex h-7 w-10 items-center justify-center rounded-full",
                       view === item && "bg-accent",
                     )}
                   >
@@ -699,13 +818,14 @@ function Layouts({
   );
 }
 
-type PanelTab = "list" | "itinerary" | "lodging" | "bookings" | "trip";
+type PanelTab = "list" | "itinerary" | "discover" | "lodging" | "bookings" | "trip";
 
 function PanelTabs({
   value,
   onChange,
   list,
   itinerary,
+  discover,
   lodging,
   bookings,
   overview,
@@ -714,6 +834,7 @@ function PanelTabs({
   onChange: (value: PanelTab) => void;
   list: React.ReactNode;
   itinerary: React.ReactNode;
+  discover: React.ReactNode;
   lodging: React.ReactNode;
   bookings: React.ReactNode;
   overview: React.ReactNode;
@@ -724,13 +845,16 @@ function PanelTabs({
     <Tabs.Root value={value} onValueChange={(next) => onChange(next as typeof value)}>
       <Tabs.List
         aria-label="Contenido del panel"
-        className="bg-muted mb-4 flex gap-1 rounded-lg p-1"
+        className="bg-muted mb-4 grid grid-cols-3 gap-1 rounded-lg p-1"
       >
         <Tabs.Trigger value="list" className={trigger}>
           Lista
         </Tabs.Trigger>
         <Tabs.Trigger value="itinerary" className={trigger}>
           Itinerario
+        </Tabs.Trigger>
+        <Tabs.Trigger value="discover" className={trigger}>
+          Descubre
         </Tabs.Trigger>
         <Tabs.Trigger value="lodging" className={trigger}>
           Hotel
@@ -747,6 +871,9 @@ function PanelTabs({
       </Tabs.Content>
       <Tabs.Content value="itinerary" className="outline-none">
         {itinerary}
+      </Tabs.Content>
+      <Tabs.Content value="discover" className="outline-none">
+        {discover}
       </Tabs.Content>
       <Tabs.Content value="lodging" className="outline-none">
         {lodging}

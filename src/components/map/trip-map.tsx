@@ -2,7 +2,7 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import { BedDouble, Check, Heart, X } from "lucide-react";
-import { getVersion, setWorkerUrl } from "maplibre-gl";
+import { type ExpressionSpecification, getVersion, setWorkerUrl } from "maplibre-gl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, {
   AttributionControl,
@@ -13,7 +13,11 @@ import Map, {
   Source,
   type ViewStateChangeEvent,
 } from "react-map-gl/maplibre";
+import { NOTICE_LETTERS, type TripNotice } from "@/domain/calendar";
 import type { BBox, LatLng } from "@/domain/geo";
+import { NOTICE_NAMES } from "@/lib/calendar/notices";
+import type { HeatPoint } from "@/lib/discover";
+import { NOTICE_BG } from "@/components/calendar/notice-badge";
 import { buildClusterIndex, markerHighlighted, SELECTION_ZOOM } from "@/lib/map/clusters";
 import type { MapPlace, TicketMark } from "@/lib/map/layers";
 import type { MapRoute } from "@/lib/map/store";
@@ -52,6 +56,39 @@ export interface TripMapProps {
   onFailure: (reason: "style" | "webgl") => void;
   /** Capa 5: paradas numeradas del día elegido en el itinerario y el hotel como referencia. */
   dayRoute?: DayRoute;
+  /** Avisos del calendario con ubicación, ya filtrados (los mismos que la lista). */
+  notices?: (TripNotice & { location: LatLng })[];
+  /** Mapa de calor de oportunidades (puntuación interna, §14B). */
+  heat?: HeatPoint[];
+}
+
+/** Rampa del mapa de calor: de transparente a petróleo y coral (MapLibre no lee variables CSS). */
+const HEAT_COLORS = [
+  "interpolate",
+  ["linear"],
+  ["heatmap-density"],
+  0,
+  "rgba(31,92,110,0)",
+  0.2,
+  "rgba(122,178,194,0.55)",
+  0.45,
+  "rgba(31,92,110,0.7)",
+  0.75,
+  "rgba(168,67,47,0.8)",
+  1,
+  "rgba(168,67,47,0.92)",
+] as const;
+
+function heatFeatures(points: HeatPoint[]) {
+  const max = Math.max(1, ...points.map((p) => p.score));
+  return {
+    type: "FeatureCollection" as const,
+    features: points.map(({ place, score }) => ({
+      type: "Feature" as const,
+      properties: { weight: score / max },
+      geometry: { type: "Point" as const, coordinates: [place.location.lng, place.location.lat] },
+    })),
+  };
 }
 
 export interface DayRoute {
@@ -126,6 +163,8 @@ export default function TripMap({
   attributionPosition = "top-right",
   onFailure,
   dayRoute,
+  notices = [],
+  heat,
 }: TripMapProps) {
   const mapRef = useRef<MapRef>(null);
   const [view, setView] = useState<{ bounds?: BBox; zoom: number }>({ zoom: INITIAL_ZOOM });
@@ -137,6 +176,7 @@ export default function TripMap({
   const setBounds = useMapUi((state) => state.setBounds);
   const route = useMapUi((state) => state.route);
   const dayFitRequest = useMapUi((state) => state.dayFitRequest);
+  const pointFocus = useMapUi((state) => state.pointFocus);
 
   // Los lugares del día se dibujan numerados (capa 5), no como marcador normal.
   const dayPlaceIds = useMemo(
@@ -212,6 +252,18 @@ export default function TripMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayFitRequest, dayRoute?.stops.length]);
 
+  // Centrar un punto suelto (un evento del calendario).
+  useEffect(() => {
+    if (!pointFocus) return;
+    mapRef.current?.flyTo({
+      center: [pointFocus.location.lng, pointFocus.location.lat],
+      zoom: Math.max(mapRef.current.getZoom(), 16),
+      padding,
+      animate: !prefersReducedMotion(),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointFocus?.request]);
+
   useEffect(() => {
     if (recenterRequest === 0) return;
     mapRef.current?.fitBounds(area, { padding, animate: !prefersReducedMotion() });
@@ -276,6 +328,21 @@ export default function TripMap({
           </Source>
         </>
       ) : null}
+      {heat && heat.length > 0 ? (
+        <Source id="opportunities" type="geojson" data={heatFeatures(heat)}>
+          <Layer
+            id="opportunities-heat"
+            type="heatmap"
+            paint={{
+              "heatmap-weight": ["get", "weight"],
+              "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 12, 1.2, 17, 2.5],
+              "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 12, 26, 17, 80],
+              "heatmap-color": HEAT_COLORS as unknown as ExpressionSpecification,
+              "heatmap-opacity": 0.7,
+            }}
+          />
+        </Source>
+      ) : null}
       {dayRoute && dayRoute.stops.length > 0 ? (
         <Source id="day-route" type="geojson" data={dayRouteFeature(dayRoute)}>
           <Layer
@@ -304,6 +371,32 @@ export default function TripMap({
           </div>
         </Marker>
       ) : null}
+      {notices.map((notice) => (
+        <Marker
+          key={notice.id}
+          longitude={notice.location.lng}
+          latitude={notice.location.lat}
+          anchor="bottom-left"
+          style={{ zIndex: 5 }}
+          onClick={(event) => {
+            event.originalEvent.stopPropagation();
+            if (notice.placeId) select(notice.placeId, "map");
+          }}
+        >
+          <span
+            aria-hidden
+            data-testid="map-notice"
+            data-notice-kind={notice.kind}
+            title={`${NOTICE_NAMES[notice.kind]}: ${notice.title}`}
+            className={cn(
+              "text-notice-foreground flex size-6 cursor-pointer items-center justify-center rounded-[5px] border-2 border-white text-xs font-bold shadow-md",
+              NOTICE_BG[notice.kind],
+            )}
+          >
+            {NOTICE_LETTERS[notice.kind]}
+          </span>
+        </Marker>
+      ))}
       {dayRoute?.stops.map((stop) => {
         const highlighted = stop.placeId === selectedId;
         return (
