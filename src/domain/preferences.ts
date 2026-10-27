@@ -59,12 +59,16 @@ export const PaceSchema = z
   });
 export type Pace = z.infer<typeof PaceSchema>;
 
+/** Tipos de alojamiento del paso 2 del asistente. */
+export const LodgingTypeSchema = z.enum(["hotel", "apartment", "hostel", "other"]);
+export type LodgingType = z.infer<typeof LodgingTypeSchema>;
+
 /** Preferencias de alojamiento del paso 2 cuando aún no hay hotel. */
 export const AccommodationPreferencesSchema = z.object({
   budgetPerNight: z.number().nonnegative().optional(),
   minStars: z.number().int().min(1).max(5).optional(),
   rooms: z.number().int().min(1).max(10).default(1),
-  types: z.array(z.enum(["hotel", "apartment", "hostel", "other"])).default([]),
+  types: z.array(LodgingTypeSchema).default([]),
   zone: z.enum(["central", "well_connected", "any"]).default("any"),
   accessible: z.boolean().default(false),
 });

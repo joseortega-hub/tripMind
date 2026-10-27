@@ -1,6 +1,7 @@
 import type { LatLng } from "@/domain/geo";
 import type { StreetMode } from "@/domain/route";
 import fixture from "./fixtures/routing.json";
+import lodgingFixture from "./fixtures/lodging.json";
 import {
   mapOsrmRoute,
   mapOsrmTable,
@@ -31,6 +32,9 @@ const recorded = fixture as unknown as {
   routes: RecordedRoute[];
   tables: RecordedTable[];
 };
+
+/** Tablas grabadas desde los alojamientos de la demo (Fase 6): ida y vuelta a los lugares. */
+const lodgingTables = (lodgingFixture as unknown as { tables: RecordedTable[] }).tables;
 
 /** Hotel real (OSM) desde el que se grabaron los trayectos de demostración. */
 export const DEMO_ROUTING_HOTEL = recorded.hotel;
@@ -71,35 +75,52 @@ export function createDemoRoutingProvider(): RoutingProvider {
 
     async matrix(query) {
       assertMatrixSize(query);
-      // Se busca una tabla grabada que contenga todos los orígenes y destinos pedidos.
-      for (const table of recorded.tables) {
-        if (table.mode !== query.mode) continue;
-        const rows = indexes(table.origins, query.origins);
-        const cols = indexes(table.destinations, query.destinations);
-        if (!rows || !cols) continue;
-        const full = mapOsrmTable(OsrmTableResponseSchema.parse(table.response));
-        const pick = (matrix: (number | null)[][]) =>
-          rows.map((row) => cols.map((col) => matrix[row]?.[col] ?? null));
-        return {
-          durationsSeconds: pick(full.durationsSeconds),
-          distancesMeters: pick(full.distancesMeters),
-          source: osrmSource(recorded.recordedAt),
-          isDemo: true,
-          fromCache: false,
-        };
+      // Cada celda se busca en todas las tablas grabadas (la de Hotel México y las de los
+      // alojamientos de la demo); si falta alguna, la demo no cubre la consulta.
+      cells ??= recordedCells();
+      const durations: (number | null)[][] = [];
+      const distances: (number | null)[][] = [];
+      for (const origin of query.origins) {
+        const durationRow: (number | null)[] = [];
+        const distanceRow: (number | null)[] = [];
+        for (const destination of query.destinations) {
+          const same = pointKey(origin) === pointKey(destination);
+          const hit = same ? ([0, 0] as const) : cells.get(cellKey(query.mode, origin, destination));
+          if (!hit) throw new RouteNotFoundError(DEMO_ROUTE_COVERAGE, "demo-routing", "no_coverage");
+          durationRow.push(hit[0]);
+          distanceRow.push(hit[1]);
+        }
+        durations.push(durationRow);
+        distances.push(distanceRow);
       }
-      throw new RouteNotFoundError(DEMO_ROUTE_COVERAGE, "demo-routing", "no_coverage");
+      return {
+        durationsSeconds: durations,
+        distancesMeters: distances,
+        source: osrmSource(recorded.recordedAt),
+        isDemo: true,
+        fromCache: false,
+      };
     },
   };
 }
 
-function indexes(recordedPoints: LatLng[], wanted: LatLng[]): number[] | undefined {
-  const positions = new Map(recordedPoints.map((point, index) => [pointKey(point), index]));
-  const result: number[] = [];
-  for (const point of wanted) {
-    const index = positions.get(pointKey(point));
-    if (index === undefined) return undefined;
-    result.push(index);
+const cellKey = (mode: StreetMode, from: LatLng, to: LatLng) =>
+  `${mode}|${pointKey(from)}|${pointKey(to)}`;
+
+let cells: Map<string, readonly [number | null, number | null]> | undefined;
+
+function recordedCells() {
+  const map = new Map<string, readonly [number | null, number | null]>();
+  for (const table of [...recorded.tables, ...lodgingTables]) {
+    const full = mapOsrmTable(OsrmTableResponseSchema.parse(table.response));
+    table.origins.forEach((origin, row) => {
+      table.destinations.forEach((destination, col) => {
+        map.set(cellKey(table.mode, origin, destination), [
+          full.durationsSeconds[row]?.[col] ?? null,
+          full.distancesMeters[row]?.[col] ?? null,
+        ]);
+      });
+    });
   }
-  return result;
+  return map;
 }

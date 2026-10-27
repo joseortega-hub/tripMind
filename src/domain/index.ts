@@ -3,6 +3,7 @@ export * from "./budget";
 export * from "./geo";
 export * from "./geocoding";
 export * from "./itinerary";
+export * from "./lodging";
 export * from "./place";
 export * from "./preferences";
 export * from "./source";

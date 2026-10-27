@@ -67,6 +67,33 @@ function transitOf(tags: Record<string, string>): NonNullable<Place["transit"]> 
   };
 }
 
+const yesNo = (value: string | undefined) =>
+  value === "yes" ? true : value === "no" ? false : undefined;
+
+/** Servicios de un alojamiento según sus etiquetas OSM; sin etiquetas, `undefined`. */
+export function lodgingOf(tags: Record<string, string>): Place["lodging"] {
+  const rooms = /^\d+$/.test(tags.rooms?.trim() ?? "") ? Number(tags.rooms) : undefined;
+  const lodging: NonNullable<Place["lodging"]> = {
+    rooms: rooms && rooms > 0 ? rooms : undefined,
+    internetAccess: tags.internet_access,
+    internetFee: yesNo(tags["internet_access:fee"]),
+    airConditioning: yesNo(tags.air_conditioning),
+    petsAllowed: yesNo(tags.pets_allowed ?? tags.dog),
+    swimmingPool: yesNo(tags.swimming_pool),
+    bar: yesNo(tags.bar),
+    smoking: tags.smoking,
+    checkIn: tags.check_in,
+    checkOut: tags.check_out,
+    brand: tags.brand,
+    operator: tags.operator,
+    email: tags.email ?? tags["contact:email"],
+  };
+  const present = Object.fromEntries(
+    Object.entries(lodging).filter(([, value]) => value !== undefined && value !== ""),
+  );
+  return Object.keys(present).length > 0 ? present : undefined;
+}
+
 function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): Place | undefined {
   const tags = el.tags ?? {};
   const name = tags.name;
@@ -102,6 +129,7 @@ function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): 
       .map((c) => c.trim())
       .filter(Boolean),
     stars: Number.isFinite(stars) && stars >= 0 && stars <= 7 ? stars : undefined,
+    lodging: layer === "lodging" ? lodgingOf(tags) : undefined,
     transit: layer === "transport" ? transitOf(tags) : undefined,
     source: osmSource(OVERPASS_NAME, el.type, el.id, retrievedAt),
     isDemo,

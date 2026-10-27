@@ -49,7 +49,7 @@ export async function postJson<T>(url: string, body: unknown): Promise<T> {
 
 export async function sendJson<T>(
   url: string,
-  method: "POST" | "PATCH",
+  method: "POST" | "PATCH" | "PUT",
   body?: unknown,
 ): Promise<T> {
   let response: Response;

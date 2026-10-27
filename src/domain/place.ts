@@ -115,6 +115,29 @@ export const PlaceSchema = ExternalDataSchema.extend({
   /** Estrellas declaradas en OSM (`stars`), solo alojamiento. */
   stars: z.number().min(0).max(7).optional(),
   /**
+   * Alojamiento: servicios declarados en OSM (solo los que tienen etiqueta). Pueden estar
+   * desactualizados y la UI los presenta "según OSM".
+   */
+  lodging: z
+    .object({
+      rooms: z.number().int().positive().optional(),
+      /** `internet_access`: wlan, wired, terminal… o "no". */
+      internetAccess: z.string().optional(),
+      /** `internet_access:fee`: true si se paga aparte. */
+      internetFee: z.boolean().optional(),
+      airConditioning: z.boolean().optional(),
+      petsAllowed: z.boolean().optional(),
+      swimmingPool: z.boolean().optional(),
+      bar: z.boolean().optional(),
+      smoking: z.string().optional(),
+      checkIn: z.string().optional(),
+      checkOut: z.string().optional(),
+      brand: z.string().optional(),
+      operator: z.string().optional(),
+      email: z.string().optional(),
+    })
+    .optional(),
+  /**
    * Estaciones y paradas: líneas según OSM (`route_ref`), red y operador. Son las etiquetas del
    * mapa, no un horario: pueden estar desactualizadas y la UI lo indica.
    */
