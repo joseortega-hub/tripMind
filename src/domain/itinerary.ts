@@ -97,6 +97,14 @@ export const ItineraryEditSchema = z.discriminatedUnion("op", [
   /** Fijar la hora bloquea la actividad (el resto se programa alrededor). */
   z.object({ op: z.literal("set_time"), activityId: z.string().min(1), time: TimeOfDaySchema }),
   z.object({ op: z.literal("lock"), activityId: z.string().min(1), locked: z.boolean() }),
+  /** Elige (o quita, con `null`) el sitio de una comida: la franja se mantiene y se recalculan tramos. */
+  z.object({
+    op: z.literal("set_meal_place"),
+    activityId: z.string().min(1),
+    place: PlaceSchema.refine((place) => place.layer === "food", {
+      message: "El sitio de una comida debe ser de gastronomía",
+    }).nullable(),
+  }),
   /** Reoptimiza las actividades no bloqueadas que van después de `afterActivityId` (o todo el día). */
   z.object({
     op: z.literal("reorganize"),

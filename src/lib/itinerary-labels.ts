@@ -59,7 +59,7 @@ export function numberedStops(day: ItineraryDay | undefined) {
     stops.push({
       id: activity.id,
       number: stops.length + 1,
-      name: activity.title,
+      name: activity.place.name,
       location: activity.place.location,
       placeId: activity.place.id,
     });

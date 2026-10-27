@@ -57,9 +57,17 @@ export interface BlockItem {
   earliest: number;
   latest: number;
   lockedStart?: number;
+  /**
+   * Comida con restaurante elegido (Fase 7): sigue siendo una franja con su ventana horaria,
+   * pero tiene tramos hasta el lugar y desde él, y se comprueba su horario.
+   */
+  place?: Place;
 }
 
 export type PlanItem = VisitItem | BlockItem;
+
+/** Lugar del elemento: la visita o el restaurante de una comida. */
+export const placeOf = (item: PlanItem): Place | undefined => item.place;
 
 export interface DayContext {
   date: string;
@@ -110,13 +118,14 @@ export function scheduleSequence(sequence: readonly PlanItem[], ctx: DayContext)
   for (const item of sequence) {
     const warnings: ActivityWarning[] = [];
     let arrival = t;
-    if (item.type === "visit" && prev !== undefined) {
+    const place = placeOf(item);
+    if (place && prev !== undefined) {
       const estimate = ctx.travel(prev, item.id);
       legs.push({ fromId: prev, toId: item.id, estimate });
       travelMinutes += travelTotal(estimate);
       arrival = t + travelTotal(estimate);
     }
-    const opening = item.type === "visit" ? ctx.opening(item.place) : undefined;
+    const opening = place ? ctx.opening(place) : undefined;
     let start: number;
     if (item.lockedStart !== undefined) {
       start = item.lockedStart;
@@ -126,11 +135,14 @@ export function scheduleSequence(sequence: readonly PlanItem[], ctx: DayContext)
       start = earliest ?? ceil5(arrival);
     } else {
       start = ceil5(Math.max(arrival, item.earliest));
+      // Con restaurante: la primera hora de la ventana en que está abierto, si la hay.
+      const open = opening ? earliestStart(opening, start, item.duration) : undefined;
+      if (open !== undefined && open <= item.latest) start = open;
       if (start > item.latest) warnings.push("meal_out_of_window");
     }
     const end = start + item.duration;
     let status: OpeningStatus | undefined;
-    if (item.type === "visit") {
+    if (place) {
       status = statusFor(opening!, start, end);
       if (status === "closed") warnings.push("closed_at_time");
       prev = item.id;

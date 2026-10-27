@@ -141,7 +141,7 @@ const previousActivities = (trip: Trip) =>
 
 /**
  * Genera el itinerario completo del viaje. Se conservan las actividades bloqueadas (en su día y
- * hora); el resto se vuelve a calcular.
+ * hora) y las comidas con restaurante (en su día y franja); el resto se vuelve a calcular.
  */
 export async function computeItinerary(
   trip: Trip,
@@ -158,7 +158,10 @@ export async function computeItinerary(
 
   const lockedByDate = new Map<string, Activity[]>();
   for (const day of trip.days) {
-    const locked = day.activities.filter((a) => a.locked && a.startTime);
+    // También se conserva el restaurante elegido para una comida (Fase 7), aunque no esté bloqueada.
+    const locked = day.activities.filter(
+      (a) => (a.locked && a.startTime) || (a.kind === "meal" && a.place),
+    );
     if (locked.length > 0 && dates.includes(day.date)) lockedByDate.set(day.date, locked);
   }
   const lockedPlaceIds = new Set(
@@ -218,9 +221,7 @@ export async function computeItinerary(
     ...candidates.map((c) => ({ id: c.id, location: c.place.location })),
     ...[...lockedItems.values()]
       .flat()
-      .flatMap((item) =>
-        item.type === "visit" ? [{ id: item.id, location: item.place.location }] : [],
-      ),
+      .flatMap((item) => (item.place ? [{ id: item.id, location: item.place.location }] : [])),
   ];
   const matrices = await matricesFor(points, deps.routing);
   const travel = buildTravel(points, matrices, { reducedMobility: pace.reducedMobility });
@@ -287,7 +288,7 @@ async function recomputeDay(
   const points: TravelPoint[] = [
     ...(anchor ? [{ id: ANCHOR_ID, location: anchor }] : []),
     ...sequence.flatMap((item) =>
-      item.type === "visit" ? [{ id: item.id, location: item.place.location }] : [],
+      item.place ? [{ id: item.id, location: item.place.location }] : [],
     ),
   ];
   const matrices = await matricesFor(points, deps.routing);
@@ -392,6 +393,15 @@ export async function computeEdit(
     case "lock": {
       const { day, index, activity } = findActivity(days, edit.activityId);
       day.activities[index] = { ...activity, locked: edit.locked };
+      affected.add(day.date);
+      break;
+    }
+    case "set_meal_place": {
+      const { day, index, activity } = findActivity(days, edit.activityId);
+      if (activity.kind !== "meal") {
+        throw new ItineraryEditError("Solo se puede elegir un sitio para una comida.");
+      }
+      day.activities[index] = { ...activity, place: edit.place ?? undefined };
       affected.add(day.date);
       break;
     }

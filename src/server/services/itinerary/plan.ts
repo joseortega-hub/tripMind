@@ -70,7 +70,9 @@ export function defaultBlocks(pace: Pace, taken: ReadonlySet<string> = new Set()
 export function itemFromActivity(activity: Activity, pace: Pace): PlanItem {
   const lockedStart =
     activity.locked && activity.startTime ? toMinutes(activity.startTime) : undefined;
-  if (activity.place) {
+  const slot = activity.planning?.slot;
+  const mealSlot = slot === "breakfast" || slot === "lunch" || slot === "dinner";
+  if (activity.place && !(activity.kind === "meal" && mealSlot)) {
     return {
       type: "visit",
       id: activity.id,
@@ -81,18 +83,19 @@ export function itemFromActivity(activity: Activity, pace: Pace): PlanItem {
       lockedStart,
     };
   }
-  const slot = activity.planning?.slot;
   const template = dayBlocks(pace).find((block) => block.slot === slot);
   return {
     type: "block",
     id: activity.id,
     kind: activity.kind === "meal" ? "meal" : "free_time",
-    slot: slot === "breakfast" || slot === "lunch" || slot === "dinner" ? slot : "afternoon",
+    slot: mealSlot ? slot : "afternoon",
     title: activity.title,
     duration: activity.durationMinutes,
     earliest: template?.earliest ?? toMinutes(pace.dayStart),
     latest: template?.latest ?? toMinutes(pace.dayEnd),
     lockedStart,
+    // Restaurante elegido para la comida (Fase 7).
+    place: activity.kind === "meal" ? activity.place : undefined,
   };
 }
 
@@ -133,7 +136,7 @@ export function toItineraryDay(input: DayConversion): ItineraryDay {
       id: item.id,
       kind: item.type === "visit" ? (before?.kind ?? "visit") : item.kind,
       title: item.type === "visit" ? item.place.name : item.title,
-      place: item.type === "visit" ? item.place : undefined,
+      place: item.place,
       startTime: minutesToTime(scheduled.start),
       durationMinutes: item.duration,
       locked: item.lockedStart !== undefined,
@@ -148,8 +151,7 @@ export function toItineraryDay(input: DayConversion): ItineraryDay {
 
   const locationOf = (id: string): LatLng | undefined => {
     if (id === ANCHOR_ID) return input.anchor;
-    const item = schedule?.items.find((s) => s.item.id === id)?.item;
-    return item?.type === "visit" ? item.place.location : undefined;
+    return schedule?.items.find((s) => s.item.id === id)?.item.place?.location;
   };
   const legs: Leg[] = (schedule?.legs ?? []).flatMap(({ fromId, toId, estimate }) => {
     const from = locationOf(fromId);
