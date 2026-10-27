@@ -2,7 +2,8 @@
 
 Cada proveedor tiene adaptador real y adaptador demo (fixtures marcados `isDemo: true`). Revisar
 las condiciones antes de producción. Implementados: geocodificación y lugares (Fase 1); rutas,
-matriz de tiempos, transporte público y estaciones/paradas (Fase 4).
+matriz de tiempos, transporte público y estaciones/paradas (Fase 4); festivos, previsión, eventos,
+visitas de Wikipedia y oEmbed de TikTok/Instagram (Fase 9).
 
 | Área | Proveedor | Clave | Limitaciones / condiciones |
 |---|---|---|---|
@@ -15,12 +16,12 @@ matriz de tiempos, transporte público y estaciones/paradas (Fase 4).
 | Rutas a pie/coche | OSRM de FOSSGIS (`routing.openstreetmap.de`) / OpenRouteService | ORS sí | FOSSGIS: máx. 1 petición/s, sin uso intensivo, atribución; ORS (plan gratuito): 2000 rutas y 500 matrices al día, 40/min |
 | Transporte público | Transitous (MOTIS 2) | No | Solo proyectos de código abierto y **no comerciales**; User-Agent con contacto; enlace visible a transitous.org/sources; coordinar si se superan ~720 `/plan` al día |
 | Estaciones y paradas | Overpass API (OSM) | No | Igual que lugares; las líneas (`route_ref`) son etiquetas del mapa, no horarios |
-| Tiempo | Open-Meteo | No | Gratis para uso no comercial; previsión hasta 16 días |
-| Eventos | Ticketmaster Discovery | Sí (gratis) | 5000 peticiones/día; cobertura desigual por país |
+| Tiempo | Open-Meteo | No | Gratis para uso no comercial; previsión hasta 16 días; atribución CC BY 4.0 |
+| Eventos | Ticketmaster Discovery | Sí (gratis, `TICKETMASTER_API_KEY`) | 5000 peticiones/día; cobertura desigual por país; sin clave → "no configurado" |
 | Festivos | Nager.Date | No | Nacionales y regionales; las fiestas locales pueden faltar (avisar y enlazar a fuente oficial) |
 | Horarios | Librería `opening_hours` (OSM) | No | LGPL-3.0; evalúa la etiqueta `opening_hours` de OSM, que puede estar desactualizada: la UI lo marca "según OSM" o "pendiente de confirmar" |
 | Cambio de hora | Base de datos IANA (`Intl` / `date-fns-tz`) | No | Local, sin llamadas externas |
-| Vídeos enlazados | oEmbed de TikTok / Instagram | Instagram sí (Meta) | Solo metadatos y reproductor embebido de enlaces que aporta el usuario; sin scraping ni descargas |
+| Vídeos enlazados | oEmbed de TikTok / Instagram | Instagram sí (Meta) | Solo metadatos y reproductor embebido de enlaces que aporta el usuario; sin scraping ni descargas. Instagram queda "no configurado" |
 | Popularidad | Wikimedia Pageviews API | No | Mide visitas a Wikipedia, no redes sociales; etiquetarlo así |
 | Restaurantes (valoraciones y precios) | — (adaptador "no configurado") | — | Google Places o Foursquare requieren clave y aceptar sus condiciones (atribución, caché limitada); hasta entonces solo OSM: sin valoraciones y precio solo con `price_range` |
 | Hoteles (precios) | — (adaptador "no configurado") | — | Requiere acuerdo con proveedor autorizado; hasta entonces solo OSM + enlaces de búsqueda (Booking con fechas y viajeros, Google Hotels solo con nombre) |
@@ -180,3 +181,61 @@ usa como `source.retrievedAt`). De Transitous se recortan alertas, alternativas 
 La demo de transporte devuelve el plan grabado con sus horas reales (la UI dice de qué día son). En Wikidata solo se conservan las declaraciones P18 y P856.
 Los adaptadores demo pasan los fixtures por los mismos mapeadores que los reales y, fuera de la zona
 grabada, devuelven lista vacía con un aviso: nunca generan datos.
+
+### Calendario del destino y Descubre (Fase 9)
+
+| Área | Adaptador real | Requisito | Demo |
+|---|---|---|---|
+| Festivos | Nager.Date `GET /api/v3/PublicHolidays/{año}/{país}` (caché 30 días; 404 = país sin datos) | — | `holidays/fixtures/nager.json` (España 2026 y 2027) |
+| Previsión | Open-Meteo `/v1/forecast` diario (código WMO, probabilidad y mm de lluvia, máx./mín.), 16 días, coordenadas a 2 decimales (caché 3 h) | — | `weather/fixtures/open-meteo.json` (Madrid centro, grabada el 27-10-2026: del 27-10 al 11-11) |
+| Eventos | Ticketmaster Discovery v2 `events.json` (radio 10 km, fechas del viaje ±1 día en UTC y recorte por fecha local; caché 6 h; la clave solo en la petición del servidor) | `TICKETMASTER_API_KEY` | **Ninguna**: sin clave no se pueden grabar respuestas reales; adaptador "no configurado" y categorías para investigar (búsquedas web) |
+| Popular ahora | Wikimedia Pageviews `per-article/{proyecto}/all-access/user/{artículo}/daily` (60 días; caché 12 h; de 5 en 5, máx. 25 artículos) | `CONTACT_EMAIL` (User-Agent de Wikimedia) | `pageviews/fixtures/pageviews.json` (42 artículos de los lugares de la demo, 28-08 a 26-10-2026) |
+| Vídeos | oEmbed público de TikTok `https://www.tiktok.com/oembed?url=` (título, autor, `embed_product_id`; caché 24 h) | — | **Ninguna**: el oEmbed de TikTok devolvió 429 desde la máquina de desarrollo; la demo responde "sin vista previa" y el usuario elige el lugar |
+| Cambio de hora | `Intl` con la zona IANA del destino (`@photostructure/tz-lookup`) | — | (local) |
+
+Script de grabación: `npx tsx scripts/record-discover-fixtures.mts`.
+
+- **Festivos**: nacionales (`global` o sin `counties`) y regionales (`counties` ISO 3166-2). La
+  región del destino se reconoce por su etiqueta (solo España por ahora, `calendar/holidays.ts`);
+  si no, los regionales se muestran como "puede afectar". **Las fiestas locales (municipales) no
+  están en Nager.Date**: la UI lo avisa. En el optimizador, un festivo solo tiene horario verificado
+  si la etiqueta `opening_hours` trae la regla `PH` y la librería reconoce ese día como festivo; si
+  no, las franjas de ese día quedan "pendiente de confirmar".
+- **Previsión**: solo los días dentro del horizonte (≤ 16 días); fuera, "vuelve más cerca del
+  viaje". Lluvia probable = probabilidad ≥ 50 % o ≥ 1 mm; tormenta = código WMO ≥ 95; calor =
+  máxima ≥ 35 °C.
+- **Eventos**: nunca se rellenan. Sin clave (o en demo) hay categorías con búsquedas web marcadas
+  como externas. De Ticketmaster: fecha local, hora, recinto con coordenadas, categoría, estado
+  (cancelado, aplazado) y enlace a su ficha; se descartan los que no tienen fecha o enlace.
+- **Popular ahora**: lecturas diarias de la última semana frente a las 7 semanas anteriores;
+  "popular" con ×1,5 o más y ≥ 20 lecturas/día. Se rotula "según visitas en Wikipedia".
+- **TikTok / Instagram (revisado el 27-10-2026)**: TikTok documenta el oEmbed público sin clave
+  (developers.tiktok.com/doc/embed-videos), avisa de que "Embed Videos" se retirará y recomienda
+  su *Embed Player* (`tiktok.com/player/v1/{id}`), que es el que se usa, cargado solo al pulsar
+  (cookies de terceros); sus botones llevan a TikTok y si el vídeo se borra deja de verse.
+  Instagram exige el oEmbed de la Graph API de Meta con token de una app con la función
+  "oEmbed Read" (revisión de Meta): **no configurado**; se puede guardar el enlace sin vista
+  previa. Solo se aceptan enlaces `https` de `tiktok.com` (www, m, vm, vt) e `instagram.com`
+  (`/p/`, `/reel/`, `/tv/`) y se quitan los parámetros de seguimiento. Sin scraping ni descargas;
+  el lugar siempre lo confirma el usuario.
+- **Transporte (T)**: no hay fuente de huelgas o cortes conectada; la leyenda lo indica.
+
+API (Fase 9):
+
+- `GET /api/trips/[id]/calendar`: `{ retrievedAt, timeZone, holidays, holidaysStatus, dst, events,
+  eventsStatus, forecast, weatherStatus, forecastHorizon }`. Cada fuente lleva su estado (`ok`,
+  `not_configured`, `unavailable`, `unsupported`, `out_of_range`); un fallo no tumba las demás.
+  Los avisos (F, E, H, C, T, M, R) se construyen en el cliente con el itinerario en caché.
+- `GET /api/trips/[id]/popular`: visitas de Wikipedia de los lugares turísticos con artículo.
+- `POST /api/trips/[id]/free-time { origin, originLabel, date, start, minutes }`: lugares que caben
+  (ida, visita estimada y vuelta con la matriz a pie) y un encadenado sugerido; sin tiempos
+  calculados no se propone nada. 400 si el día no es del viaje.
+- `GET /api/trips/[id]/rain?date=`: previsión del día y alternativas bajo techo (museo, galería,
+  templo) a ≤ 1,5 km de cada visita al aire libre (parque, mirador, monumento), sin las
+  confirmadas como cerradas a esa hora.
+- `PATCH /api/trips/[id]/itinerary { op: "replace", activityId, place }`: sustituye la visita
+  conservando su hueco (modo lluvia).
+- `POST /api/trips/[id]/social { url }`: vista previa del oEmbed y lugares candidatos del destino
+  mencionados en el título (también en hashtags). No guarda nada.
+- `POST /api/trips/[id]/favorites { place, media? }` guarda también el vídeo (`SavedMedia`);
+  `GET` devuelve `{ results, media }` (migración `20261029000000_saved_media`).

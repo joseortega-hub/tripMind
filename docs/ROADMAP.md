@@ -407,7 +407,7 @@ Decisiones Fase 8b:
   `src/server/services/feedback/format.ts`. `--done` exige ≥ 4 caracteres y un único comentario
   que coincida.
 
-### ⬜ Fase 9 — Descubrimiento y diferenciales
+### ✅ Fase 9 — Descubrimiento y diferenciales
 
 "Descubre algo diferente" + eventos Ticketmaster; mapa de calor de oportunidades; modo
 "tengo 3 horas libres"; modo lluvia con Open-Meteo. (§13, §14) + resto del prompt pendiente.
@@ -415,6 +415,58 @@ Calendario del destino: festivos (Nager.Date), eventos especiales con fuente y c
 (zona IANA) con avisos por día y su efecto en horarios del optimizador. (§17)
 "Guardar desde TikTok/Instagram" (oEmbed + confirmación del lugar) y "Popular ahora" con
 Wikimedia Pageviews. (§18)
+
+Decisiones Fase 9:
+
+- Proveedores nuevos (`src/server/providers/`): `holidays/` (Nager.Date, real + demo grabada de
+  España 2026–2027), `weather/` (Open-Meteo, real + demo grabada de Madrid del 27-10 al
+  11-11-2026), `events/` (Ticketmaster con `TICKETMASTER_API_KEY`; sin clave o en demo, "no
+  configurado": no hay fixtures porque grabarlos exige clave), `pageviews/` (Wikimedia, real + demo
+  de 42 artículos) y `social/` (oEmbed público de TikTok; Instagram "no configurado" porque Meta
+  exige token). El oEmbed de TikTok devolvió 429 al intentar grabarlo: la demo no tiene vista previa
+  y el usuario elige el lugar a mano. Detalles en `docs/PROVEEDORES.md`.
+- Calendario (`GET /api/trips/[id]/calendar`, `services/calendar/`): cada fuente con su estado; el
+  cambio de hora se calcula con `Intl` sobre la zona IANA (búsqueda binaria del minuto exacto: "a
+  las 03:00 se atrasan a las 02:00") y la diferencia con la zona del usuario en el cliente (al
+  empezar y al acabar el viaje, que pueden diferir). Las horas del itinerario ya son hora local de
+  pared, así que el cambio no las mueve: el aviso lo explica.
+- Festivos en el optimizador: `OpeningContext.holidays` ("confirmed" nacional o de la región del
+  destino, reconocida por la etiqueta; "possible" regional sin confirmar). Un festivo solo tiene
+  horario verificado si la etiqueta trae `PH` y la librería `opening_hours` reconoce ese día; si
+  no, las franjas quedan "pendiente de confirmar" (nunca "abierto"). Si Nager.Date falla, aviso.
+- Avisos (`src/lib/calendar/notices.ts`, puro, en el cliente con el itinerario en caché): F festivo,
+  E evento (oportunidad; "afecta" si está a ≤ 1 km de una parada ese día), H cambio de hora, C
+  cierre (visita en horario cerrado o festivo sin confirmar), T transporte (sin fuente: la leyenda
+  lo dice), M meteorología (lluvia ≥ 50 % o ≥ 1 mm, tormenta, ≥ 35 °C) y R reserva (anotada,
+  cancelada o entrada necesaria sin anotar). Todos con `source` e `isDemo`. Tokens `--notice-*`
+  (letra blanca ≥ 5:1; en oscuro, tonos claros con letra oscura) e insignia cuadrada distinta de
+  los marcadores de capas.
+- Filtros (`src/lib/calendar/filters.ts`): tipo (los chips son la leyenda: insignia + nombre,
+  multiselección), impacto, día, fuente y "solo lo que afecta a mi itinerario"; guardados en
+  `localStorage` (`tripmind:notice-filters:{id}`) y aplicados igual a la franja de días, la lista y
+  los marcadores del mapa (solo los avisos con ubicación: eventos, cierres y reservas).
+- UI: "Calendario del viaje" encima del itinerario (franja de días con insignias que elige el día,
+  lista con 3 avisos y "ver todos", "De dónde salen los avisos") y modo lluvia del día elegido (se
+  destaca solo con previsión real; "Sustituir" = nueva edición `replace`). Nueva vista
+  **Descubre** (7.ª en la barra móvil; pestañas del panel en rejilla 3 × 2): eventos o categorías
+  para investigar, "Algo diferente" (mercados, miradores, menos conocidos —sin Wikipedia pero con
+  Wikidata, foto, web u horario— y teatros), "Popular ahora (según visitas en Wikipedia)", mapa de
+  calor de oportunidades (capa `heatmap` de MapLibre con `placeScore`, rotulada sobre el mapa como
+  puntuación interna, con "lo que más encaja contigo" como alternativa accesible), "Tengo unas
+  horas libres" y "Guardar un sitio de un vídeo".
+- Horas libres (`POST /api/trips/[id]/free-time`): desde el hotel, la ubicación del navegador, el
+  lugar abierto o una parada del día; candidatos a ≤ (minutos / 2) × 80 m en línea recta, los 30
+  mejores medidos con la matriz a pie (ida y vuelta reales), horario del día con festivos y
+  duración estimada. Encadenado voraz por puntuación − minutos andando / 15. Sin tiempo calculado
+  no se propone nada.
+- Guardar desde vídeo: `Favorite.media` (JSON `SavedMedia`, migración
+  `20261029000000_saved_media`); candidatos por el nombre del lugar en el título (también dentro de
+  hashtags), búsqueda manual en los lugares cargados y botón de guardar deshabilitado hasta que el
+  usuario elige. La ficha muestra el vídeo con el *Embed Player* de TikTok, cargado solo al pulsar.
+- Pendiente: compartir a TripMind desde la app del móvil (Web Share Target exige manifiesto PWA y
+  elegir viaje), eventos especiales de webs oficiales de turismo o Wikidata, incidencias de
+  transporte (T), región del destino fuera de España para festivos regionales, fiestas locales,
+  un oEmbed real de TikTok grabado para la demo y fixtures de Ticketmaster cuando haya clave.
 
 ### ⬜ Fase 9b — Llegada y salida: aeropuerto ⇄ hotel
 
