@@ -1,8 +1,8 @@
 import type { TicketsProvider } from "./types";
 
 export const TICKETS_NOT_CONFIGURED_MESSAGE =
-  "No hay un proveedor de entradas configurado: los enlaces son los que publica la fuente " +
-  "(web oficial y venta del propio lugar) y no hay precios ni disponibilidad de un vendedor.";
+  "Sin proveedor de entradas conectado: no hay precios ni disponibilidad de vendedores. " +
+  "Los enlaces son los que publica el propio lugar.";
 
 /** Único adaptador por ahora: sin productos, precios ni disponibilidad de un vendedor externo. */
 export function createNotConfiguredTicketsProvider(): TicketsProvider {

@@ -1,11 +1,13 @@
 import { type BBox, bboxContains, type LatLng } from "@/domain/geo";
+import type { BookingRequirement, BookingStatus } from "@/domain/booking";
 import type { Place, PlaceCategory } from "@/domain/place";
 
 /**
  * Capas del mapa (REQUISITOS §8): 1 turismo, 2 gastronomía, 3 alojamiento, 4 transporte
- * (estaciones y paradas de OSM) y 7 guardados. Itinerario (5) y entradas (6) llegan después.
+ * (estaciones y paradas de OSM), 6 entradas y actividades del itinerario con su estado y
+ * 7 guardados. La 5 (ruta del día) se dibuja aparte, numerada.
  */
-export const MAP_LAYERS = ["tourism", "food", "lodging", "transport", "saved"] as const;
+export const MAP_LAYERS = ["tourism", "food", "lodging", "transport", "tickets", "saved"] as const;
 export type MapLayerKey = (typeof MAP_LAYERS)[number];
 
 /**
@@ -19,6 +21,7 @@ export const LAYER_LABELS: Record<MapLayerKey, string> = {
   food: "Gastronomía",
   lodging: "Alojamiento",
   transport: "Transporte",
+  tickets: "Entradas",
   saved: "Guardados",
 };
 
@@ -56,6 +59,7 @@ export const DEFAULT_LAYERS: ActiveLayers = {
   food: true,
   lodging: true,
   transport: false,
+  tickets: true,
   saved: true,
 };
 
@@ -65,32 +69,51 @@ export function toggleLayer(active: ActiveLayers, layer: MapLayerKey): ActiveLay
 
 export const allLayersOff = (active: ActiveLayers) => MAP_LAYERS.every((layer) => !active[layer]);
 
+/** Actividad del itinerario en la capa 6: estado informativo y lo que ha anotado el usuario. */
+export interface TicketMark {
+  place: Place;
+  requirement: BookingRequirement;
+  /** Sin valor: el usuario aún no ha anotado nada. */
+  status?: BookingStatus;
+}
+
 /** Lugar listo para pintar: la capa con la que se dibuja y si está guardado. */
 export interface MapPlace {
   place: Place;
   layer: MapLayerKey;
   isFavorite: boolean;
+  /** Solo en la capa de entradas. */
+  booking?: TicketMark;
 }
 
 /**
- * Une los lugares del proveedor con los favoritos del viaje y aplica las capas activas.
- * Un favorito se dibuja con la capa "guardados" si está activa; si no, con la de su categoría.
- * Los favoritos que no están en la respuesta (otra zona, otra fecha) se muestran con su snapshot.
+ * Une los lugares del proveedor con los favoritos y las actividades del viaje y aplica las capas
+ * activas. Una actividad del itinerario se dibuja en "entradas" si está activa; un favorito, en
+ * "guardados"; si no, con la capa de su categoría. Lo que no está en la respuesta (otra zona) se
+ * muestra con su snapshot.
  */
 export function visiblePlaces(
   places: readonly Place[],
   favorites: readonly Place[],
   active: ActiveLayers,
+  tickets: ReadonlyMap<string, TicketMark> = new Map(),
 ): MapPlace[] {
   const favoriteIds = new Set(favorites.map((place) => place.id));
   const byId = new Map<string, Place>();
   for (const place of places) byId.set(place.id, place);
   for (const place of favorites) if (!byId.has(place.id)) byId.set(place.id, place);
+  if (active.tickets) {
+    for (const mark of tickets.values())
+      if (!byId.has(mark.place.id)) byId.set(mark.place.id, mark.place);
+  }
 
   const result: MapPlace[] = [];
   for (const place of byId.values()) {
     const isFavorite = favoriteIds.has(place.id);
-    if (isFavorite && active.saved) {
+    const booking = tickets.get(place.id);
+    if (booking && active.tickets) {
+      result.push({ place, layer: "tickets", isFavorite, booking });
+    } else if (isFavorite && active.saved) {
       result.push({ place, layer: "saved", isFavorite });
     } else if (active[place.layer]) {
       result.push({ place, layer: place.layer, isFavorite });

@@ -3,6 +3,7 @@ import {
   Heart,
   Landmark,
   type LucideIcon,
+  Ticket,
   TramFront,
   UtensilsCrossed,
 } from "lucide-react";
@@ -15,6 +16,7 @@ export const LAYER_ICONS: Record<MapLayerKey, LucideIcon> = {
   food: UtensilsCrossed,
   lodging: BedDouble,
   transport: TramFront,
+  tickets: Ticket,
   saved: Heart,
 };
 
@@ -24,6 +26,7 @@ export const LAYER_BG: Record<MapLayerKey, string> = {
   food: "bg-layer-food",
   lodging: "bg-layer-lodging",
   transport: "bg-layer-transport",
+  tickets: "bg-layer-tickets",
   saved: "bg-layer-saved",
 };
 
@@ -32,6 +35,7 @@ export const LAYER_TEXT: Record<MapLayerKey, string> = {
   food: "text-layer-food",
   lodging: "text-layer-lodging",
   transport: "text-layer-transport",
+  tickets: "text-layer-tickets",
   saved: "text-layer-saved",
 };
 

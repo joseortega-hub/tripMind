@@ -42,6 +42,7 @@
   --color-layer-lodging: var(--layer-lodging);
   --color-layer-transport: var(--layer-transport);
   --color-layer-saved: var(--layer-saved);
+  --color-layer-tickets: var(--layer-tickets);
   --color-layer-foreground: var(--layer-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -98,6 +99,8 @@
   --layer-lodging: #2f5f9e;
   --layer-transport: #2e6b30;
   --layer-saved: #b0245a;
+  /* Entradas (capa 6): pizarra neutra, distinta de los tonos de las demás capas. */
+  --layer-tickets: #3d4654;
   --layer-foreground: #ffffff;
 }
 
@@ -140,6 +143,7 @@
   --layer-lodging: #9cc0f0;
   --layer-transport: #9fd8a0;
   --layer-saved: #f490b6;
+  --layer-tickets: #c9d1dc;
   --layer-foreground: #17191b;
 }
 

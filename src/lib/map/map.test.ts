@@ -60,7 +60,14 @@ describe("capas del mapa", () => {
   });
 
   it("dibuja los favoritos en la capa guardados aunque su capa esté apagada", () => {
-    const layers = { tourism: false, food: false, lodging: false, transport: false, saved: true };
+    const layers = {
+      tourism: false,
+      food: false,
+      lodging: false,
+      transport: false,
+      tickets: false,
+      saved: true,
+    };
     const items = visiblePlaces([prado, cafe], [cafe], layers);
     expect(items).toEqual([{ place: cafe, layer: "saved", isFavorite: true }]);
   });
@@ -70,6 +77,26 @@ describe("capas del mapa", () => {
     expect(visiblePlaces([cafe], [cafe], layers)).toEqual([
       { place: cafe, layer: "food", isFavorite: true },
     ]);
+  });
+
+  it("capa 6: las actividades del itinerario se dibujan en entradas con su estado", () => {
+    const elsewhere = place("osm:node/9", "museum", 41.38, 2.17, "Museu Picasso");
+    const tickets = new Map([
+      [
+        prado.id,
+        { place: prado, requirement: "ticket_required" as const, status: "booked" as const },
+      ],
+      [elsewhere.id, { place: elsewhere, requirement: "unverified" as const }],
+    ]);
+    const items = visiblePlaces([prado, cafe], [prado], DEFAULT_LAYERS, tickets);
+    expect(items.map((item) => [item.place.id, item.layer, item.booking?.status])).toEqual([
+      [cafe.id, "food", undefined],
+      [prado.id, "tickets", "booked"],
+      [elsewhere.id, "tickets", undefined],
+    ]);
+    expect(items.find((item) => item.place.id === prado.id)?.isFavorite).toBe(true);
+    const off = visiblePlaces([prado], [], toggleLayer(DEFAULT_LAYERS, "tickets"), tickets);
+    expect(off).toEqual([{ place: prado, layer: "tourism", isFavorite: false }]);
   });
 
   it("incluye favoritos que no llegan en la respuesta, sin duplicar", () => {
@@ -82,7 +109,14 @@ describe("capas del mapa", () => {
   it("detecta todas las capas apagadas", () => {
     expect(allLayersOff(DEFAULT_LAYERS)).toBe(false);
     expect(
-      allLayersOff({ tourism: false, food: false, lodging: false, transport: false, saved: false }),
+      allLayersOff({
+        tourism: false,
+        food: false,
+        lodging: false,
+        transport: false,
+        tickets: false,
+        saved: false,
+      }),
     ).toBe(true);
   });
 

@@ -23,16 +23,16 @@ export const requirementText = (requirement: BookingRequirement, isMeal = false)
   (isMeal ? REQUIREMENT_LABELS[requirement].meal : undefined) ??
   REQUIREMENT_LABELS[requirement].text;
 
-/** Estado que marca el usuario. Sin marcar se muestra como "pendiente de reservar". */
+/** Estado que marca el usuario. Sin marcar no se muestra nada. */
 export const STATUS_LABELS: Record<BookingStatus, { text: string; tone: BookingTone }> = {
-  pending: { text: "Pendiente de reservar", tone: "pending" },
+  pending: { text: "Por reservar", tone: "pending" },
   booked: { text: "Reservada", tone: "ok" },
   ticket_purchased: { text: "Entrada comprada", tone: "ok" },
   cancelled: { text: "Cancelada", tone: "muted" },
 };
 
 export const HOTEL_STATUS_LABELS: Record<BookingStatus, string> = {
-  pending: "Pendiente de reservar",
+  pending: "Por reservar",
   booked: "Reservado",
   ticket_purchased: "Pagado",
   cancelled: "Cancelado",

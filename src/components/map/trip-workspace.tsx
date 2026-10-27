@@ -8,10 +8,14 @@ import {
   Map as MapIcon,
   PanelLeftClose,
   PanelLeftOpen,
+  Ticket,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Tabs } from "radix-ui";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { BookingsPanel } from "@/components/bookings/bookings-panel";
+import { PlaceTickets } from "@/components/bookings/place-tickets";
+import { useBookings } from "@/components/bookings/use-bookings";
 import { DemoBadge } from "@/components/data-source";
 import { AddToItinerary } from "@/components/itinerary/add-to-itinerary";
 import { ItineraryPanel } from "@/components/itinerary/itinerary-panel";
@@ -98,6 +102,8 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
   const itineraryDate = useMapUi((state) => state.itineraryDate);
   const setItineraryDate = useMapUi((state) => state.setItineraryDate);
   const planDays = itinerary.data.days;
+  const bookings = useBookings(trip, itinerary.data);
+  const setView = useMapUi((state) => state.setView);
   const firstPlanDay = planDays.find((day) => day.activities.length > 0)?.date ?? planDays[0]?.date;
   const shownDate = itineraryDate ?? firstPlanDay;
   const shownDay = planDays.find((day) => day.date === shownDate);
@@ -144,8 +150,8 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
   );
   const favorites = data.favorites.data;
   const items = useMemo(
-    () => visiblePlaces(results ?? [], favorites ?? [], layers),
-    [results, favorites, layers],
+    () => visiblePlaces(results ?? [], favorites ?? [], layers, bookings.marks),
+    [results, favorites, layers, bookings.marks],
   );
   // Sin mapa no hay zona visible: la lista muestra todo el destino.
   const listItems = useMemo(
@@ -158,6 +164,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       food: true,
       lodging: true,
       transport: true,
+      tickets: false,
       saved: true,
     });
     const count = (layer: Place["layer"]) =>
@@ -167,9 +174,10 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       food: count("food"),
       lodging: count("lodging"),
       transport: stopResults ? count("transport") : undefined,
+      tickets: bookings.marks.size,
       saved: favorites?.length ?? 0,
     };
-  }, [results, favorites, stopResults]);
+  }, [results, favorites, stopResults, bookings.marks]);
 
   const selected = useMemo<MapPlace | undefined>(() => {
     const visible = items.find((item) => item.place.id === selectedId);
@@ -244,6 +252,14 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
           headingLevel={layout === "desktop" ? 3 : 4}
         />
       )}
+      {selected.place.layer === "tourism" || selected.place.layer === "food" ? (
+        <PlaceTickets
+          place={selected.place}
+          bookings={bookings}
+          currency={trip.budget.currency}
+          headingLevel={layout === "desktop" ? 3 : 4}
+        />
+      ) : null}
       <RouteComparator
         destination={{ name: selected.place.name, location: selected.place.location }}
         origins={routeOrigins(selected.place)}
@@ -294,6 +310,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         setItineraryDate(date);
       }}
       onSelectPlace={(place) => select(place.id, "list")}
+      bookings={bookings}
       onShowPlace={(place) => {
         setPinned(place);
         selectPlace(place);
@@ -316,6 +333,21 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         setPinned(place);
         selectPlace(place);
       }}
+    />
+  );
+  const bookingsPanel = (
+    <BookingsPanel
+      trip={trip}
+      itinerary={itinerary.data}
+      bookings={bookings}
+      headingLevel={layout === "mobile" ? 3 : 2}
+      onSelectPlace={(activity) => {
+        if (!activity.place) return;
+        setPinned(activity.place);
+        select(activity.place.id, "list");
+        if (layout === "mobile") setView("map");
+      }}
+      onOpenItinerary={() => setView("itinerary")}
     />
   );
   const overview = (
@@ -363,6 +395,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         list={panel}
         itinerary={itineraryPanel}
         lodging={lodgingPanel}
+        bookings={bookingsPanel}
         overview={overview}
         detail={detail}
         mobileToggles={mobileToggles}
@@ -474,6 +507,7 @@ const VIEW_TABS: { view: WorkspaceView; label: string; icon: typeof MapIcon }[] 
   { view: "list", label: "Lista", icon: List },
   { view: "itinerary", label: "Itinerario", icon: CalendarDays },
   { view: "lodging", label: "Hotel", icon: BedDouble },
+  { view: "bookings", label: "Reservas", icon: Ticket },
   { view: "trip", label: "Viaje", icon: Info },
 ];
 
@@ -483,6 +517,7 @@ function Layouts({
   list,
   itinerary,
   lodging,
+  bookings,
   overview,
   detail,
   mobileMapContent,
@@ -493,6 +528,7 @@ function Layouts({
   list: React.ReactNode;
   itinerary: React.ReactNode;
   lodging: React.ReactNode;
+  bookings: React.ReactNode;
   overview: React.ReactNode;
   detail: React.ReactNode;
   mobileMapContent: React.ReactNode;
@@ -523,6 +559,7 @@ function Layouts({
       list={list}
       itinerary={itinerary}
       lodging={lodging}
+      bookings={bookings}
       overview={overview}
     />
   );
@@ -540,6 +577,8 @@ function Layouts({
         itinerary
       ) : view === "lodging" ? (
         lodging
+      ) : view === "bookings" ? (
+        bookings
       ) : (
         overview
       );
@@ -568,7 +607,7 @@ function Layouts({
           aria-label="Vistas del viaje"
           className="bg-card shrink-0 border-t pb-[env(safe-area-inset-bottom)]"
         >
-          <ul className="grid grid-cols-5">
+          <ul className="grid grid-cols-6">
             {VIEW_TABS.map(({ view: item, label: text, icon: Icon }) => (
               <li key={item}>
                 <button
@@ -634,7 +673,7 @@ function Layouts({
   }
 
   return (
-    <div className="grid min-h-0 flex-1 grid-cols-[21rem_1fr_24rem]">
+    <div className="grid min-h-0 flex-1 grid-cols-[22rem_1fr_24rem]">
       <aside
         aria-label="Panel del viaje"
         className="bg-card min-h-0 overflow-y-auto border-r px-4 py-4"
@@ -660,7 +699,7 @@ function Layouts({
   );
 }
 
-type PanelTab = "list" | "itinerary" | "lodging" | "trip";
+type PanelTab = "list" | "itinerary" | "lodging" | "bookings" | "trip";
 
 function PanelTabs({
   value,
@@ -668,6 +707,7 @@ function PanelTabs({
   list,
   itinerary,
   lodging,
+  bookings,
   overview,
 }: {
   value: PanelTab;
@@ -675,10 +715,11 @@ function PanelTabs({
   list: React.ReactNode;
   itinerary: React.ReactNode;
   lodging: React.ReactNode;
+  bookings: React.ReactNode;
   overview: React.ReactNode;
 }) {
   const trigger =
-    "focus-visible:ring-ring/50 data-[state=active]:bg-card data-[state=active]:text-foreground text-muted-foreground min-h-10 flex-1 rounded-md px-2 text-sm font-medium outline-none focus-visible:ring-3 data-[state=active]:shadow-xs";
+    "focus-visible:ring-ring/50 data-[state=active]:bg-card data-[state=active]:text-foreground text-muted-foreground min-h-10 flex-1 rounded-md px-1.5 text-sm font-medium outline-none focus-visible:ring-3 data-[state=active]:shadow-xs";
   return (
     <Tabs.Root value={value} onValueChange={(next) => onChange(next as typeof value)}>
       <Tabs.List
@@ -694,6 +735,9 @@ function PanelTabs({
         <Tabs.Trigger value="lodging" className={trigger}>
           Hotel
         </Tabs.Trigger>
+        <Tabs.Trigger value="bookings" className={trigger}>
+          Reservas
+        </Tabs.Trigger>
         <Tabs.Trigger value="trip" className={trigger}>
           Viaje
         </Tabs.Trigger>
@@ -706,6 +750,9 @@ function PanelTabs({
       </Tabs.Content>
       <Tabs.Content value="lodging" className="outline-none">
         {lodging}
+      </Tabs.Content>
+      <Tabs.Content value="bookings" className="outline-none">
+        {bookings}
       </Tabs.Content>
       <Tabs.Content value="trip" className="outline-none">
         {overview}

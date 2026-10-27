@@ -20,7 +20,6 @@ import {
   CircleCheck,
   Clock,
   Coffee,
-  ExternalLink,
   Footprints,
   GripVertical,
   MapPinned,
@@ -33,6 +32,12 @@ import {
   Utensils,
 } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
+import {
+  ActivityBooking,
+  ActivityBookingButton,
+  BookingsContext,
+} from "@/components/bookings/activity-booking";
+import type { BookingsState } from "@/components/bookings/use-bookings";
 import { DataSource, DemoBadge } from "@/components/data-source";
 import { FoodFinder } from "@/components/food/food-finder";
 import { Button } from "@/components/ui/button";
@@ -50,19 +55,11 @@ import {
   WARNING_LABELS,
 } from "@/lib/itinerary-labels";
 import { formatDistance, formatDuration } from "@/lib/route-labels";
-import { formatDay, formatMinutes, formatMoney, PACE_LABELS } from "@/lib/trip-labels";
+import { formatDay, formatMinutes, PACE_LABELS } from "@/lib/trip-labels";
 import { cn } from "@/lib/utils";
 import type { useItinerary } from "./use-itinerary";
 
 type ItineraryState = ReturnType<typeof useItinerary>;
-
-const BOOKING_LABELS: Record<Activity["bookingRequirement"], string> = {
-  ticket_required: "Entrada obligatoria",
-  booking_recommended: "Reserva recomendada",
-  free: "Entrada libre",
-  no_booking: "Sin reserva",
-  unverified: "Reserva sin verificar",
-};
 
 export interface ItineraryPanelProps {
   trip: Trip;
@@ -79,6 +76,8 @@ export interface ItineraryPanelProps {
   onToggleRoute: () => void;
   /** Abrir la ficha de un sitio del buscador gastronómico (aunque su capa esté apagada). */
   onShowPlace?: (place: Place) => void;
+  /** Reservas del viaje: estado y anotaciones en cada actividad. */
+  bookings?: BookingsState;
 }
 
 /** Franja del itinerario → momento del buscador gastronómico. */
@@ -99,6 +98,7 @@ export function ItineraryPanel({
   routeShown,
   onToggleRoute,
   onShowPlace = onSelectPlace,
+  bookings,
 }: ItineraryPanelProps) {
   const { data } = itinerary;
   // Buscador gastronómico abierto sobre el día (momento elegido) o cerrado.
@@ -127,71 +127,82 @@ export function ItineraryPanel({
     );
   }
 
+  const bookingsContext = bookings
+    ? {
+        bookings,
+        currency: trip.budget.currency,
+        travelers: trip.travelers.adults + trip.travelers.children,
+      }
+    : undefined;
+
   return (
-    <div className="flex flex-col gap-4" data-testid="itinerary">
-      <DayPicker days={data.days} value={day?.date} onChange={onDateChange} />
-      <div className="-mt-2 flex flex-wrap gap-x-1">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-muted-foreground min-h-11"
-          aria-pressed={routeShown}
-          onClick={onToggleRoute}
-        >
-          <MapPinned aria-hidden />
-          {routeShown ? "Ruta del día visible en el mapa" : "Mostrar la ruta del día en el mapa"}
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-muted-foreground min-h-11"
-          onClick={() => setFoodMoment("lunch")}
-        >
-          <Utensils aria-hidden />
-          Dónde comer este día
-        </Button>
-      </div>
-      {day ? (
-        <DayView
-          key={day.date}
+    <BookingsContext.Provider value={bookingsContext}>
+      <div className="flex flex-col gap-4" data-testid="itinerary">
+        <DayPicker days={data.days} value={day?.date} onChange={onDateChange} />
+        <div className="-mt-2 flex flex-wrap gap-x-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground min-h-11"
+            aria-pressed={routeShown}
+            onClick={onToggleRoute}
+          >
+            <MapPinned aria-hidden />
+            {routeShown ? "Ruta del día visible en el mapa" : "Mostrar la ruta del día en el mapa"}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground min-h-11"
+            onClick={() => setFoodMoment("lunch")}
+          >
+            <Utensils aria-hidden />
+            Dónde comer este día
+          </Button>
+        </div>
+        {day ? (
+          <DayView
+            key={day.date}
+            trip={trip}
+            day={day}
+            days={data.days}
+            itinerary={itinerary}
+            onSelectPlace={onSelectPlace}
+            onFindFood={setFoodMoment}
+            selectedPlaceId={selectedPlaceId}
+            Heading={Heading}
+          />
+        ) : null}
+        {itinerary.error ? (
+          <p role="alert" className="text-destructive text-sm">
+            {itinerary.error}
+          </p>
+        ) : null}
+        <Unscheduled
           trip={trip}
-          day={day}
-          days={data.days}
           itinerary={itinerary}
+          day={day}
           onSelectPlace={onSelectPlace}
-          onFindFood={setFoodMoment}
-          selectedPlaceId={selectedPlaceId}
           Heading={Heading}
         />
-      ) : null}
-      {itinerary.error ? (
-        <p role="alert" className="text-destructive text-sm">
-          {itinerary.error}
-        </p>
-      ) : null}
-      <Unscheduled
-        trip={trip}
-        itinerary={itinerary}
-        day={day}
-        onSelectPlace={onSelectPlace}
-        Heading={Heading}
-      />
-      <PlanSources itinerary={itinerary} />
-      <div className="flex flex-col gap-1.5 border-t pt-3">
-        <Button
-          variant="outline"
-          className="min-h-11 self-start"
-          disabled={itinerary.generating}
-          onClick={itinerary.generate}
-        >
-          <RefreshCw aria-hidden className={cn(itinerary.generating && "animate-spin")} />
-          {itinerary.generating ? "Recalculando el plan…" : "Rehacer el plan"}
-        </Button>
-        <p className="text-muted-foreground text-xs">
-          Vuelve a repartir las visitas. Lo que tengas bloqueado se queda en su día y hora.
-        </p>
+        <PlanSources itinerary={itinerary} />
+        <div className="flex flex-col gap-1.5 border-t pt-3">
+          <Button
+            variant="outline"
+            className="min-h-11 self-start"
+            disabled={itinerary.generating}
+            onClick={itinerary.generate}
+          >
+            <RefreshCw aria-hidden className={cn(itinerary.generating && "animate-spin")} />
+            {itinerary.generating ? "Recalculando el plan…" : "Rehacer el plan"}
+          </Button>
+          <p className="text-muted-foreground text-xs">
+            Vuelve a repartir las visitas. Lo bloqueado se queda en su día y hora; lo reservado o
+            comprado, en su día.
+          </p>
+        </div>
       </div>
-    </div>
+    </BookingsContext.Provider>
   );
 }
 
@@ -514,6 +525,7 @@ function ActivityRow({
 }) {
   const sortable = useSortable({ id: activity.id });
   const [open, setOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const optionsId = useId();
   const style = {
     transform: CSS.Translate.toString(sortable.transform),
@@ -657,28 +669,6 @@ function ActivityRow({
                   {OPENING_LABELS[opening].text}
                 </li>
               ) : null}
-              <li className="text-muted-foreground">
-                {activity.price &&
-                activity.price.certainty !== "unknown" &&
-                activity.price.amount !== undefined
-                  ? `${formatMoney(activity.price.amount, activity.price.currency ?? "EUR")} (${activity.price.certainty === "confirmed" ? "confirmado" : "orientativo"})`
-                  : "Sin precio"}{" "}
-                · {BOOKING_LABELS[activity.bookingRequirement]}
-              </li>
-              {activity.place.website ? (
-                <li>
-                  <a
-                    href={activity.place.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-primary inline-flex min-h-6 items-center gap-1 underline underline-offset-2"
-                  >
-                    {activity.place.websiteSource === "wikidata" ? "Web oficial" : "Web"}
-                    <ExternalLink aria-hidden className="size-3" />
-                    <span className="sr-only">(se abre en otra pestaña)</span>
-                  </a>
-                </li>
-              ) : null}
               {activity.planning?.alternative && opening !== "open" ? (
                 <li className="text-muted-foreground">
                   Si está cerrado:{" "}
@@ -700,6 +690,11 @@ function ActivityRow({
                 : "Tiempo sin planificar para lo que te apetezca."}
             </p>
           )}
+          <ActivityBooking
+            activity={activity}
+            editing={bookingOpen}
+            onEditingChange={setBookingOpen}
+          />
           {warnings.length > 0 ? (
             <ul className="text-destructive mt-1 flex flex-col gap-0.5 text-xs font-medium">
               {warnings.map((warning) => (
@@ -724,10 +719,20 @@ function ActivityRow({
                 <span className="sr-only"> ({activity.title.toLowerCase()})</span>
               </Button>
             ) : null}
+            {activity.place && !bookingOpen ? (
+              <ActivityBookingButton
+                activity={activity}
+                className={foodMoment ? undefined : "-ml-2"}
+                onOpen={() => setBookingOpen(true)}
+              />
+            ) : null}
             <Button
               variant="ghost"
               size="sm"
-              className={cn("text-muted-foreground min-h-11", !foodMoment && "-ml-2")}
+              className={cn(
+                "text-muted-foreground min-h-11",
+                !foodMoment && !activity.place && "-ml-2",
+              )}
               aria-expanded={open}
               aria-controls={optionsId}
               onClick={() => setOpen((value) => !value)}

@@ -38,6 +38,7 @@ const looksPaid = (fee: string) =>
   fee === "yes" || /\d\s*(€|\$|£|eur|usd|gbp)|(€|\$|£)\s*\d/iu.test(fee);
 const isDonation = (fee: string) => /^donation\b/i.test(fee);
 
+/** Texto libre de la fuente, tal cual y entre comillas (sin punto final añadido). */
 const quoted = (text: string) => `«${text}»`;
 
 function visitRequirement(place: Place): RequirementInfo {
@@ -50,10 +51,9 @@ function visitRequirement(place: Place): RequirementInfo {
 
   if (feeLower === "yes") evidence.push("De pago según OpenStreetMap.");
   else if (feeLower === "no") evidence.push("Gratuita según OpenStreetMap.");
-  else if (fee && isDonation(fee)) evidence.push(`Donativo según OpenStreetMap: ${quoted(fee)}.`);
-  else if (fee) evidence.push(`Tarifa según OpenStreetMap: ${quoted(fee)}.`);
-  if (tickets.charge)
-    evidence.push(`Precio publicado en OpenStreetMap: ${quoted(tickets.charge)}.`);
+  else if (fee && isDonation(fee)) evidence.push(`Donativo según OpenStreetMap: ${quoted(fee)}`);
+  else if (fee) evidence.push(`Tarifa según OpenStreetMap: ${quoted(fee)}`);
+  if (tickets.charge) evidence.push(`Precio publicado en OpenStreetMap: ${quoted(tickets.charge)}`);
   if (tickets.reservation === "required") evidence.push("Reserva obligatoria según OpenStreetMap.");
   if (tickets.reservation === "recommended")
     evidence.push("Reserva recomendada según OpenStreetMap.");

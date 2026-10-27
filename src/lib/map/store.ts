@@ -4,7 +4,7 @@ import type { LineGeometry, RouteMode } from "@/domain/route";
 import { type ActiveLayers, DEFAULT_LAYERS, type MapLayerKey, toggleLayer } from "./layers";
 
 /** Vistas de la barra inferior en móvil (docs/DISENO.md). */
-export const WORKSPACE_VIEWS = ["map", "list", "itinerary", "lodging", "trip"] as const;
+export const WORKSPACE_VIEWS = ["map", "list", "itinerary", "lodging", "bookings", "trip"] as const;
 export type WorkspaceView = (typeof WORKSPACE_VIEWS)[number];
 
 /** Alturas del bottom sheet en móvil. */

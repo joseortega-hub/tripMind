@@ -87,7 +87,8 @@ export function deviationOf(planned: number | undefined, confirmed: number, esti
   return { level, remaining } satisfies Deviation;
 }
 
-function money(amount: number, currency: string) {
+/** Importe con céntimos si los tiene (lo pagado no se redondea). */
+export function formatPrice(amount: number, currency: string) {
   return new Intl.NumberFormat("es-ES", {
     style: "currency",
     currency,
@@ -104,7 +105,7 @@ function paidLine(
     return {
       ...base,
       certainty: "unknown",
-      basis: `Pagado ${money(paid.amount, paid.currency)}: otra moneda, no se convierte`,
+      basis: `Pagado ${formatPrice(paid.amount, paid.currency)}: otra moneda, no se convierte`,
     };
   }
   return {
@@ -141,7 +142,7 @@ function activityLine(
 
   const people = trip.travelers.adults + trip.travelers.children;
   const perPerson = (amount: number, from: string) =>
-    `${money(amount, currency)} por persona × ${people}, ${from}; puede haber tarifas reducidas`;
+    `${formatPrice(amount, currency)} por persona × ${people}, ${from}; puede haber tarifas reducidas`;
   const offer = offers.get(activity.place.id);
   if (offer && offer.currency === currency) {
     return {

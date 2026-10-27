@@ -1,7 +1,7 @@
 "use client";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import { BedDouble, Heart } from "lucide-react";
+import { BedDouble, Check, Heart, X } from "lucide-react";
 import { getVersion, setWorkerUrl } from "maplibre-gl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, {
@@ -15,7 +15,7 @@ import Map, {
 } from "react-map-gl/maplibre";
 import type { BBox, LatLng } from "@/domain/geo";
 import { buildClusterIndex, markerHighlighted, SELECTION_ZOOM } from "@/lib/map/clusters";
-import type { MapPlace } from "@/lib/map/layers";
+import type { MapPlace, TicketMark } from "@/lib/map/layers";
 import type { MapRoute } from "@/lib/map/store";
 import { cn } from "@/lib/utils";
 import { LAYER_BG, LAYER_ICONS } from "./layer-style";
@@ -394,6 +394,7 @@ export default function TripMap({
                 )}
               >
                 <Icon className={highlighted ? "size-5" : "size-4"} strokeWidth={2.25} />
+                {marker.item.booking ? <TicketBadge mark={marker.item.booking} /> : null}
                 {marker.item.isFavorite && marker.item.layer !== "saved" ? (
                   <Heart className="bg-layer-saved absolute -top-1 -right-1 size-3.5 rounded-full fill-white p-0.5 text-white" />
                 ) : null}
@@ -410,4 +411,45 @@ export default function TripMap({
       })}
     </Map>
   );
+}
+
+/** Capa 6: insignia con lo anotado (✓ reservada o comprada) o aviso si hay que reservar. */
+function TicketBadge({ mark }: { mark: TicketMark }) {
+  const noted = mark.status === "booked" || mark.status === "ticket_purchased";
+  const toBook =
+    !mark.status || mark.status === "pending"
+      ? mark.requirement === "ticket_required" || mark.requirement === "booking_recommended"
+      : false;
+  if (mark.status === "cancelled") {
+    return (
+      <X
+        data-testid="ticket-badge"
+        data-state="cancelled"
+        className="bg-muted-foreground absolute -bottom-1 -left-1 size-3.5 rounded-full p-0.5 text-white"
+        strokeWidth={3}
+      />
+    );
+  }
+  if (noted) {
+    return (
+      <Check
+        data-testid="ticket-badge"
+        data-state="noted"
+        className="bg-primary absolute -bottom-1 -left-1 size-3.5 rounded-full p-0.5 text-white"
+        strokeWidth={3}
+      />
+    );
+  }
+  if (toBook) {
+    return (
+      <span
+        data-testid="ticket-badge"
+        data-state="to_book"
+        className="bg-cta absolute -bottom-1 -left-1 flex size-3.5 items-center justify-center rounded-full text-[10px] leading-none font-bold text-white"
+      >
+        !
+      </span>
+    );
+  }
+  return null;
 }

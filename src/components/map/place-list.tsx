@@ -3,6 +3,7 @@
 import { Heart } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { requirementText, STATUS_LABELS } from "@/lib/booking/labels";
 import { CATEGORY_LABELS, groupByLayer, LAYER_LABELS, type MapPlace } from "@/lib/map/layers";
 import { cn } from "@/lib/utils";
 import { LayerGlyph } from "./layer-style";
@@ -40,7 +41,7 @@ export function PlaceList({ items, className }: { items: MapPlace[]; className?:
             <span className="font-normal">({group.items.length})</span>
           </h3>
           <ul className="flex flex-col">
-            {group.items.map(({ place, isFavorite }) => {
+            {group.items.map(({ place, isFavorite, booking }) => {
               const selected = place.id === selectedId;
               return (
                 <li key={place.id}>
@@ -57,8 +58,10 @@ export function PlaceList({ items, className }: { items: MapPlace[]; className?:
                     <span className="flex min-w-0 flex-1 flex-col">
                       <span className="truncate font-medium">{place.name}</span>
                       <span className="text-muted-foreground truncate text-xs">
-                        {CATEGORY_LABELS[place.category]}
-                        {place.address?.street
+                        {booking
+                          ? `${requirementText(booking.requirement, place.layer === "food")}${booking.status ? `. ${STATUS_LABELS[booking.status].text}` : ""}`
+                          : CATEGORY_LABELS[place.category]}
+                        {!booking && place.address?.street
                           ? ` · ${[place.address.street, place.address.houseNumber].filter(Boolean).join(" ")}`
                           : ""}
                       </span>
