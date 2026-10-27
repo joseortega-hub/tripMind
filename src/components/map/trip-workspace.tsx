@@ -25,6 +25,7 @@ import type { LatLng } from "@/domain/geo";
 import type { Place } from "@/domain/place";
 import type { Trip } from "@/domain/trip";
 import { numberedStops } from "@/lib/itinerary-labels";
+import { UseForMeal } from "@/components/food/use-for-meal";
 import { type MapPlace, placesInBounds, visiblePlaces } from "@/lib/map/layers";
 import type { WorkspaceView } from "@/lib/map/store";
 import { formatLongDate, travelersText } from "@/lib/trip-labels";
@@ -205,6 +206,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
     }
     return origins;
   };
+  const hasMeals = planDays.some((day) => day.activities.some((a) => a.kind === "meal"));
   const detail = selected ? (
     <PlaceDetail
       key={selected.place.id}
@@ -227,12 +229,21 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
           headingLevel={layout === "desktop" ? 3 : 4}
         />
       ) : null}
-      <AddToItinerary
-        place={selected.place}
-        itinerary={itinerary}
-        preferredDate={shownDate}
-        headingLevel={layout === "desktop" ? 3 : 4}
-      />
+      {selected.place.layer === "food" && hasMeals ? (
+        <UseForMeal
+          place={selected.place}
+          itinerary={itinerary}
+          preferredDate={shownDate}
+          headingLevel={layout === "desktop" ? 3 : 4}
+        />
+      ) : (
+        <AddToItinerary
+          place={selected.place}
+          itinerary={itinerary}
+          preferredDate={shownDate}
+          headingLevel={layout === "desktop" ? 3 : 4}
+        />
+      )}
       <RouteComparator
         destination={{ name: selected.place.name, location: selected.place.location }}
         origins={routeOrigins(selected.place)}
@@ -283,6 +294,10 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         setItineraryDate(date);
       }}
       onSelectPlace={(place) => select(place.id, "list")}
+      onShowPlace={(place) => {
+        setPinned(place);
+        selectPlace(place);
+      }}
       selectedPlaceId={selectedId}
       headingLevel={layout === "mobile" ? 3 : 2}
       routeShown={dayRoute !== undefined}

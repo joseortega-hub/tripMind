@@ -34,7 +34,9 @@ import {
 } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { DataSource, DemoBadge } from "@/components/data-source";
+import { FoodFinder } from "@/components/food/food-finder";
 import { Button } from "@/components/ui/button";
+import type { FoodMoment } from "@/domain/food";
 import type { ItineraryEdit } from "@/domain/itinerary";
 import type { Place } from "@/domain/place";
 import type { Activity, ItineraryDay, Leg, Trip } from "@/domain/trip";
@@ -75,7 +77,16 @@ export interface ItineraryPanelProps {
   /** La ruta del día se dibuja en el mapa (capa 5). */
   routeShown: boolean;
   onToggleRoute: () => void;
+  /** Abrir la ficha de un sitio del buscador gastronómico (aunque su capa esté apagada). */
+  onShowPlace?: (place: Place) => void;
 }
+
+/** Franja del itinerario → momento del buscador gastronómico. */
+const MEAL_MOMENTS: Partial<Record<string, FoodMoment>> = {
+  breakfast: "breakfast",
+  lunch: "lunch",
+  dinner: "dinner",
+};
 
 export function ItineraryPanel({
   trip,
@@ -87,8 +98,11 @@ export function ItineraryPanel({
   headingLevel = 3,
   routeShown,
   onToggleRoute,
+  onShowPlace = onSelectPlace,
 }: ItineraryPanelProps) {
   const { data } = itinerary;
+  // Buscador gastronómico abierto sobre el día (momento elegido) o cerrado.
+  const [foodMoment, setFoodMoment] = useState<FoodMoment>();
   const hasPlan = data.days.some((day) => day.activities.length > 0);
   const day = data.days.find((d) => d.date === date) ?? data.days[0];
   const Heading = `h${headingLevel}` as const;
@@ -97,19 +111,46 @@ export function ItineraryPanel({
     return <EmptyItinerary trip={trip} itinerary={itinerary} />;
   }
 
+  if (foodMoment && day) {
+    return (
+      <FoodFinder
+        trip={trip}
+        itinerary={itinerary}
+        date={day.date}
+        moment={foodMoment}
+        onMomentChange={setFoodMoment}
+        onBack={() => setFoodMoment(undefined)}
+        onShowPlace={onShowPlace}
+        selectedPlaceId={selectedPlaceId}
+        headingLevel={headingLevel}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4" data-testid="itinerary">
       <DayPicker days={data.days} value={day?.date} onChange={onDateChange} />
-      <Button
-        variant="ghost"
-        size="sm"
-        className="text-muted-foreground -mt-2 min-h-11 self-start"
-        aria-pressed={routeShown}
-        onClick={onToggleRoute}
-      >
-        <MapPinned aria-hidden />
-        {routeShown ? "Ruta del día visible en el mapa" : "Mostrar la ruta del día en el mapa"}
-      </Button>
+      <div className="-mt-2 flex flex-wrap gap-x-1">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground min-h-11"
+          aria-pressed={routeShown}
+          onClick={onToggleRoute}
+        >
+          <MapPinned aria-hidden />
+          {routeShown ? "Ruta del día visible en el mapa" : "Mostrar la ruta del día en el mapa"}
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground min-h-11"
+          onClick={() => setFoodMoment("lunch")}
+        >
+          <Utensils aria-hidden />
+          Dónde comer este día
+        </Button>
+      </div>
       {day ? (
         <DayView
           key={day.date}
@@ -118,6 +159,7 @@ export function ItineraryPanel({
           days={data.days}
           itinerary={itinerary}
           onSelectPlace={onSelectPlace}
+          onFindFood={setFoodMoment}
           selectedPlaceId={selectedPlaceId}
           Heading={Heading}
         />
@@ -245,6 +287,7 @@ function DayView({
   days,
   itinerary,
   onSelectPlace,
+  onFindFood,
   selectedPlaceId,
   Heading,
 }: {
@@ -253,6 +296,7 @@ function DayView({
   days: ItineraryDay[];
   itinerary: ItineraryState;
   onSelectPlace: (place: Place) => void;
+  onFindFood: (moment: FoodMoment) => void;
   selectedPlaceId?: string;
   Heading: "h2" | "h3";
 }) {
@@ -262,7 +306,7 @@ function DayView({
   const [focusId, setFocusId] = useState<string>();
   const [announcement, setAnnouncement] = useState("");
   const ids = day.activities.map((a) => a.id);
-  const visits = day.activities.filter((a) => a.place);
+  const visits = day.activities.filter((a) => a.place && a.kind !== "meal");
   const numbers = useMemo(() => {
     const map = new Map<string, number>();
     for (const activity of day.activities) if (activity.place) map.set(activity.id, map.size + 1);
@@ -381,6 +425,7 @@ function DayView({
                     days={days}
                     itinerary={itinerary}
                     onSelectPlace={onSelectPlace}
+                    onFindFood={onFindFood}
                     onMoveKey={(delta) => moveByKey(activity.id, delta)}
                     selected={activity.place !== undefined && activity.place.id === selectedPlaceId}
                   />
@@ -448,6 +493,7 @@ function ActivityRow({
   days,
   itinerary,
   onSelectPlace,
+  onFindFood,
   onMoveKey,
   selected,
 }: {
@@ -462,6 +508,7 @@ function ActivityRow({
   days: ItineraryDay[];
   itinerary: ItineraryState;
   onSelectPlace: (place: Place) => void;
+  onFindFood: (moment: FoodMoment) => void;
   onMoveKey: (delta: -1 | 1) => void;
   selected: boolean;
 }) {
@@ -477,7 +524,9 @@ function ActivityRow({
   const end = start ? addMinutes(start, activity.durationMinutes) : undefined;
   const opening = activity.planning?.openingStatus;
   const warnings = activity.planning?.warnings ?? [];
-  const isMeal = !activity.place;
+  const isMeal = activity.kind === "meal" || !activity.place;
+  const foodMoment =
+    activity.kind === "meal" ? MEAL_MOMENTS[activity.planning?.slot ?? ""] : undefined;
   const MealIcon =
     activity.planning?.slot === "breakfast" ? Coffee : activity.kind === "meal" ? Utensils : Clock;
   const LegIcon = leg?.mode === "car" ? Car : Footprints;
@@ -536,7 +585,9 @@ function ActivityRow({
                   className="focus-visible:ring-ring/50 rounded text-left underline-offset-2 outline-none hover:underline focus-visible:ring-3"
                 >
                   {number ? <span className="sr-only">Parada {number}: </span> : null}
-                  {activity.title}
+                  {activity.kind === "meal"
+                    ? `${activity.title}: ${activity.place.name}`
+                    : activity.title}
                 </button>
               ) : (
                 activity.title
@@ -645,7 +696,7 @@ function ActivityRow({
           ) : (
             <p className="text-muted-foreground mt-0.5 text-xs">
               {activity.kind === "meal"
-                ? "Franja reservada; los restaurantes cercanos llegarán más adelante."
+                ? "Franja reservada, sin sitio elegido."
                 : "Tiempo sin planificar para lo que te apetezca."}
             </p>
           )}
@@ -659,11 +710,24 @@ function ActivityRow({
               ))}
             </ul>
           ) : null}
-          <div className="mt-1">
+          <div className="mt-1 flex flex-wrap gap-x-1">
+            {foodMoment ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-primary -ml-2 min-h-11"
+                onClick={() => onFindFood(foodMoment)}
+                data-testid="find-food"
+              >
+                <Utensils aria-hidden />
+                {activity.place ? "Cambiar de sitio" : "Buscar dónde comer"}
+                <span className="sr-only"> ({activity.title.toLowerCase()})</span>
+              </Button>
+            ) : null}
             <Button
               variant="ghost"
               size="sm"
-              className="text-muted-foreground -ml-2 min-h-11"
+              className={cn("text-muted-foreground min-h-11", !foodMoment && "-ml-2")}
               aria-expanded={open}
               aria-controls={optionsId}
               onClick={() => setOpen((value) => !value)}

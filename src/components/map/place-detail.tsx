@@ -2,20 +2,26 @@
 
 import {
   Accessibility,
+  CalendarCheck,
+  ChefHat,
   Clock,
   ExternalLink,
   Globe,
   Heart,
   MapPin,
   Phone,
+  Salad,
   Star,
+  Tag,
   TramFront,
+  Umbrella,
   X,
 } from "lucide-react";
 import Image from "next/image";
 import { DataSource } from "@/components/data-source";
 import { Button } from "@/components/ui/button";
 import type { Place } from "@/domain/place";
+import { cuisineLabel, dietText, priceText, RESERVATION_LABELS } from "@/lib/food/labels";
 import { CATEGORY_LABELS, type MapLayerKey } from "@/lib/map/layers";
 import { cn } from "@/lib/utils";
 import { LAYER_TEXT, LayerGlyph } from "./layer-style";
@@ -193,6 +199,7 @@ export function PlaceDetail({
             </span>
           </Row>
         ) : null}
+        {place.layer === "food" ? <FoodRows place={place} /> : null}
         {place.phone ? (
           <Row icon={Phone} label="Teléfono">
             <a
@@ -238,6 +245,58 @@ export function PlaceDetail({
         ) : null}
       </div>
     </article>
+  );
+}
+
+/** Datos gastronómicos de OSM: cocina, dieta, terraza, precio (si hay rango) y reservas. */
+function FoodRows({ place }: { place: Place }) {
+  const { food } = place;
+  const diet = dietText(food);
+  const external = "text-primary underline underline-offset-2";
+  return (
+    <>
+      {place.cuisine && place.cuisine.length > 0 ? (
+        <Row icon={ChefHat} label="Cocina">
+          {place.cuisine.map(cuisineLabel).join(", ")}
+        </Row>
+      ) : null}
+      {diet ? (
+        <Row icon={Salad} label="Dieta">
+          {diet} (según OpenStreetMap)
+        </Row>
+      ) : null}
+      {food?.outdoorSeating !== undefined ? (
+        <Row icon={Umbrella} label="Terraza">
+          {food.outdoorSeating ? "Con terraza" : "Sin terraza"} (según OpenStreetMap)
+        </Row>
+      ) : null}
+      <Row icon={Tag} label="Precio">
+        {priceText(place)}
+        {food?.menuUrl ? (
+          <span className="block text-xs">
+            <a href={food.menuUrl} target="_blank" rel="noreferrer" className={external}>
+              Ver la carta en su web
+            </a>
+            <span className="sr-only"> (se abre en otra pestaña)</span>
+          </span>
+        ) : null}
+      </Row>
+      {food?.reservation || food?.reservationUrl ? (
+        <Row icon={CalendarCheck} label="Reservas">
+          {food.reservation
+            ? `${RESERVATION_LABELS[food.reservation]} (según OpenStreetMap)`
+            : null}
+          {food.reservationUrl ? (
+            <span className="block text-xs">
+              <a href={food.reservationUrl} target="_blank" rel="noreferrer" className={external}>
+                Reservar en su web
+              </a>{" "}
+              (enlace externo: abrirlo no reserva)
+            </span>
+          ) : null}
+        </Row>
+      ) : null}
+    </>
   );
 }
 
