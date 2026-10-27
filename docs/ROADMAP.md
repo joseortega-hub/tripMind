@@ -349,10 +349,23 @@ Calendario del destino: festivos (Nager.Date), eventos especiales con fuente y c
 "Guardar desde TikTok/Instagram" (oEmbed + confirmación del lugar) y "Popular ahora" con
 Wikimedia Pageviews. (§18)
 
-### ⬜ Fase 10 — Exportación y compartir
+### ⬜ Fase 9b — Llegada y salida: aeropuerto ⇄ hotel
+
+Aeropuerto de llegada/salida, recorridos al hotel por modo en el mapa con tiempos reales y
+margen para el vuelo. (§22)
+
+### ⬜ Fase 10 — Exportación, mapa del tesoro y recuerdos
 
 PDF con Playwright desde `/trips/[id]/print`, `.html` interactivo autónomo, `.ics`, `.gpx`/`.kml`
-y enlace de solo lectura. (§15)
+y enlace de solo lectura (§15), con estética de **mapa del tesoro** y **modo viaje con
+recuerdos** (foto al llegar a cada parada y mapa de recuerdos final). (§21)
+
+### ⬜ Ideas futuras (después de la Fase 12)
+
+- **"Inspírame"**: destinos en auge según presupuesto, fechas e intereses (§19); el filtro por
+  presupuesto depende de conseguir un proveedor de precios de vuelos/hoteles.
+- **Cruceros**: planificar escalas a partir del crucero que introduce el usuario (§20); proveedor de
+  itinerarios/precios solo si se consigue acceso.
 
 ### ⬜ Fase 11 — Demo Ticketdoor
 
