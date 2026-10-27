@@ -331,6 +331,15 @@ Decisiones Fase 7:
 Estados informativos y manuales, prioridad de enlaces oficiales (Wikidata P856, OSM `website`),
 capa 6; presupuesto acumulado con confirmado/orientativo/sin precio. (§12, §6.5)
 
+### ⬜ Fase 8b — Buzón de ideas y mejoras
+Igual que en Proyecto W (`C:\Proyecto X`, `apps/web/src/lib/feedback.ts`, `FeedbackSheet`,
+`apps/api/src/feedback`): botón "Buzón" accesible desde cualquier pantalla (también en móvil),
+tipo error/idea/mejora, texto (2000), hasta 3 capturas comprimidas en el navegador y contexto
+automático (ruta, viaje, viewport, navegador; nada personal). Tabla `Feedback`, `POST /api/feedback`
+público con límites, `GET`/`PATCH` protegidos con `FEEDBACK_ADMIN_KEY`. Comando
+`pnpm feedback [--prod] [--done <id>]` que imprime los pendientes y guarda imágenes en
+`data/privado/buzon/` (ignorado por Git). «Mira si hay comentarios nuevos» = `pnpm feedback --prod`.
+
 ### ⬜ Fase 9 — Descubrimiento y diferenciales
 
 "Descubre algo diferente" + eventos Ticketmaster; mapa de calor de oportunidades; modo
