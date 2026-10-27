@@ -326,10 +326,51 @@ Decisiones Fase 7:
 - Pendiente: proveedor real de valoraciones/precios (Google Places, Foursquare: clave y
   condiciones de caché), franja de merienda en el optimizador y filtro por precio (sin datos).
 
-### ⬜ Fase 8 — Entradas, reservas y presupuesto
+### ✅ Fase 8 — Entradas, reservas y presupuesto
 
 Estados informativos y manuales, prioridad de enlaces oficiales (Wikidata P856, OSM `website`),
 capa 6; presupuesto acumulado con confirmado/orientativo/sin precio. (§12, §6.5)
+
+Decisiones Fase 8:
+
+- Estado informativo (`src/lib/booking/info.ts`, puro): visitas por `Place.tickets` (etiquetas OSM
+  `fee`, `charge`, `reservation` y `website:tickets`/`reservation:website`/`website:booking`, tal
+  cual); comidas por `Place.food.reservation`. `reservation=required` o de pago (`fee=yes`, `fee`
+  con importe o `charge`) → entrada necesaria; `recommended` → reserva recomendada; `fee=no` o
+  donativo → gratuita; `reservation=no` → sin reserva; cualquier otra cosa o nada → pendiente de
+  verificar. El texto libre de la fuente se muestra entre comillas ("según OpenStreetMap"). Wikidata
+  solo aporta la web oficial: P2555 (tarifa) casi nunca está y no se consulta. Alojamiento y
+  transporte no tienen estado de entradas.
+- Enlaces (`bookingLinksOf`): web oficial (Wikidata P856 con su fecha de consulta, si no OSM
+  `website`; siempre marcada "web general") > venta del propio sitio (enlace de venta de OSM en el
+  mismo dominio que la web oficial) > proveedor autorizado (del proveedor de entradas) > alternativa
+  (enlace de venta de OSM de otro dominio, "comprueba que es de confianza", y el artículo de la
+  etiqueta `wikipedia`, "información, no venta"). Sin enlaces, la ficha de OSM. Se derivan al
+  generar o editar el día (`toItineraryDay`) y se guardan en `Activity.bookingRequirement/Links`.
+- Proveedor de entradas (`src/server/providers/tickets/`): `TicketsProvider.offers()` con
+  productos casados por lugar (`authorized_reseller`, precio "desde" con fecha, disponibilidad solo
+  en tiempo real, `isProposal`). Solo existe el adaptador "no configurado"; el hueco de Ticketdoor
+  (Fase 11) está documentado en `index.ts`. Nada de Ticketdoor en datos ni enlaces.
+- Estado manual: `Activity`/`Hotel` + `bookingNote` y `paidPrice` (migración `20261028000000_bookings`);
+  `PUT /api/trips/[id]/bookings` (`target: activity|hotel`, sustituye estado, nota y pagado) y
+  `GET` (estado del proveedor y productos). Solo se cambia al guardar; abrir un enlace no llama a
+  nada. Al regenerar, la anotación sigue al lugar (las visitas nuevas cambian de id) y lo reservado
+  o comprado se conserva en su día; cambiar el restaurante de una comida borra su anotación.
+- Presupuesto (`src/lib/booking/budget.ts`, puro, se calcula en el cliente con el itinerario en
+  caché): confirmado = lo que el usuario anota como pagado (en la moneda del viaje; en otra, sin
+  precio); orientativo = precio "desde" del proveedor o `charge` de OSM × viajeros, o 0 si es
+  gratuita según OSM, siempre con fuente y fecha; sin precio = el resto (comidas, visitas sin
+  dato, hotel sin pagar, trayectos en taxi o transporte público). Las canceladas no suman.
+  Desviación por partida y total: ok, cerca (≥ 90 %), en riesgo (con lo orientativo se pasa) y
+  superado (lo confirmado ya pasa). Sin total, se usa la suma de partidas. Con elementos sin precio,
+  "te quedan" se muestra en tono neutro.
+- UI: vista "Reservas" (sexta pestaña en móvil y en el panel): total, tus reservas por grupo (por
+  reservar, reservadas o compradas, pendientes de verificar, gratis o sin reserva, canceladas) con
+  el hotel, y partidas con barra (confirmado relleno, orientativo rayado, marca del presupuesto si
+  se supera) y detalle por línea. Ficha: sección "Entradas y reservas". Itinerario: etiquetas de
+  estado, primer enlace y "Anotar reserva". Capa 6 "Entradas" (token `--layer-tickets`, icono de
+  entrada): actividades del plan con insignia (✓ anotada, ! por reservar, × cancelada); la lista
+  muestra el estado en texto.
 
 ### ⬜ Fase 8b — Buzón de ideas y mejoras
 Igual que en Proyecto W (`C:\Proyecto X`, `apps/web/src/lib/feedback.ts`, `FeedbackSheet`,

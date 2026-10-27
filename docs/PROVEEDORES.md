@@ -103,6 +103,17 @@ su atribución. El precio de OSM solo se interpreta si `price_range`/`price:rang
 Horarios: se evalúa `opening_hours` durante toda la comida en la hora local del destino; sin
 horario o con estado dudoso el sitio aparece como "pendiente de confirmar", nunca como abierto.
 
+### Entradas (Fase 8)
+
+`src/server/providers/tickets/` define `TicketsProvider.offers({ places, date, adults, children,
+currency })` → productos de un vendedor **autorizado** por lugar (enlace `authorized_reseller`,
+precio "desde" con fecha, condiciones y disponibilidad solo si su API la da en tiempo real), con
+`source`, `isDemo` e `isProposal`. Hoy solo existe el adaptador "no configurado": la UI lo dice y
+usa los enlaces de la fuente (web oficial de Wikidata P856 u OSM `website`, venta publicada en OSM).
+Ticketdoor (Fase 11, `docs/TICKETDOOR.md`) entraría como `tickets/ticketdoor/` (`real` + `demo`
+señalado como propuesta); sin acuerdo previo no hay datos ni enlaces suyos. El estado informativo
+sale de las etiquetas `fee`, `charge` y `reservation` de OSM; sin ellas, "pendiente de verificar".
+
 ### Capas del mapa y categorías OSM (`pois/categories.ts`)
 
 | Capa | Categorías (etiquetas OSM) |
