@@ -146,7 +146,7 @@ describe("estado de la vista", () => {
       selectedId: "a",
       selectionOrigin: "list",
       view: "map",
-      sheet: "full",
+      sheet: "half",
       focusRequest: 1,
     });
     store.getState().setSheet("peek");

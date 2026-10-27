@@ -48,3 +48,6 @@ next-env.d.ts
 
 # prisma client generado
 /src/generated/
+
+# worker de MapLibre copiado en postinstall
+/public/vendor/

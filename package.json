@@ -14,7 +14,7 @@
     "format": "prettier --write .",
     "db:up": "docker compose up -d db",
     "db:migrate": "prisma migrate dev",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && node scripts/copy-maplibre-worker.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.1",

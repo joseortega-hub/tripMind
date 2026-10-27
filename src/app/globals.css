@@ -37,6 +37,11 @@
   --color-primary: var(--primary);
   --color-cta: var(--cta);
   --color-cta-foreground: var(--cta-foreground);
+  --color-layer-tourism: var(--layer-tourism);
+  --color-layer-food: var(--layer-food);
+  --color-layer-lodging: var(--layer-lodging);
+  --color-layer-saved: var(--layer-saved);
+  --color-layer-foreground: var(--layer-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -85,6 +90,12 @@
   --sidebar-ring: oklch(0.708 0 0);
   --cta: #a8432f;
   --cta-foreground: #ffffff;
+  /* Capas del mapa (docs/DISENO.md): color + icono; contraste ≥ 5:1 con el icono y el fondo. */
+  --layer-tourism: #6b3fa0;
+  --layer-food: #94560a;
+  --layer-lodging: #2f5f9e;
+  --layer-saved: #b0245a;
+  --layer-foreground: #ffffff;
 }
 
 .dark {
@@ -121,6 +132,11 @@
   --sidebar-ring: oklch(0.556 0 0);
   --cta: #e07a63;
   --cta-foreground: #1b0f0b;
+  --layer-tourism: #c4a5f0;
+  --layer-food: #e8b360;
+  --layer-lodging: #9cc0f0;
+  --layer-saved: #f490b6;
+  --layer-foreground: #17191b;
 }
 
 @layer base {

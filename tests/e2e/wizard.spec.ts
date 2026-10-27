@@ -8,6 +8,18 @@ function isoInDays(days: number) {
   return date.toISOString().slice(0, 10);
 }
 
+/** Abre el resumen del viaje: pestaña «Viaje» (tablet/escritorio) o vista «Viaje» (móvil). */
+async function openTripSummary(page: Page, isMobile: boolean) {
+  if (isMobile) {
+    await page
+      .getByRole("navigation", { name: "Vistas del viaje" })
+      .getByRole("button", { name: "Viaje" })
+      .click();
+  } else {
+    await page.getByRole("tab", { name: "Viaje" }).click();
+  }
+}
+
 const next = (page: Page) => page.getByRole("button", { name: "Siguiente" }).click();
 const stepHeading = (page: Page, name: string) =>
   expect(page.getByRole("heading", { level: 2, name })).toBeVisible();
@@ -118,9 +130,10 @@ test("crea un viaje completo con el asistente en modo demo", async ({ page, isMo
   // Página del viaje guardado en Postgres.
   await expect(page).toHaveURL(/\/trips\/(?!new$)[a-z0-9]+$/, { timeout: 30_000 });
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Puente en Madrid");
-  await expect(page.getByText("Proveedor en modo demostración")).toBeVisible();
-  await expect(page.getByText("Hotel Mediodía")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Mapa e itinerario" })).toBeVisible();
+  await expect(page.getByText("Datos de demostración").first()).toBeVisible();
+  await openTripSummary(page, isMobile);
+  await expect(page.getByText("Punto de partida de cada día")).toBeVisible();
+  await expect(page.getByText("Hotel Mediodía").first()).toBeVisible();
   await expectNoSeriousA11yViolations(page);
 
   // El borrador se vacía tras crear el viaje.
@@ -129,7 +142,7 @@ test("crea un viaje completo con el asistente en modo demo", async ({ page, isMo
   await expect(page.getByRole("combobox", { name: "¿A dónde vas?" })).toHaveValue("");
 });
 
-test("sin hotel guarda las preferencias de alojamiento", async ({ page }) => {
+test("sin hotel guarda las preferencias de alojamiento", async ({ page, isMobile }) => {
   await page.getByRole("combobox", { name: "¿A dónde vas?" }).fill("barcelona");
   await page
     .getByRole("option", { name: /Barcelona/ })
@@ -155,6 +168,7 @@ test("sin hotel guarda las preferencias de alojamiento", async ({ page }) => {
   await page.getByRole("button", { name: "Crear viaje" }).click();
   await expect(page).toHaveURL(/\/trips\/(?!new$)[a-z0-9]+$/, { timeout: 30_000 });
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Viaje a Barcelona");
+  await openTripSummary(page, isMobile);
   await expect(page.getByText(/hasta 150\s€ por noche · 3★ o más/)).toBeVisible();
 });
 

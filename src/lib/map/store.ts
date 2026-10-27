@@ -35,18 +35,22 @@ export interface MapUiState {
   sheet: SheetSnap;
   /** Zona visible del mapa; la lista muestra lo mismo que el mapa. */
   bounds?: BBox;
+  /** Contador para volver a encuadrar el destino (estado vacío de la lista). */
+  recenterRequest: number;
   toggleLayer: (layer: MapLayerKey) => void;
   showAllLayers: () => void;
   select: (id: string | undefined, origin: SelectionOrigin) => void;
   setView: (view: WorkspaceView) => void;
   setSheet: (sheet: SheetSnap) => void;
   setBounds: (bounds: BBox | undefined) => void;
+  recenter: () => void;
 }
 
 export const createMapUiStore = () =>
   create<MapUiState>()((set) => ({
     layers: DEFAULT_LAYERS,
     focusRequest: 0,
+    recenterRequest: 0,
     view: "map",
     sheet: "peek",
     toggleLayer: (layer) => set((state) => ({ layers: toggleLayer(state.layers, layer) })),
@@ -56,8 +60,9 @@ export const createMapUiStore = () =>
         selectedId: id,
         selectionOrigin: id ? origin : undefined,
         focusRequest: state.focusRequest + 1,
-        // En móvil, al elegir un lugar se abre su ficha a media altura en la vista mapa.
-        ...(id ? { view: "map" as const, sheet: state.sheet === "full" ? "full" : "half" } : {}),
+        // En móvil, al elegir un lugar se abre su ficha a media altura en la vista mapa,
+        // de modo que el lugar quede visible sobre el sheet.
+        ...(id ? { view: "map" as const, sheet: "half" as const } : {}),
       })),
     // Lista, itinerario y viaje ocupan todo el sheet; al volver al mapa se recoge.
     setView: (view) =>
@@ -67,6 +72,7 @@ export const createMapUiStore = () =>
       })),
     setSheet: (sheet) => set({ sheet }),
     setBounds: (bounds) => set({ bounds }),
+    recenter: () => set((state) => ({ recenterRequest: state.recenterRequest + 1 })),
   }));
 
 export type MapUiStore = ReturnType<typeof createMapUiStore>;
