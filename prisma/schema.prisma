@@ -173,6 +173,8 @@ model Favorite {
   placeId   String
   /// Snapshot Place
   place     Json
+  /// SavedMedia: vídeo de TikTok/Instagram desde el que se guardó (enlace y metadatos oEmbed)
+  media     Json?
   createdAt DateTime @default(now())
 
   @@unique([tripId, placeId])

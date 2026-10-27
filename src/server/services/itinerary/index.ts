@@ -27,16 +27,39 @@ import {
 import { defaultBlocks, itemFromActivity, toItineraryDay, tripDates, visitFromPlace } from "./plan";
 import { hasApplicableInterests, PACE_PROFILES, placeScore, VISIT_CATEGORIES } from "./profile";
 import { buildTravel, straightOnlyMatrix, type TravelPoint } from "./travel";
+import { getHolidaysProvider, type HolidaysProvider } from "@/server/providers/holidays";
+import { holidayMap, holidaysForTrip } from "../calendar/holidays";
 
 export interface ItineraryDeps {
   places: ProviderSelection<PlacesProvider>;
   routing: ProviderSelection<RoutingProvider>;
+  /** Festivos del destino (regla `PH`); sin él se usan los que conozca la librería. */
+  holidays?: ProviderSelection<HolidaysProvider>;
 }
 
 const defaultDeps = (): ItineraryDeps => ({
   places: getPlacesProvider(),
   routing: getRoutingProvider(),
+  holidays: getHolidaysProvider(),
 });
+
+type HolidayMap = ReadonlyMap<string, "confirmed" | "possible">;
+
+/** Festivos del viaje para los horarios; si Nager.Date falla se sigue sin ellos y se avisa. */
+async function loadHolidays(
+  trip: Trip,
+  deps: ItineraryDeps,
+): Promise<{ map: HolidayMap; notice?: string }> {
+  if (!deps.holidays) return { map: new Map() };
+  const result = await holidaysForTrip(trip, deps.holidays);
+  return {
+    map: holidayMap(result.holidays),
+    notice:
+      result.status.status === "unavailable"
+        ? "No se han podido consultar los festivos: los horarios de días festivos pueden no ser exactos."
+        : undefined,
+  };
+}
 
 export interface Itinerary {
   days: ItineraryDay[];
@@ -62,11 +85,12 @@ export class ItineraryEditError extends Error {
 }
 
 /** Horarios de un día con memoria por lugar (el optimizador los consulta muchas veces). */
-function openingFor(trip: Trip, date: string) {
+function openingFor(trip: Trip, date: string, holidays?: HolidayMap) {
   const memo = new Map<string, DayOpening>();
   const context = {
     countryCode: trip.destination.countryCode,
     location: trip.destination.location,
+    holidays,
   };
   return (place: Place) => {
     let opening = memo.get(place.id);
@@ -124,7 +148,12 @@ function dedupePlaces(places: readonly Place[]) {
   return kept;
 }
 
-function dayContext(trip: Trip, date: string, travel: DayContext["travel"]): DayContext {
+function dayContext(
+  trip: Trip,
+  date: string,
+  travel: DayContext["travel"],
+  holidays?: HolidayMap,
+): DayContext {
   return {
     date,
     dayStart: toMinutes(trip.pace.dayStart),
@@ -132,7 +161,7 @@ function dayContext(trip: Trip, date: string, travel: DayContext["travel"]): Day
     slackMinutes: PACE_PROFILES[trip.pace.level].slackMinutes,
     hasAnchor: anchorOf(trip) !== undefined,
     travel,
-    opening: openingFor(trip, date),
+    opening: openingFor(trip, date, holidays),
   };
 }
 
@@ -155,6 +184,8 @@ export async function computeItinerary(
   const restDays = new Set(pace.restDays);
   const activeDays = dates.filter((date) => !restDays.has(date)).length;
   const notices: string[] = [];
+  const holidays = await loadHolidays(trip, deps);
+  if (holidays.notice) notices.push(holidays.notice);
 
   const lockedByDate = new Map<string, Activity[]>();
   for (const day of trip.days) {
@@ -245,7 +276,7 @@ export async function computeItinerary(
         fixed.flatMap((item) => (item.type === "block" ? [item.slot] : [])),
       );
       return {
-        ctx: dayContext(trip, date, travel),
+        ctx: dayContext(trip, date, travel, holidays.map),
         isRestDay: restDays.has(date),
         fixed: restDays.has(date) ? [] : [...fixed, ...defaultBlocks(pace, takenSlots)],
       };
@@ -285,6 +316,7 @@ async function recomputeDay(
   day: ItineraryDay,
   deps: ItineraryDeps,
   reorganizeFrom?: number,
+  holidays?: HolidayMap,
 ): Promise<ItineraryDay> {
   const anchor = anchorOf(trip);
   if (day.isRestDay && day.activities.length === 0) return { ...day, legs: [] };
@@ -296,7 +328,7 @@ async function recomputeDay(
     ),
   ];
   const matrices = await matricesFor(points, deps.routing);
-  const ctx = dayContext(trip, day.date, buildTravel(points, matrices, trip.pace));
+  const ctx = dayContext(trip, day.date, buildTravel(points, matrices, trip.pace), holidays);
   const ordered =
     reorganizeFrom === undefined ? sequence : improveSequence(sequence, ctx, reorganizeFrom);
   return toItineraryDay({
@@ -419,6 +451,32 @@ export async function computeEdit(
       affected.add(day.date);
       break;
     }
+    case "replace": {
+      // Modo lluvia (§14D): otra visita en el mismo hueco; la reserva anotada era del lugar anterior.
+      const { day, index, activity } = findActivity(days, edit.activityId);
+      if (activity.kind !== "visit" || !activity.place) {
+        throw new ItineraryEditError("Solo se puede sustituir una visita a un lugar.");
+      }
+      const visit = visitFromPlace(edit.place, trip.pace, 0);
+      day.activities[index] = {
+        id: visit.id,
+        kind: "visit",
+        title: edit.place.name,
+        place: edit.place,
+        startTime: activity.locked ? activity.startTime : undefined,
+        durationMinutes: visit.duration,
+        locked: activity.locked,
+        bookingRequirement: "unverified",
+        bookingLinks: [],
+        planning: {
+          slot: activity.planning?.slot ?? "morning",
+          durationEstimated: true,
+          warnings: [],
+        },
+      };
+      affected.add(day.date);
+      break;
+    }
     case "reorganize": {
       const day = findDay(days, edit.date);
       reorganizeFrom = edit.afterActivityId
@@ -429,10 +487,11 @@ export async function computeEdit(
     }
   }
 
+  const holidays = await loadHolidays(trip, deps);
   return Promise.all(
     days
       .filter((day) => affected.has(day.date))
-      .map((day) => recomputeDay(trip, day, deps, reorganizeFrom)),
+      .map((day) => recomputeDay(trip, day, deps, reorganizeFrom, holidays.map)),
   );
 }
 

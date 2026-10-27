@@ -105,6 +105,8 @@ export const ItineraryEditSchema = z.discriminatedUnion("op", [
       message: "El sitio de una comida debe ser de gastronomía",
     }).nullable(),
   }),
+  /** Sustituye el lugar de una visita conservando su posición (modo lluvia, §14D). */
+  z.object({ op: z.literal("replace"), activityId: z.string().min(1), place: PlaceSchema }),
   /** Reoptimiza las actividades no bloqueadas que van después de `afterActivityId` (o todo el día). */
   z.object({
     op: z.literal("reorganize"),

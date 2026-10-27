@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { SavedMediaSchema } from "@/domain/discover";
 import { PlaceSchema } from "@/domain/place";
 import { isTripId } from "@/domain/trip";
 import { invalidRequest } from "@/server/api/responses";
@@ -30,22 +31,25 @@ function storageUnavailable(error: unknown) {
   );
 }
 
-const BodySchema = z.object({ place: PlaceSchema });
+const BodySchema = z.object({ place: PlaceSchema, media: SavedMediaSchema.optional() });
 const DeleteSchema = z.object({ placeId: z.string().min(1).max(200) });
 
-/** GET /api/trips/[id]/favorites — lugares guardados del viaje: `{ results }`. */
+/** GET /api/trips/[id]/favorites — lugares guardados del viaje: `{ results, media }`. */
 export async function GET(_request: Request, { params }: Context) {
   const { id } = await params;
   if (!isTripId(id)) return notFound();
   try {
-    const results = await listFavorites(id);
-    return results ? Response.json({ results }) : notFound();
+    const list = await listFavorites(id);
+    return list ? Response.json({ results: list.places, media: list.media }) : notFound();
   } catch (error) {
     return storageUnavailable(error);
   }
 }
 
-/** POST /api/trips/[id]/favorites `{ place }` — guarda el lugar (snapshot con fuente). */
+/**
+ * POST /api/trips/[id]/favorites `{ place, media? }` — guarda el lugar (snapshot con fuente) y,
+ * si viene de un vídeo de TikTok/Instagram confirmado por el usuario, el enlace del vídeo.
+ */
 export async function POST(request: Request, { params }: Context) {
   const { id } = await params;
   if (!isTripId(id)) return notFound();
@@ -62,7 +66,7 @@ export async function POST(request: Request, { params }: Context) {
   if (!parsed.success) return invalidRequest(parsed.error);
   try {
     if (!(await tripExists(id))) return notFound();
-    await addFavorite(id, parsed.data.place);
+    await addFavorite(id, parsed.data.place, parsed.data.media);
     return Response.json({ placeId: parsed.data.place.id }, { status: 201 });
   } catch (error) {
     return storageUnavailable(error);

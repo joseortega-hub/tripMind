@@ -16,6 +16,12 @@ export interface OpeningContext {
   /** ISO 3166-1 alfa-2 del destino, para los festivos (`PH`) que conoce la librería. */
   countryCode?: string;
   location: { lat: number; lng: number };
+  /**
+   * Festivos del destino por fecha (Nager.Date): "confirmed" (nacional o de su región) o
+   * "possible" (regional sin confirmar). Si el horario festivo no se puede verificar, las franjas
+   * de ese día quedan "pendiente de confirmar".
+   */
+  holidays?: ReadonlyMap<string, "confirmed" | "possible">;
 }
 
 const DAY = 24 * 60;
@@ -54,6 +60,29 @@ function parse(value: string, context: OpeningContext): OpeningHours | null {
   return result;
 }
 
+/** true si la librería considera festivo (`PH`) esa fecha en el país del destino. */
+function libraryKnowsHoliday(date: string, context: OpeningContext) {
+  const probe = parse("PH", context);
+  if (!probe) return false;
+  try {
+    return probe.getOpenIntervals(wallClock(date, 0), wallClock(date, DAY)).length > 0;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * El horario de un festivo solo está verificado si la fuente publica la regla `PH` y la librería
+ * reconoce ese día como festivo (si no, evaluaría el horario de un día laborable).
+ */
+function holidayVerified(openingHours: string, date: string, context: OpeningContext) {
+  const holiday = context.holidays?.get(date);
+  if (!holiday) return true;
+  return (
+    holiday === "confirmed" && /\bPH\b/.test(openingHours) && libraryKnowsHoliday(date, context)
+  );
+}
+
 /** Ventanas de apertura de un lugar en una fecha (hora local del destino). */
 export function dayOpening(
   openingHours: string | undefined,
@@ -65,7 +94,9 @@ export function dayOpening(
   if (!oh) return { kind: "unparsable" };
   const base = wallClock(date, 0);
   // Sin país conocido los festivos no se pueden evaluar: cualquier franja queda en duda.
-  const holidaysUnknown = !context.countryCode && /\b(PH|SH)\b/.test(openingHours);
+  const holidaysUnknown =
+    (!context.countryCode && /\b(PH|SH)\b/.test(openingHours)) ||
+    !holidayVerified(openingHours, date, context);
   try {
     const windows = oh
       .getOpenIntervals(base, wallClock(date, DAY))

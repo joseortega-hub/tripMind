@@ -11,3 +11,5 @@ export * from "./preferences";
 export * from "./source";
 export * from "./trip";
 export * from "./wizard";
+export * from "./calendar";
+export * from "./discover";
