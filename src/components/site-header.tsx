@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Compass } from "lucide-react";
+import { FeedbackButton } from "@/components/feedback/feedback-dialog";
 
 export function SiteHeader() {
   return (
@@ -12,13 +13,14 @@ export function SiteHeader() {
           <Compass className="text-primary size-5" aria-hidden />
           TripMind
         </Link>
-        <nav aria-label="Principal">
+        <nav aria-label="Principal" className="flex items-center gap-1">
           <Link
             href="/trips/new"
             className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 inline-flex min-h-11 items-center rounded-md px-3 text-sm font-medium outline-none focus-visible:ring-3"
           >
             Nuevo viaje
           </Link>
+          <FeedbackButton />
         </nav>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FeedbackDialog } from "@/components/feedback/feedback-dialog";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({
         <Providers>
           <SiteHeader />
           <div id="contenido">{children}</div>
+          <FeedbackDialog />
         </Providers>
       </body>
     </html>
