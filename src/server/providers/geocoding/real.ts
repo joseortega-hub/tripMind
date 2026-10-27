@@ -32,7 +32,8 @@ export function createRealGeocodingProvider(deps: RealGeocodingDeps): GeocodingP
     cached(
       deps.cache,
       {
-        key: cacheKey("photon", ...queryKey(query)),
+        // "v2-en": cambia la clave para no servir respuestas antiguas sin idioma ni orden.
+        key: cacheKey("photon", "v2-en", ...queryKey(query)),
         provider: "photon",
         ttlMs: 7 * DAY,
         schema: ResultsSchema,
@@ -63,19 +64,21 @@ export function createRealGeocodingProvider(deps: RealGeocodingDeps): GeocodingP
     },
 
     async search(query) {
-      let photonError: unknown;
-      try {
-        const { value, fromCache } = await photon(query);
-        if (value.length > 0) return { results: value, providerId: "photon", fromCache };
-      } catch (error) {
-        photonError = error;
-      }
-      // Respaldo: Nominatim (permitido para búsquedas completas, no para autocompletado).
+      // Búsqueda explícita (al pulsar "Buscar"): primero Nominatim, que entiende y devuelve
+      // nombres en español (Varsovia → Polonia); el Photon público no admite español.
+      // Nominatim está permitido para búsquedas completas, no para autocompletado.
+      let nominatimError: unknown;
       try {
         const { value, fromCache } = await nominatim(query);
-        return { results: value, providerId: "nominatim", fromCache };
+        if (value.length > 0) return { results: value, providerId: "nominatim", fromCache };
       } catch (error) {
-        throw photonError ?? error;
+        nominatimError = error;
+      }
+      try {
+        const { value, fromCache } = await photon(query);
+        return { results: value, providerId: "photon", fromCache };
+      } catch (error) {
+        throw nominatimError ?? error;
       }
     },
   };

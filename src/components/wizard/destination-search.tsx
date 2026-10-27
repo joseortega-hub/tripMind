@@ -44,6 +44,9 @@ export function DestinationSearch({
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const query = useDebounced(text.trim(), 250);
+  // Búsqueda completa explícita (Nominatim, en español). Solo al pedirla: su política prohíbe
+  // usarlo para autocompletar, y es la que entiende "Varsovia" o "Moscú".
+  const [searched, setSearched] = useState<string | null>(null);
 
   const {
     data,
@@ -56,15 +59,42 @@ export function DestinationSearch({
         `/api/geocode?${new URLSearchParams({ q: query, mode: "autocomplete", limit: "6" })}`,
         signal,
       ),
-    enabled: query.length >= 2,
+    enabled: query.length >= 2 && searched === null,
     retry: false,
   });
-  const results = query.length >= 2 ? (data?.results ?? []) : [];
-  const provider = data?.provider;
+  const {
+    data: searchData,
+    isFetching: isSearching,
+    error: searchError,
+  } = useQuery({
+    queryKey: ["geocode-search", searched],
+    queryFn: ({ signal }) =>
+      getJson<GeocodeResponse>(
+        `/api/geocode?${new URLSearchParams({ q: searched ?? "", mode: "search", limit: "6" })}`,
+        signal,
+      ),
+    enabled: searched !== null,
+    retry: false,
+  });
+  const inSearch = searched !== null;
+  const activeData = inSearch ? searchData : data;
+  const results = query.length >= 2 || inSearch ? (activeData?.results ?? []) : [];
+  const provider = activeData?.provider;
+  const busy = inSearch ? isSearching : isFetching;
+  const listError = inSearch ? searchError : fetchError;
+  // Fila final "Buscar «…» en español" (navegable con flechas como una opción más).
+  const canSearch = !inSearch && query.length >= 2;
+  const optionCount = results.length + (canSearch ? 1 : 0);
+  const runSearch = () => {
+    setSearched(query);
+    setOpen(true);
+    setActive(-1);
+  };
 
   const select = (result: GeocodeResult) => {
     onChange(result);
     setText("");
+    setSearched(null);
     setOpen(false);
     setActive(-1);
   };
@@ -102,7 +132,7 @@ export function DestinationSearch({
     );
   }
 
-  const showList = open && query.length >= 2 && !fetchError;
+  const showList = open && (query.length >= 2 || inSearch) && !listError;
   const activeId = active >= 0 ? `${listId}-${active}` : undefined;
 
   return (
@@ -126,6 +156,7 @@ export function DestinationSearch({
           className="h-11 pl-9 text-base"
           onChange={(event) => {
             setText(event.target.value);
+            setSearched(null);
             setOpen(true);
             setActive(-1);
           }}
@@ -135,7 +166,7 @@ export function DestinationSearch({
             if (event.key === "ArrowDown") {
               event.preventDefault();
               setOpen(true);
-              setActive((i) => Math.min(i + 1, results.length - 1));
+              setActive((i) => Math.min(i + 1, optionCount - 1));
             } else if (event.key === "ArrowUp") {
               event.preventDefault();
               setActive((i) => Math.max(i - 1, 0));
@@ -144,6 +175,9 @@ export function DestinationSearch({
               if (showList && result) {
                 event.preventDefault();
                 select(result);
+              } else if (canSearch) {
+                event.preventDefault();
+                runSearch();
               }
             } else if (event.key === "Escape") {
               setOpen(false);
@@ -151,7 +185,7 @@ export function DestinationSearch({
           }}
           {...describedBy(id, error)}
         />
-        {isFetching ? (
+        {busy ? (
           <Loader2
             className="text-muted-foreground absolute top-1/2 right-3 size-4 -translate-y-1/2 animate-spin"
             aria-label="Buscando"
@@ -183,9 +217,25 @@ export function DestinationSearch({
               <span className="text-muted-foreground text-xs">{result.label}</span>
             </li>
           ))}
-          {!isFetching && data && results.length === 0 ? (
+          {canSearch ? (
+            <li
+              id={`${listId}-${results.length}`}
+              role="option"
+              aria-selected={active === results.length}
+              className={cn(
+                "text-primary flex min-h-11 cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-medium",
+                active === results.length ? "bg-accent" : "hover:bg-muted",
+              )}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={runSearch}
+            >
+              <Search className="size-4 shrink-0" aria-hidden />
+              ¿No aparece? Buscar «{query}» en español
+            </li>
+          ) : null}
+          {!busy && activeData && results.length === 0 ? (
             <li role="presentation" className="text-muted-foreground px-3 py-2 text-sm">
-              Sin resultados para «{query}».
+              Sin resultados para «{inSearch ? searched : query}».
               {provider?.isDemo
                 ? " En modo demostración solo hay respuestas grabadas (por ejemplo, Madrid o Barcelona)."
                 : null}
@@ -194,12 +244,12 @@ export function DestinationSearch({
         </ul>
       </div>
       <p className="sr-only" aria-live="polite">
-        {showList && !isFetching ? `${results.length} sugerencias disponibles` : ""}
+        {showList && !busy ? `${results.length} sugerencias disponibles` : ""}
       </p>
       {provider?.isDemo && provider.notice ? (
         <p className="text-muted-foreground text-xs">{provider.notice}</p>
       ) : null}
-      {fetchError ? <ProviderErrorAlert error={fetchError} /> : null}
+      {listError ? <ProviderErrorAlert error={listError} /> : null}
     </div>
   );
 }

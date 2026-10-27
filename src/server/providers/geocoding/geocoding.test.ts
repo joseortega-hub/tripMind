@@ -25,11 +25,65 @@ const nominatimEntry = (query: string) => {
 describe("Photon", () => {
   it("construye la URL con sesgo opcional", () => {
     expect(photonUrl({ q: "prado", limit: 5 })).toBe(
-      "https://photon.komoot.io/api/?q=prado&limit=5",
+      "https://photon.komoot.io/api/?q=prado&limit=15&lang=en",
     );
     expect(photonUrl({ q: "prado", limit: 5, near: { lat: 40.4, lng: -3.7 } })).toContain(
       "lat=40.4&lon=-3.7",
     );
+  });
+
+  it("pone el país en español y las ciudades por delante de los pueblos", () => {
+    // Forma real de Photon para "Varsovia" y "Sofia" con lang=en (oct. 2026).
+    const feature = (props: Record<string, unknown>, lng: number, lat: number) => ({
+      geometry: { coordinates: [lng, lat] },
+      properties: { osm_type: "R", osm_key: "place", type: "city", ...props },
+    });
+    const response = PhotonResponseSchema.parse({
+      features: [
+        feature(
+          {
+            osm_type: "N",
+            osm_id: 703222864,
+            osm_value: "village",
+            name: "Varsovia",
+            state: "Tolima",
+            country: "Colombia",
+            countrycode: "CO",
+          },
+          -74.599,
+          4.077,
+        ),
+        feature(
+          {
+            osm_id: 336075,
+            osm_value: "city",
+            name: "Warsaw",
+            state: "Masovian Voivodeship",
+            country: "Poland",
+            countrycode: "PL",
+          },
+          21.012,
+          52.229,
+        ),
+        feature(
+          {
+            osm_id: 4283101,
+            osm_value: "city",
+            name: "Sofia",
+            state: "Sofia-City",
+            country: "Bulgaria",
+            countrycode: "BG",
+          },
+          23.321,
+          42.697,
+        ),
+      ],
+    });
+    const results = mapPhotonResponse(response, { ...meta, limit: 2 });
+    expect(results.map((r) => r.label)).toEqual([
+      "Warsaw, Masovian Voivodeship, Polonia",
+      "Sofia, Sofia-City, Bulgaria",
+    ]);
   });
 
   it("mapea la respuesta grabada de Madrid", () => {
@@ -119,9 +173,9 @@ describe("adaptador real de geocodificación", () => {
     expect(String(fetchMock.mock.calls[0])).toContain("photon.komoot.io");
   });
 
-  it("busca en Nominatim si Photon falla", async () => {
+  it("la búsqueda completa usa primero Nominatim (nombres en español)", async () => {
     const fetchMock = vi.fn(async (url: string) =>
-      url.includes("photon") ? new Response("", { status: 502 }) : Response.json(nominatimBody),
+      url.includes("photon") ? Response.json(photonBody) : Response.json(nominatimBody),
     );
     const provider = createRealGeocodingProvider({
       userAgent: "test",
@@ -132,6 +186,21 @@ describe("adaptador real de geocodificación", () => {
     const response = await provider.search({ q: "madrid", limit: 5 });
     expect(response.providerId).toBe("nominatim");
     expect(response.results[0]?.source.name).toContain("Nominatim");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("busca en Photon si Nominatim falla", async () => {
+    const fetchMock = vi.fn(async (url: string) =>
+      url.includes("nominatim") ? new Response("", { status: 502 }) : Response.json(photonBody),
+    );
+    const provider = createRealGeocodingProvider({
+      userAgent: "test",
+      cache: new MemoryCacheStore(),
+      fetch: fetchMock,
+      nominatimLimiter: instantLimiter,
+    });
+    const response = await provider.search({ q: "madrid", limit: 5 });
+    expect(response.providerId).toBe("photon");
   });
 
   it("nunca usa Nominatim para autocompletar", async () => {
@@ -149,7 +218,7 @@ describe("adaptador real de geocodificación", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it("si fallan ambos, propaga el error de Photon", async () => {
+  it("si fallan ambos, propaga el error de Nominatim", async () => {
     const provider = createRealGeocodingProvider({
       userAgent: "test",
       cache: new MemoryCacheStore(),
@@ -157,7 +226,7 @@ describe("adaptador real de geocodificación", () => {
       nominatimLimiter: instantLimiter,
     });
     await expect(provider.search({ q: "madrid", limit: 5 })).rejects.toMatchObject({
-      providerId: "photon",
+      providerId: "nominatim",
     });
   });
 });

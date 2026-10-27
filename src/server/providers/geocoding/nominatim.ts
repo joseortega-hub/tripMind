@@ -61,11 +61,29 @@ const KIND_BY_ADDRESSTYPE: Record<string, GeocodeKind> = {
   building: "address",
 };
 
+/** Partes sin ninguna letra latina (София-град, Δήμος Αθηναίων) no ayudan a un lector en español. */
+const hasLatin = (part: string) => /\p{Script=Latin}/u.test(part);
+
+/**
+ * Etiqueta corta "Nombre, Región, País" en lugar del `display_name` completo (que incluye
+ * distritos, códigos postales y nombres en escrituras locales).
+ */
+function shortLabel(name: string, address: Record<string, string> | undefined, fallback: string) {
+  if (!address) return fallback;
+  const locality = address.city ?? address.town ?? address.village ?? address.municipality;
+  const region = address.state ?? address.region ?? address.province ?? address.county;
+  const parts = [name, locality, region, address.country].filter(
+    (part, i, all): part is string => !!part && hasLatin(part) && all.indexOf(part) === i,
+  );
+  return parts.length > 1 ? parts.join(", ") : fallback;
+}
+
 export function mapNominatimResponse(
   response: NominatimResponse,
   { retrievedAt, isDemo }: { retrievedAt: string; isDemo: boolean },
 ): GeocodeResult[] {
   const results: GeocodeResult[] = [];
+  const seen = new Set<string>();
   for (const item of response) {
     const type = toOsmType(item.osm_type);
     const name = item.name || item.display_name.split(",")[0]?.trim();
@@ -78,10 +96,15 @@ export function mapNominatimResponse(
       (item.category && item.category !== "place" && item.category !== "boundary"
         ? "poi"
         : "other");
+    // Nominatim a veces devuelve la misma ciudad como relación y como nodo: una sola vez.
+    const label = shortLabel(name, item.address, item.display_name);
+    if (seen.has(label)) continue;
+    seen.add(label);
+
     results.push({
       id: osmId(type, item.osm_id),
       name,
-      label: item.display_name,
+      label,
       kind,
       location: { lat: item.lat, lng: item.lon },
       bbox: bbox && bbox[0] < bbox[2] && bbox[1] < bbox[3] ? bbox : undefined,
