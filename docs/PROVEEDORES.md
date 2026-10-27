@@ -22,6 +22,7 @@ matriz de tiempos, transporte público y estaciones/paradas (Fase 4).
 | Cambio de hora | Base de datos IANA (`Intl` / `date-fns-tz`) | No | Local, sin llamadas externas |
 | Vídeos enlazados | oEmbed de TikTok / Instagram | Instagram sí (Meta) | Solo metadatos y reproductor embebido de enlaces que aporta el usuario; sin scraping ni descargas |
 | Popularidad | Wikimedia Pageviews API | No | Mide visitas a Wikipedia, no redes sociales; etiquetarlo así |
+| Restaurantes (valoraciones y precios) | — (adaptador "no configurado") | — | Google Places o Foursquare requieren clave y aceptar sus condiciones (atribución, caché limitada); hasta entonces solo OSM: sin valoraciones y precio solo con `price_range` |
 | Hoteles (precios) | — (adaptador "no configurado") | — | Requiere acuerdo con proveedor autorizado; hasta entonces solo OSM + enlaces de búsqueda (Booking con fechas y viajeros, Google Hotels solo con nombre) |
 
 ## Arquitectura (`src/server/providers/`)
@@ -90,12 +91,24 @@ casar sus hoteles con los de OSM (por coordenadas y nombre, o por un identificad
 corta (los precios caducan) y mostrar su atribución y condiciones (cancelación) tal como las dé.
 Si es afiliado, los enlaces deben decirlo. Nunca se rellenan precios ni disponibilidad.
 
+### Restaurantes (Fase 7)
+
+`src/server/providers/food/` define `FoodRatingsProvider.lookup(places)` → valoración y categoría
+de precio por lugar con `source` e `isDemo`. Hoy solo existe el adaptador "no configurado" y la UI
+dice "Sin valoraciones". Para activar uno (Google Places, Foursquare): clave solo en el servidor,
+casar sus sitios con los de OSM (coordenadas + nombre), respetar lo que permiten cachear y mostrar
+su atribución. El precio de OSM solo se interpreta si `price_range`/`price:range` es una escala de
+1 a 4 símbolos de moneda; las mesas, menús y disponibilidad nunca se muestran.
+
+Horarios: se evalúa `opening_hours` durante toda la comida en la hora local del destino; sin
+horario o con estado dudoso el sitio aparece como "pendiente de confirmar", nunca como abierto.
+
 ### Capas del mapa y categorías OSM (`pois/categories.ts`)
 
 | Capa | Categorías (etiquetas OSM) |
 |---|---|
 | `tourism` | museum, gallery, monument (`historic` monument/castle/palace y memoriales que no son placas), attraction, viewpoint, park (park/garden no privado), place_of_worship (solo con `wikidata`), theatre |
-| `food` | restaurant, cafe, bar (bar/pub), fast_food |
+| `food` | restaurant, cafe, bar (bar/pub), fast_food, ice_cream, food_court, marketplace; con `Place.food` (dieta, terraza, para llevar, reservas, carta, rango de precio) |
 | `lodging` | hotel, hostel, apartment, guest_house |
 | `transport` | train_station, metro_station (`station=subway`), tram_stop (`railway=tram_stop`, `station=light_rail`), bus_station, bus_stop (`highway=bus_stop`); con líneas `route_ref`, `network` y `operator` |
 
@@ -126,6 +139,13 @@ Respuesta: `{ results, provider: { id, name, isDemo, notice? }, fromCache, warni
 - `GET /api/trips/[id]/lodging[?types=hotel,hostel,apartment,other&minStars=1-5&accessible=1]`:
   alojamientos de OSM con distancia/tiempo a pie a los puntos clave y a la estación más cercana,
   `pricing` "no configurado"; 502 con mapa de OSM si falla Overpass.
+- `GET /api/trips/[id]/food?date=…&moment=breakfast|lunch|snack|dinner[&near=next|previous|hotel]
+  [&cuisine=…&diet=vegetarian|vegan&terrace=1&maxMinutes=5-30&style=local|quick]`: sitios de OSM
+  para una comida con horario según OSM, tiempo a pie a la actividad anterior/siguiente y al
+  hotel, comparación entre referencias, cocinas disponibles y `ratings` "no configurado"; 400 si
+  el día no es del viaje, 502 con mapa de OSM si falla Overpass.
+- `PATCH /api/trips/[id]/itinerary { op: "set_meal_place", activityId, place | null }`: pone o
+  quita el sitio de una comida y recalcula los tramos del día.
 - `PUT /api/trips/[id]/hotel { place }`: elige o cambia el hotel y recalcula el itinerario
   (`{ hotel, itinerary, regenerated, itineraryError? }`).
 - `GET|POST /api/trips/[id]/favorites` y `DELETE /api/trips/[id]/favorites?placeId=…`: lugares
@@ -137,7 +157,8 @@ Errores: 400 `invalid_request` (con `issues`), 502 `provider_unavailable` (con `
 
 Son respuestas reales grabadas con `npx tsx scripts/record-fixtures.mts` y, las de la Fase 4, con
 `npx tsx scripts/record-route-fixtures.mts [--routes|--transit]` y, las de alojamientos (Fase 6),
-con `npx tsx scripts/record-lodging-fixtures.mts` (fecha en `recordedAt`, que se
+con `npx tsx scripts/record-lodging-fixtures.mts` y, las de gastronomía (Fase 7), con
+`npx tsx scripts/record-food-fixtures.mts` (fecha en `recordedAt`, que se
 usa como `source.retrievedAt`). De Transitous se recortan alertas, alternativas y pasos a pie.
 La demo de transporte devuelve el plan grabado con sus horas reales (la UI dice de qué día son). En Wikidata solo se conservan las declaraciones P18 y P856.
 Los adaptadores demo pasan los fixtures por los mismos mapeadores que los reales y, fuera de la zona

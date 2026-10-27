@@ -281,9 +281,50 @@ Decisiones Fase 6:
 - Pendiente: proveedor autorizado de precios (requiere acuerdo), alta manual de un hotel fuera de
   la zona de ~4 × 4 km, filtro "abierto/cancelación" (sin fuente) y paneles redimensionables.
 
-### ⬜ Fase 7 — Restaurantes contextuales
+### ✅ Fase 7 — Restaurantes contextuales
 
 Búsqueda junto a la actividad/hotel según franja; filtros; categorías de precio. (§10)
+
+Decisiones Fase 7:
+
+- Datos: capa `food` de OSM ampliada con `ice_cream`, `food_court` y `marketplace`. `Place.food`
+  guarda solo etiquetas reales: `diet:vegetarian|vegan|gluten_free`, `outdoor_seating` (terraza;
+  cualquier valor salvo `no`), `takeaway`, `reservation`, `reservation:website`/`website:booking`
+  (único enlace de reserva) y `website:menu` (enlace a la carta del local; no se muestran menús).
+- Precio: Económico / Medio / Especial / Alta gama solo si OSM publica `price_range`/`price:range`
+  como 1–4 símbolos de moneda (en Madrid centro, ninguno); si no, "Sin precio disponible".
+  Valoraciones: interfaz `FoodRatingsProvider` (`src/server/providers/food/`) con solo el
+  adaptador "no configurado".
+- Contexto (`src/server/services/food/context.ts`): la franja de desayuno/comida/cena del día da
+  hora y duración, y las referencias son la actividad con lugar anterior y la siguiente, más el
+  hotel; la merienda (sin franja) usa 17:30 y las actividades de antes y después de esa hora. Sin
+  plan ni hotel, el centro del destino.
+- Búsqueda (`GET /api/trips/[id]/food`): Overpass en un radio de 1 km de cada referencia (bbox en
+  rejilla, caché). Horario con la librería `opening_hours` durante toda la comida: los cerrados
+  confirmados se ocultan (y se cuentan); sin horario o dudoso → "pendiente de confirmar". Se miden
+  con la matriz a pie los 25 más cercanos a cada referencia (desde la anterior y el hotel; hasta la
+  siguiente). Orden: primero con tiempo (minutos + 5 si el horario está pendiente) y después, en
+  línea recta y marcados, los que no tienen tiempo. La comparación de referencias da cuántos
+  quedan a ≤ 10 min ("N o más": solo se mide lo cercano) y el más cercano.
+- Filtros: momento, cocina (facetas de `cuisine`), dieta (vegano cuenta como vegetariano; `limited`
+  cuenta), terraza, tiempo máximo (sin tiempo calculado, línea recta a 60 m/min) y estilo: "cocina
+  local" (= `cuisine` regional o del país, lista por país) o "rápida" (`fast_food`, `food_court`,
+  `takeaway=only`).
+- Itinerario: nueva edición `set_meal_place` (lugar o `null`). La comida sigue siendo un bloque
+  con su ventana horaria, pero con tramos hasta el sitio y desde él, primera hora abierta dentro de
+  la ventana y aviso si cierra; se conserva al rehacer el plan. En el mapa cuenta como parada.
+- UI: "Buscar dónde comer" en cada franja de comida y "Dónde comer este día" abren el buscador
+  dentro del panel Itinerario (móvil y escritorio). Las tarjetas "Buscar cerca de" son a la vez el
+  selector y la comparación. Cada sitio: horario según OSM, minutos a pie a cada referencia,
+  terraza/dieta/precio, "Elegir para esta comida", "Cómo llegar" (Google Maps a pie), web y
+  reserva solo si existe. La ficha de la capa de gastronomía muestra cocina, dieta, terraza,
+  precio y reservas, y "Comer aquí" la pone en una comida del plan.
+- Demo: `pois/fixtures/food.json` (heladerías, mercado y zona de restauración de la misma zona) y
+  `routing/fixtures/food.json` (matrices reales de FOSSGIS entre Hotel México/70 lugares y los 60
+  sitios de comida más cercanos a cada uno), con `scripts/record-food-fixtures.mts`. La matriz demo
+  devuelve `null` en las celdas no grabadas (antes fallaba entera).
+- Pendiente: proveedor real de valoraciones/precios (Google Places, Foursquare: clave y
+  condiciones de caché), franja de merienda en el optimizador y filtro por precio (sin datos).
 
 ### ⬜ Fase 8 — Entradas, reservas y presupuesto
 
