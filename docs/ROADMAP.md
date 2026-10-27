@@ -98,10 +98,46 @@ Decisiones Fase 2:
   igual que `prisma migrate resolve --applied`) vía `psql` en el contenedor, porque desde el host la
   conexión TCP a Postgres falla con `EADDRINUSE` (sockets agotados en esta máquina).
 
-### ⬜ Fase 3 — Mapa central y layout
+### ✅ Fase 3 — Mapa central y layout
 
 MapLibre + OpenFreeMap; layout 3 zonas / bottom sheet móvil; vistas mapa-lista-itinerario; capas
 1–3 y 7, clustering, resaltado, ficha de lugar, favoritos. (REQUISITOS §5, §8)
+
+Decisiones Fase 3:
+
+- `react-map-gl/maplibre` + MapLibre 6 con el estilo de `MAP_STYLE_URL` (se lee en el servidor y
+  se pasa como prop; no es secreto). El componente se carga con `next/dynamic` sin SSR. Turbopack no
+  empaqueta el worker que MapLibre 6 carga con `import.meta.url`: `postinstall` lo copia a
+  `public/vendor/` (ignorado en git) y se fija con `setWorkerUrl`.
+- Atribución OSM/OpenMapTiles/OpenFreeMap siempre desplegada (`compact={false}`): arriba en móvil
+  (abajo la tapa el sheet) y abajo a la derecha en tablet/escritorio. Sin WebGL o si falla el
+  estilo: aviso con enlace a OpenStreetMap y la lista sigue funcionando con todo el destino.
+- Lugares: una sola petición a `/api/places` (capas tourism, food, lodging; límite 500) en el área
+  de ~4 × 4 km alrededor del destino (`areaAround`, compartida con el asistente); las capas se
+  filtran en cliente. Si se alcanza el límite se avisa de que puede haber más.
+- Agrupación con `supercluster` en JS y marcadores HTML (iconos lucide por capa, tokens
+  `--layer-*` con contraste ≥ 5:1) en lugar de capas de símbolos de MapLibre: lógica testeable y
+  marcadores con icono sin generar sprites. Sin agrupar a partir de zoom 17; seleccionar desde la
+  lista acerca hasta ese zoom y resalta el marcador (aro coral) o el grupo que lo contiene.
+- Los marcadores son `aria-hidden` y no entran en el orden de tabulación: la **lista** es la
+  alternativa accesible y muestra exactamente lo mismo que el mapa (capas activas y zona visible;
+  `placesInBounds`). Elegir en la lista centra el mapa; elegir en el mapa desplaza la lista.
+- Capa 7 «Guardados»: tabla `Favorite` con snapshot `Place` (fuente e `isDemo`) por viaje.
+  API `GET/POST /api/trips/[id]/favorites` y `DELETE …?placeId=` (los ids OSM llevan «/»).
+  Un favorito se dibuja con el color de guardados si la capa está activa; si no, con el de su
+  categoría y un corazón. Actualización optimista con TanStack Query y reversión si falla.
+- Estado de la vista en Zustand por espacio de trabajo (`src/lib/map/store.ts`): capas,
+  selección (con origen mapa/lista), vista móvil y altura del sheet. La distribución se elige con
+  `matchMedia` (`useSyncExternalStore`; el servidor pinta la de móvil): móvil < 768 px, tablet
+  hasta 1279 px, escritorio ≥ 1280 px.
+- Móvil: sheet de tres alturas (pico 156 px, 50 %, completa) con asa arrastrable que también es
+  un botón para cambiar de altura; elegir un lugar abre la ficha a media altura para que el lugar
+  quede visible encima. Tablet: panel lateral plegable. Escritorio: panel (Lista · Itinerario ·
+  Viaje) | mapa | ficha. El resumen del viaje pasa a la vista/pestaña «Viaje».
+- Ficha: solo campos de la fuente (dirección, horario OSM sin interpretar y marcado «compruébalo»,
+  teléfono, accesibilidad, estrellas OSM, web oficial de Wikidata o web de OSM), foto de Commons
+  con autor y licencia vía `next/image` (`upload.wikimedia.org`, `thumb.wikimedia.org`).
+- Pendiente: paneles redimensionables en escritorio (ahora anchos fijos) y el itinerario (Fase 5).
 
 ### ⬜ Fase 4 — Rutas y transporte
 

@@ -62,6 +62,10 @@ imágenes de Commons sin licencia en sus metadatos se descartan.
 - `GET /api/places?bbox=oeste,sur,este,norte[&layers=tourism,food][&categories=museum][&limit=1-500]`
 
 Respuesta: `{ results, provider: { id, name, isDemo, notice? }, fromCache, warnings? }`.
+
+- `GET|POST /api/trips/[id]/favorites` y `DELETE /api/trips/[id]/favorites?placeId=…`: lugares
+  guardados del viaje (snapshot `Place` con `source` e `isDemo`); 404 si el viaje no existe,
+  503 `storage_unavailable` si la BD falla.
 Errores: 400 `invalid_request` (con `issues`), 502 `provider_unavailable` (con `externalUrl`).
 
 ### Fixtures demo
