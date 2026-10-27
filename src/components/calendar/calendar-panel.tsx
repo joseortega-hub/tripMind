@@ -326,7 +326,6 @@ function DayStrip({
             key={date}
             type="button"
             aria-pressed={active}
-            aria-label={`${formatDay(date)}, día ${index + 1} del viaje: ${summary}`}
             onClick={() => onSelectDate(date)}
             data-testid="calendar-day"
             data-date={date}
@@ -335,11 +334,15 @@ function DayStrip({
               active ? "border-primary ring-primary ring-1" : "bg-card hover:bg-muted",
             )}
           >
-            <span className="text-muted-foreground text-[0.6875rem] leading-none">
+            {/* Nombre accesible completo en texto oculto (sin aria-label, que no casaría con lo visible). */}
+            <span className="sr-only">{`${formatDay(date)}, día ${index + 1} del viaje: ${summary}`}</span>
+            <span aria-hidden className="text-muted-foreground text-[0.6875rem] leading-none">
               {weekday?.replace(",", "")}
             </span>
-            <span className="text-lg leading-none font-semibold tabular-nums">{number}</span>
-            <span className="flex flex-wrap justify-center gap-0.5">
+            <span aria-hidden className="text-lg leading-none font-semibold tabular-nums">
+              {number}
+            </span>
+            <span aria-hidden className="flex flex-wrap justify-center gap-0.5">
               {kinds.map((kind) => (
                 <NoticeBadge key={kind} kind={kind} size="sm" decorative />
               ))}

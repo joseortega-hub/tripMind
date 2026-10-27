@@ -218,7 +218,7 @@ test("Descubre: horas libres y guardar un sitio desde un vídeo", async ({ page,
   await expect(discover.getByRole("heading", { name: "Eventos en tus fechas" })).toBeVisible();
   await expect(discover.getByRole("link", { name: /Conciertos/ })).toBeVisible();
   await expect(discover.getByText("Popular ahora (según visitas en Wikipedia)")).toBeVisible();
-  await expect(discover.getByText(/puntuación interna de TripMind/)).toBeVisible();
+  await expect(discover.getByText(/^Puntuación interna de TripMind/)).toBeVisible();
   await expectNoSeriousA11yViolations(page);
 
   const freeTime = page.getByTestId("free-time");
