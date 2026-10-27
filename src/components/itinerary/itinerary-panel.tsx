@@ -506,8 +506,9 @@ function ActivityRow({
       ) : null}
       <div
         className={cn(
-          "flex gap-2 rounded-lg border p-2",
-          isMeal ? "bg-muted/60 border-dashed" : "bg-card",
+          "flex gap-2 rounded-lg border",
+          // Las franjas de comida pesan menos que las visitas: fila más compacta.
+          isMeal ? "bg-muted/60 border-dashed px-2 py-1" : "bg-card p-2",
           selected && "border-cta ring-cta/30 ring-2",
           warnings.length > 0 && "border-destructive/60",
         )}
@@ -644,7 +645,7 @@ function ActivityRow({
           ) : (
             <p className="text-muted-foreground mt-0.5 text-xs">
               {activity.kind === "meal"
-                ? "Franja reservada. Las sugerencias de restaurantes cercanos llegarán más adelante."
+                ? "Franja reservada; los restaurantes cercanos llegarán más adelante."
                 : "Tiempo sin planificar para lo que te apetezca."}
             </p>
           )}

@@ -177,10 +177,62 @@ Decisiones Fase 4:
 - Pendiente: transporte público en la matriz (Transitous pide uso ligero de `/plan`; se decidirá
   en la Fase 5), enlaces a webs oficiales de operadores, frecuencia y tarifas (sin fuente fiable).
 
-### ⬜ Fase 5 — Itinerario y optimizador
+### ✅ Fase 5 — Itinerario y optimizador
 
 Generación por días con franjas, horarios `opening_hours`, ritmo, comidas; edición manual con
 dnd-kit, bloqueo, mover de día, "reorganizar resto del día"; capa 5 con ruta diaria. (§9)
+
+Decisiones Fase 5:
+
+- Arreglo heredado: `/api/places` ordena por relevancia antes de recortar (`pois/ranking.ts`:
+  capa turística, Wikidata, Wikipedia, imagen, web oficial; señales de la fuente, no
+  valoraciones). El adaptador real pide hasta 2000 elementos a Overpass (que recorta en orden
+  geográfico) y recorta después. El Museo del Prado ya entra en los 500 de la demo.
+- Optimizador puro y determinista en `src/server/services/itinerary/` (`optimizer.ts`): candidatos
+  de las categorías visitables (museo, galería, monumento, atracción, mirador, parque, templo; los
+  teatros esperan a la cartelera de eventos) puntuados por intereses con peso + señales de la
+  fuente; reparto por días con **barrido angular** alrededor del hotel (empieza tras el mayor
+  hueco); por día, vecino más cercano + 2-opt y búsqueda local (reubicar y 2-opt) evaluando la
+  secuencia programada completa; cada visita entra solo si el día sigue sin avisos. Segunda pasada
+  con lo que no cupo en los días con hueco más cercanos. Ritmo: 3 / 5 / 7 visitas, margen de
+  15 / 10 / 5 min y duraciones ×1,15 / ×1 / ×0,85.
+- Las horas se calculan en secuencia con los tiempos reales: un plan generado sin avisos es
+  realizable. Las ediciones manuales nunca descartan actividades: si algo no encaja, la
+  actividad lleva su aviso (llegada tarde a una hora fijada, cerrado a esa hora, fuera del día,
+  comida fuera de franja).
+- Horarios con `opening_hours` (LGPL-3.0) evaluados en la hora de pared del destino (fechas
+  construidas con componentes locales, sin depender de la zona del servidor); festivos `PH` con
+  el país del destino. Nunca se programa en horario confirmado cerrado; sin horario, ilegible o
+  con estado `unknown` → "pendiente de confirmar". "Alternativa si está cerrado": lugar a ≤ 1 km
+  con horario confirmado abierto en esa franja.
+- Duraciones por categoría (más en lugares con Wikidata + Wikipedia) marcadas como estimación.
+  Franjas reservadas sin restaurante (Fase 7): desayuno 30 min si el día empieza ≤ 10:00, comida
+  13:00–15:00 con la duración del asistente, tiempo libre desde las 16:00 y cena 20:30–22:00 si
+  cabe antes del fin del día.
+- Tiempos: matrices a pie y en coche de la Fase 4 (≤ 100 puntos: hotel + hasta 99 candidatos).
+  A pie hasta 25 min (12 con movilidad reducida, +50 % de margen); si no, taxi/coche con 10 min
+  de margen. **Transporte público fuera del optimizador**: Transitous pide uso ligero de `/plan`
+  (un plan de 3 días son decenas de tramos) y en Madrid no tiene Metro ni EMT; se consulta por
+  tramo con el comparador de la ficha. Sin tiempos calculados el tramo queda `approximate`, sin
+  duración, y se reserva un margen prudente (línea recta × 1,4 a 4,5 km/h) etiquetado como
+  estimación (`Leg.reservedMinutes`), con enlace a Google Maps. En demo solo se planifican los 70
+  lugares con trayectos grabados desde Hotel México.
+- Persistencia: migración `20261027000000_itinerary` (`Activity.planning`, `Leg.reservedMinutes`,
+  `Trip.itineraryMeta`). Regenerar conserva lo bloqueado en su día y hora; cada edición recalcula y
+  guarda solo los días afectados. API `GET|POST|PATCH /api/trips/[id]/itinerary`.
+- UI: pestaña Itinerario (escritorio/tablet) y vista del sheet en móvil: selector de días, tramos
+  con tiempo, distancia y modo, y por actividad hora, duración, horario, precio ("sin precio"),
+  reserva ("sin verificar"), web y alternativa. Fijar hora = bloquear. Reordenar arrastrando
+  (dnd-kit, solo puntero) o con **flechas en el asa** y botones Antes/Después: el sensor de
+  teclado de dnd-kit fallaba con filas de alturas distintas. Mover de día, quitar, añadir desde la
+  ficha o desde "Se quedaron fuera" y "Reorganizar lo que viene después".
+- Capa 5: paradas numeradas (cuadros blancos con borde petróleo, distintos de los grupos) con el
+  hotel de referencia y la línea discontinua del **orden de visita** (no es el trazado de calles:
+  pedir una ruta por tramo a FOSSGIS, 1 req/s, haría lenta la generación). Visible por defecto con
+  botón para ocultarla; elegir una actividad abre su ficha y centra el mapa.
+- Pendiente: trazado real por tramo bajo demanda, transporte público en la matriz si hay
+  proveedor con cuota, horarios de llegada/salida del primer y último día, paneles
+  redimensionables.
 
 ### ⬜ Fase 6 — Hoteles
 

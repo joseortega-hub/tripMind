@@ -203,7 +203,12 @@ export default function TripMap({
     if (!dayRoute || dayFitRequest === 0) return;
     const bounds = dayRouteBounds(dayRoute);
     if (!bounds) return;
-    mapRef.current?.fitBounds(bounds, { padding, maxZoom: 16, animate: !prefersReducedMotion() });
+    // Arriba quedan los chips de capas: más margen para que no tapen paradas.
+    mapRef.current?.fitBounds(bounds, {
+      padding: { ...padding, top: padding.top + 56 },
+      maxZoom: 16,
+      animate: !prefersReducedMotion(),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayFitRequest, dayRoute?.stops.length]);
 

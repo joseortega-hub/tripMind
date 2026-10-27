@@ -18,6 +18,7 @@ matriz de tiempos, transporte público y estaciones/paradas (Fase 4).
 | Tiempo | Open-Meteo | No | Gratis para uso no comercial; previsión hasta 16 días |
 | Eventos | Ticketmaster Discovery | Sí (gratis) | 5000 peticiones/día; cobertura desigual por país |
 | Festivos | Nager.Date | No | Nacionales y regionales; las fiestas locales pueden faltar (avisar y enlazar a fuente oficial) |
+| Horarios | Librería `opening_hours` (OSM) | No | LGPL-3.0; evalúa la etiqueta `opening_hours` de OSM, que puede estar desactualizada: la UI lo marca "según OSM" o "pendiente de confirmar" |
 | Cambio de hora | Base de datos IANA (`Intl` / `date-fns-tz`) | No | Local, sin llamadas externas |
 | Vídeos enlazados | oEmbed de TikTok / Instagram | Instagram sí (Meta) | Solo metadatos y reproductor embebido de enlaces que aporta el usuario; sin scraping ni descargas |
 | Popularidad | Wikimedia Pageviews API | No | Mide visitas a Wikipedia, no redes sociales; etiquetarlo así |
@@ -108,6 +109,9 @@ Respuesta: `{ results, provider: { id, name, isDemo, notice? }, fromCache, warni
 - `POST /api/routes/walkable { origin, maxMinutes, targets }`: destinos a ≤ N min a pie.
 - `GET /api/transit/nearby?at=lat,lng`: estaciones y paradas cercanas con tiempo a pie.
 
+- `GET /api/trips/[id]/itinerary` (`{ days, meta }`), `POST` (genera o regenera conservando lo
+  bloqueado) y `PATCH` con `{ op: add | remove | move | set_time | lock | reorganize, … }`:
+  recalcula los días afectados. 409 `invalid_edit`, 502 si fallan los lugares (con mapa de OSM).
 - `GET|POST /api/trips/[id]/favorites` y `DELETE /api/trips/[id]/favorites?placeId=…`: lugares
   guardados del viaje (snapshot `Place` con `source` e `isDemo`); 404 si el viaje no existe,
   503 `storage_unavailable` si la BD falla.
