@@ -29,6 +29,7 @@ export async function changeTripHotel(tripId: string, place: Place) {
     price: undefined,
     bookingStatus: "pending" as const,
     bookingUrl: null,
+    bookingNote: null,
   };
   await prisma.hotel.upsert({
     where: { tripId },
@@ -37,6 +38,7 @@ export async function changeTripHotel(tripId: string, place: Place) {
       ...data,
       address: hotel.address ? json(hotel.address) : Prisma.DbNull,
       price: Prisma.DbNull,
+      paidPrice: Prisma.DbNull,
     },
   });
   // El hotel ya está guardado: si el recálculo falla (sin lugares), se avisa y se conserva el plan.

@@ -4,6 +4,7 @@ import type { ActivityPlanning, DaySlot } from "@/domain/itinerary";
 import type { Place } from "@/domain/place";
 import { type Pace, toMinutes } from "@/domain/preferences";
 import type { Activity, ItineraryDay, Leg } from "@/domain/trip";
+import { bookingLinksOf, requirementOf } from "@/lib/booking/info";
 import { googleMapsDirectionsUrl } from "@/server/providers/routing/links";
 import {
   ANCHOR_ID,
@@ -120,9 +121,17 @@ export interface DayConversion {
 /** Resultado del optimizador → día de dominio con actividades y tramos. */
 export function toItineraryDay(input: DayConversion): ItineraryDay {
   const { schedule } = input;
+  // Al regenerar, las visitas nuevas reciben otro id: la reserva del usuario sigue al lugar.
+  const previousByPlace = new Map<string, Activity>();
+  for (const activity of input.previous.values()) {
+    if (activity.place && activity.kind !== "meal")
+      previousByPlace.set(activity.place.id, activity);
+  }
   const activities: Activity[] = (schedule?.items ?? []).map((scheduled) => {
     const { item } = scheduled;
-    const before = input.previous.get(item.id);
+    const before =
+      input.previous.get(item.id) ??
+      (item.type === "visit" ? previousByPlace.get(item.place.id) : undefined);
     const planning: ActivityPlanning = {
       slot: slotFor(scheduled),
       durationEstimated: item.type === "visit" ? item.durationEstimated : true,
@@ -140,10 +149,13 @@ export function toItineraryDay(input: DayConversion): ItineraryDay {
       startTime: minutesToTime(scheduled.start),
       durationMinutes: item.duration,
       locked: item.lockedStart !== undefined,
-      bookingRequirement: before?.bookingRequirement ?? "unverified",
+      // Estado informativo y enlaces: siempre de la fuente del lugar (snapshot actual).
+      bookingRequirement: requirementOf(item.place).requirement,
       bookingStatus: before?.bookingStatus,
-      bookingLinks: before?.bookingLinks ?? [],
+      bookingLinks: item.place ? bookingLinksOf(item.place) : [],
       price: before?.price,
+      bookingNote: before?.bookingNote,
+      paidPrice: before?.paidPrice,
       notes: before?.notes,
       planning,
     };

@@ -45,6 +45,8 @@ export async function saveDays(
             bookingStatus: activity.bookingStatus ?? null,
             bookingLinks: json(activity.bookingLinks),
             price: activity.price ? json(activity.price) : undefined,
+            bookingNote: activity.bookingNote ?? null,
+            paidPrice: activity.paidPrice ? json(activity.paidPrice) : undefined,
             notes: activity.notes ?? null,
             planning: activity.planning ? json(activity.planning) : undefined,
           })),

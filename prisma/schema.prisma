@@ -90,6 +90,10 @@ model Hotel {
   price         Json?
   bookingStatus BookingStatus @default(pending)
   bookingUrl    String?
+  /// Nota del usuario sobre su reserva
+  bookingNote   String?
+  /// PaidPrice: lo que el usuario anota como pagado (total)
+  paidPrice     Json?
 }
 
 model ItineraryDay {
@@ -124,6 +128,10 @@ model Activity {
   bookingLinks       Json               @default("[]")
   /// Price
   price              Json?
+  /// Nota del usuario sobre su reserva
+  bookingNote        String?
+  /// PaidPrice: lo que el usuario anota como pagado (total)
+  paidPrice          Json?
   notes              String?
   /// ActivityPlanning (franja, estimaciones, horario, avisos, alternativa)
   planning           Json?

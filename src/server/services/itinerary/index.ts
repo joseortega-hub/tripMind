@@ -159,8 +159,12 @@ export async function computeItinerary(
   const lockedByDate = new Map<string, Activity[]>();
   for (const day of trip.days) {
     // También se conserva el restaurante elegido para una comida (Fase 7), aunque no esté bloqueada.
+    // Y las visitas que el usuario ya ha reservado o pagado (Fase 8): siguen en su día.
     const locked = day.activities.filter(
-      (a) => (a.locked && a.startTime) || (a.kind === "meal" && a.place),
+      (a) =>
+        (a.locked && a.startTime) ||
+        (a.kind === "meal" && a.place) ||
+        (a.place && (a.bookingStatus === "booked" || a.bookingStatus === "ticket_purchased")),
     );
     if (locked.length > 0 && dates.includes(day.date)) lockedByDate.set(day.date, locked);
   }
@@ -401,7 +405,17 @@ export async function computeEdit(
       if (activity.kind !== "meal") {
         throw new ItineraryEditError("Solo se puede elegir un sitio para una comida.");
       }
-      day.activities[index] = { ...activity, place: edit.place ?? undefined };
+      const samePlace = activity.place?.id === edit.place?.id;
+      // Otro restaurante: la reserva anotada era del anterior.
+      day.activities[index] = samePlace
+        ? { ...activity, place: edit.place ?? undefined }
+        : {
+            ...activity,
+            place: edit.place ?? undefined,
+            bookingStatus: undefined,
+            bookingNote: undefined,
+            paidPrice: undefined,
+          };
       affected.add(day.date);
       break;
     }

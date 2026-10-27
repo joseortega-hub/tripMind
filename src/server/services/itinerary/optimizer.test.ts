@@ -404,4 +404,42 @@ describe("servicio con datos de demostración", () => {
       .filter((a) => a.place?.id === target.place!.id);
     expect(others).toHaveLength(1);
   });
+
+  it("deriva el estado de entradas y los enlaces de la fuente (Prado: de pago, web oficial)", async () => {
+    const { days } = await computeItinerary(trip, deps);
+    const prado = days.flatMap((d) => d.activities).find((a) => a.title === "Museo del Prado")!;
+    expect(prado.bookingRequirement).toBe("ticket_required");
+    expect(prado.bookingLinks[0]).toMatchObject({ kind: "official", isGeneralWebsite: true });
+  });
+
+  it("al regenerar, lo reservado sigue en su día y la anotación sigue al lugar", async () => {
+    const generated = await computeItinerary(trip, deps);
+    const visits = generated.days[2]!.activities.filter((a) => a.kind === "visit");
+    const [bought, noted] = [visits[0]!, visits[1]!];
+    const days = generated.days.map((d) => ({
+      ...d,
+      activities: d.activities.map((a) =>
+        a.id === bought.id
+          ? {
+              ...a,
+              bookingStatus: "ticket_purchased" as const,
+              bookingNote: "Localizador 123",
+              paidPrice: { amount: 30, currency: "EUR" },
+            }
+          : a.id === noted.id
+            ? { ...a, bookingStatus: "cancelled" as const, bookingNote: "No abre" }
+            : a,
+      ),
+    }));
+    const again = await computeItinerary({ ...trip, days }, deps);
+    const all = again.days.flatMap((d) => d.activities);
+    const kept = again.days[2]!.activities.find((a) => a.place?.id === bought.place!.id)!;
+    expect(kept).toMatchObject({
+      bookingStatus: "ticket_purchased",
+      bookingNote: "Localizador 123",
+      paidPrice: { amount: 30, currency: "EUR" },
+    });
+    const other = all.find((a) => a.place?.id === noted.place!.id);
+    if (other) expect(other).toMatchObject({ bookingStatus: "cancelled", bookingNote: "No abre" });
+  });
 });

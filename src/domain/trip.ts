@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { BookingLinkSchema, BookingRequirementSchema, BookingStatusSchema } from "./booking";
+import {
+  BookingLinkSchema,
+  BookingRequirementSchema,
+  BookingStatusSchema,
+  PaidPriceSchema,
+} from "./booking";
 import { BudgetSchema, PriceSchema } from "./budget";
 import { LatLngSchema } from "./geo";
 import { GeocodeResultSchema } from "./geocoding";
@@ -35,6 +40,9 @@ export const HotelSchema = z.object({
   price: PriceSchema.optional(),
   bookingStatus: BookingStatusSchema.default("pending"),
   bookingUrl: z.url().optional(),
+  /** Nota y precio pagado que introduce el usuario (confirmado en el presupuesto). */
+  bookingNote: z.string().max(500).optional(),
+  paidPrice: PaidPriceSchema.optional(),
 });
 export type Hotel = z.infer<typeof HotelSchema>;
 
@@ -57,7 +65,12 @@ export const ActivitySchema = z.object({
   bookingRequirement: BookingRequirementSchema.default("unverified"),
   bookingStatus: BookingStatusSchema.optional(),
   bookingLinks: z.array(BookingLinkSchema).default([]),
+  /** Precio orientativo con fuente (p. ej. `charge` de OSM); nunca lo pone TripMind. */
   price: PriceSchema.optional(),
+  /** Nota del usuario sobre su reserva (localizador, hora de entrada…). */
+  bookingNote: z.string().max(500).optional(),
+  /** Lo que el usuario dice haber pagado (total): cuenta como confirmado. */
+  paidPrice: PaidPriceSchema.optional(),
   notes: z.string().max(2000).optional(),
   /** Datos del optimizador (franja, estimaciones, horario, avisos, alternativa). */
   planning: ActivityPlanningSchema.optional(),

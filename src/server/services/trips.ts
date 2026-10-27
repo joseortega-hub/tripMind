@@ -75,6 +75,8 @@ export function fromDayRow(day: DayRowWithItems) {
         bookingStatus: undef(a.bookingStatus),
         bookingLinks: a.bookingLinks,
         price: undef(a.price),
+        bookingNote: undef(a.bookingNote),
+        paidPrice: undef(a.paidPrice),
         notes: undef(a.notes),
         planning: undef(a.planning),
       })),
@@ -123,6 +125,8 @@ export function fromTripRow(
           price: undef(hotel.price),
           bookingStatus: hotel.bookingStatus,
           bookingUrl: undef(hotel.bookingUrl),
+          bookingNote: undef(hotel.bookingNote),
+          paidPrice: undef(hotel.paidPrice),
         }
       : undefined,
     accommodationPreferences: undef(row.accommodationPreferences),
