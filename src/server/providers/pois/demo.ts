@@ -6,6 +6,7 @@ import stopsFixture from "./fixtures/stops.json";
 import wikidataFixture from "./fixtures/wikidata.json";
 import { mapOverpassResponse, OverpassResponseSchema } from "./overpass";
 import { assertBBoxSize } from "./real";
+import { rankPlaces } from "./ranking";
 import type { PlacesProvider } from "./types";
 import {
   applyEnrichment,
@@ -63,11 +64,12 @@ export function createDemoPlacesProvider(): PlacesProvider {
     async searchByBBox(query) {
       assertBBoxSize(query);
       places ??= loadPlaces();
-      const results = places
-        .filter(
+      const results = rankPlaces(
+        places.filter(
           (p) => query.categories.includes(p.category) && bboxContains(query.bbox, p.location),
-        )
-        .slice(0, query.limit);
+        ),
+        query.limit,
+      );
       const warnings = intersects(query.bbox, DEMO_BBOX) ? [] : [DEMO_COVERAGE_WARNING];
       return { places: results, fromCache: false, warnings };
     },

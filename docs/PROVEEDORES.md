@@ -86,6 +86,11 @@ User-Agent. Nominatim **nunca** se usa para autocompletar (lo prohíbe su polít
 | `lodging` | hotel, hostel, apartment, guest_house |
 | `transport` | train_station, metro_station (`station=subway`), tram_stop (`railway=tram_stop`, `station=light_rail`), bus_station, bus_stop (`highway=bus_stop`); con líneas `route_ref`, `network` y `operator` |
 
+**Recorte por relevancia** (`pois/ranking.ts`): Overpass recorta en orden geográfico (`qt`), así
+que el adaptador real pide hasta 2000 elementos y, igual que el demo, ordena antes de aplicar
+`limit`: capa turística, entidad de Wikidata, artículo de Wikipedia, imagen y web oficial (señales
+de la fuente, no valoraciones). Así un recorte a 500 nunca deja fuera el Museo del Prado.
+
 La web oficial de Wikidata (P856) tiene prioridad sobre `website` de OSM (`websiteSource`). Las
 imágenes de Commons sin licencia en sus metadatos se descartan.
 

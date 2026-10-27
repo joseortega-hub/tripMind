@@ -14,7 +14,8 @@ import {
   OverpassResponseSchema,
   snapBBox,
 } from "./overpass";
-import { createRealPlacesProvider, ENRICHMENT_WARNING } from "./real";
+import { rankPlaces, relevanceScore } from "./ranking";
+import { createRealPlacesProvider, ENRICHMENT_WARNING, OVERPASS_FETCH_LIMIT } from "./real";
 import {
   applyEnrichment,
   CommonsImageInfoSchema,
@@ -268,6 +269,21 @@ describe("adaptador demo de lugares", () => {
     expect(places).toHaveLength(7);
   });
 
+  it("al recortar prioriza los imprescindibles: el Museo del Prado nunca queda fuera", async () => {
+    const { places } = await demo.searchByBBox({
+      bbox: DEMO_BBOX,
+      categories: categoriesForLayers(["tourism", "food", "lodging"]),
+      limit: 500,
+    });
+    expect(places).toHaveLength(500);
+    expect(places.some((p) => p.name === "Museo del Prado")).toBe(true);
+    // Los lugares con Wikidata van antes que los que no la tienen.
+    const firstWithout = places.findIndex((p) => !p.wikidataId);
+    expect(places.slice(firstWithout).some((p) => p.wikidataId && p.layer === "tourism")).toBe(
+      false,
+    );
+  });
+
   it("fuera de la zona grabada no inventa lugares y lo indica", async () => {
     const result = await demo.searchByBBox({
       bbox: [2.17, 41.38, 2.18, 41.39],
@@ -276,6 +292,43 @@ describe("adaptador demo de lugares", () => {
     });
     expect(result.places).toEqual([]);
     expect(result.warnings).toEqual([DEMO_COVERAGE_WARNING]);
+  });
+});
+
+describe("relevancia de lugares", () => {
+  const base = mapOverpassResponse(OverpassResponseSchema.parse(overpassFixture.response), meta);
+  const prado = base.find((p) => p.name === "Museo del Prado")!;
+  const cafe = base.find((p) => p.layer === "food" && !p.wikidataId)!;
+
+  it("puntúa más lo turístico con Wikidata que la comida sin señales", () => {
+    expect(relevanceScore(prado)).toBeGreaterThan(relevanceScore(cafe));
+  });
+
+  it("es estable a igual puntuación y respeta el límite", () => {
+    const ranked = rankPlaces([cafe, prado, { ...cafe, id: "osm:node/1" }], 2);
+    expect(ranked.map((p) => p.id)).toEqual([prado.id, cafe.id]);
+  });
+
+  it("el adaptador real pide a Overpass más que el límite y recorta tras ordenar", async () => {
+    const fetchMock = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.includes("overpass")) {
+        expect(String(init?.body)).toContain(`qt+${OVERPASS_FETCH_LIMIT}`);
+        return Response.json(overpassFixture.response);
+      }
+      return new Response("", { status: 500 });
+    });
+    const provider = createRealPlacesProvider({
+      userAgent: "test",
+      cache: new MemoryCacheStore(),
+      fetch: fetchMock,
+    });
+    const { places } = await provider.searchByBBox({
+      bbox: DEMO_BBOX,
+      categories: allCategories,
+      limit: 20,
+    });
+    expect(places).toHaveLength(20);
+    expect(places.some((p) => p.name === "Museo del Prado")).toBe(true);
   });
 });
 
