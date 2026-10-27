@@ -43,10 +43,9 @@ export function PlacesPanel({
       </div>
 
       {provider?.notice ? (
-        <Alert>
-          <AlertTitle>Datos de demostración</AlertTitle>
-          <AlertDescription>{provider.notice}</AlertDescription>
-        </Alert>
+        <p className="text-muted-foreground border-l-2 border-amber-500/70 pl-2.5 text-xs">
+          {provider.notice}
+        </p>
       ) : null}
       {places.data?.warnings?.map((warning) => (
         <Alert key={warning}>

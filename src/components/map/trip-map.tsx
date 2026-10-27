@@ -44,6 +44,8 @@ export interface TripMapProps {
   styleUrl: string;
   /** Margen inferior ocupado por el bottom sheet en móvil, para centrar lo visible. */
   bottomInset?: number;
+  /** En móvil arriba (abajo la tapa el sheet); en tablet y escritorio abajo a la derecha. */
+  attributionPosition?: "top-right" | "bottom-right";
   onFailure: (reason: "style" | "webgl") => void;
 }
 
@@ -58,6 +60,7 @@ export default function TripMap({
   items,
   styleUrl,
   bottomInset = 0,
+  attributionPosition = "top-right",
   onFailure,
 }: TripMapProps) {
   const mapRef = useRef<MapRef>(null);
@@ -134,7 +137,7 @@ export default function TripMap({
         }
       }}
     >
-      <AttributionControl position="top-right" compact={false} />
+      <AttributionControl position={attributionPosition} compact={false} />
       <NavigationControl position="top-right" showCompass={false} />
       {markers.map((marker) => {
         const highlighted = markerHighlighted(marker, selectedId);

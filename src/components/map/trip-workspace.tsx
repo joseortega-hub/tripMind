@@ -254,11 +254,12 @@ function MapArea({
           items={items}
           styleUrl={styleUrl}
           bottomInset={bottomInset}
+          attributionPosition={layout === "mobile" ? "top-right" : "bottom-right"}
           onFailure={onFailure}
         />
       )}
       {toggles ? (
-        <div className="absolute top-3 left-3 z-[1] max-w-[calc(100%-15rem)]">{toggles}</div>
+        <div className="absolute top-3 left-3 z-[1] max-w-[calc(100%-5rem)]">{toggles}</div>
       ) : null}
       {loading ? (
         <p
