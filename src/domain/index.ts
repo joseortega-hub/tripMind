@@ -1,5 +1,6 @@
 export * from "./booking";
 export * from "./budget";
+export * from "./food";
 export * from "./geo";
 export * from "./geocoding";
 export * from "./itinerary";
