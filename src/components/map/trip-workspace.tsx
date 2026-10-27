@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BedDouble,
   CalendarDays,
   Info,
   List,
@@ -15,6 +16,8 @@ import { DemoBadge } from "@/components/data-source";
 import { AddToItinerary } from "@/components/itinerary/add-to-itinerary";
 import { ItineraryPanel } from "@/components/itinerary/itinerary-panel";
 import { useItinerary } from "@/components/itinerary/use-itinerary";
+import { ChooseHotel } from "@/components/lodging/choose-hotel";
+import { LodgingPanel } from "@/components/lodging/lodging-panel";
 import { TripOverview } from "@/components/trip-overview";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -97,6 +100,8 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
   const firstPlanDay = planDays.find((day) => day.activities.length > 0)?.date ?? planDays[0]?.date;
   const shownDate = itineraryDate ?? firstPlanDay;
   const shownDay = planDays.find((day) => day.date === shownDate);
+  // Alojamiento abierto desde el comparador: su ficha se abre aunque quede fuera de la zona.
+  const [pinned, setPinned] = useState<Place>();
   // Capa 5: la ruta del día se ve por defecto; el usuario puede ocultarla.
   const [dayRouteHidden, setDayRouteHidden] = useState(false);
   const dayRoute = useMemo<DayRoute | undefined>(
@@ -121,8 +126,10 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       }
     }
     for (const entry of itinerary.data.meta?.unscheduled ?? []) list.push(entry.place);
+    if (trip.hotel?.place) list.push(trip.hotel.place);
+    if (pinned) list.push(pinned);
     return list;
-  }, [planDays, itinerary.data.meta]);
+  }, [planDays, itinerary.data.meta, trip.hotel, pinned]);
 
   useEffect(() => {
     if (!hasWebGL()) setMapFailure("webgl");
@@ -212,6 +219,14 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         toggle: () => data.toggleFavorite(selected.place, !favoriteIds.has(selected.place.id)),
       }}
     >
+      {selected.place.layer === "lodging" ? (
+        <ChooseHotel
+          tripId={trip.id}
+          place={selected.place}
+          isCurrent={trip.hotel?.place?.id === selected.place.id}
+          headingLevel={layout === "desktop" ? 3 : 4}
+        />
+      ) : null}
       <AddToItinerary
         place={selected.place}
         itinerary={itinerary}
@@ -277,6 +292,17 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       }}
     />
   );
+  const lodgingPanel = (
+    <LodgingPanel
+      trip={trip}
+      headingLevel={layout === "mobile" ? 3 : 2}
+      selectedPlaceId={selectedId}
+      onShowOnMap={(place) => {
+        setPinned(place);
+        selectPlace(place);
+      }}
+    />
+  );
   const overview = (
     <div className="flex flex-col gap-3">
       {trip.hotel ? (
@@ -321,6 +347,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         }
         list={panel}
         itinerary={itineraryPanel}
+        lodging={lodgingPanel}
         overview={overview}
         detail={detail}
         mobileToggles={mobileToggles}
@@ -431,6 +458,7 @@ const VIEW_TABS: { view: WorkspaceView; label: string; icon: typeof MapIcon }[] 
   { view: "map", label: "Mapa", icon: MapIcon },
   { view: "list", label: "Lista", icon: List },
   { view: "itinerary", label: "Itinerario", icon: CalendarDays },
+  { view: "lodging", label: "Hotel", icon: BedDouble },
   { view: "trip", label: "Viaje", icon: Info },
 ];
 
@@ -439,6 +467,7 @@ function Layouts({
   map,
   list,
   itinerary,
+  lodging,
   overview,
   detail,
   mobileMapContent,
@@ -448,6 +477,7 @@ function Layouts({
   map: React.ReactNode;
   list: React.ReactNode;
   itinerary: React.ReactNode;
+  lodging: React.ReactNode;
   overview: React.ReactNode;
   detail: React.ReactNode;
   mobileMapContent: React.ReactNode;
@@ -460,7 +490,7 @@ function Layouts({
   const selectedId = useMapUi((state) => state.selectedId);
   const [available, setAvailable] = useState(0);
   const [panelOpen, setPanelOpen] = useState(true);
-  const [tab, setTab] = useState<"list" | "itinerary" | "trip">("list");
+  const [tab, setTab] = useState<PanelTab>("list");
   const mobileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -477,6 +507,7 @@ function Layouts({
       onChange={setTab}
       list={list}
       itinerary={itinerary}
+      lodging={lodging}
       overview={overview}
     />
   );
@@ -492,6 +523,8 @@ function Layouts({
         </div>
       ) : view === "itinerary" ? (
         itinerary
+      ) : view === "lodging" ? (
+        lodging
       ) : (
         overview
       );
@@ -520,7 +553,7 @@ function Layouts({
           aria-label="Vistas del viaje"
           className="bg-card shrink-0 border-t pb-[env(safe-area-inset-bottom)]"
         >
-          <ul className="grid grid-cols-4">
+          <ul className="grid grid-cols-5">
             {VIEW_TABS.map(({ view: item, label: text, icon: Icon }) => (
               <li key={item}>
                 <button
@@ -612,17 +645,21 @@ function Layouts({
   );
 }
 
+type PanelTab = "list" | "itinerary" | "lodging" | "trip";
+
 function PanelTabs({
   value,
   onChange,
   list,
   itinerary,
+  lodging,
   overview,
 }: {
-  value: "list" | "itinerary" | "trip";
-  onChange: (value: "list" | "itinerary" | "trip") => void;
+  value: PanelTab;
+  onChange: (value: PanelTab) => void;
   list: React.ReactNode;
   itinerary: React.ReactNode;
+  lodging: React.ReactNode;
   overview: React.ReactNode;
 }) {
   const trigger =
@@ -639,6 +676,9 @@ function PanelTabs({
         <Tabs.Trigger value="itinerary" className={trigger}>
           Itinerario
         </Tabs.Trigger>
+        <Tabs.Trigger value="lodging" className={trigger}>
+          Hotel
+        </Tabs.Trigger>
         <Tabs.Trigger value="trip" className={trigger}>
           Viaje
         </Tabs.Trigger>
@@ -648,6 +688,9 @@ function PanelTabs({
       </Tabs.Content>
       <Tabs.Content value="itinerary" className="outline-none">
         {itinerary}
+      </Tabs.Content>
+      <Tabs.Content value="lodging" className="outline-none">
+        {lodging}
       </Tabs.Content>
       <Tabs.Content value="trip" className="outline-none">
         {overview}

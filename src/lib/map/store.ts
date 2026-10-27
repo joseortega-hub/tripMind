@@ -4,7 +4,7 @@ import type { LineGeometry, RouteMode } from "@/domain/route";
 import { type ActiveLayers, DEFAULT_LAYERS, type MapLayerKey, toggleLayer } from "./layers";
 
 /** Vistas de la barra inferior en móvil (docs/DISENO.md). */
-export const WORKSPACE_VIEWS = ["map", "list", "itinerary", "trip"] as const;
+export const WORKSPACE_VIEWS = ["map", "list", "itinerary", "lodging", "trip"] as const;
 export type WorkspaceView = (typeof WORKSPACE_VIEWS)[number];
 
 /** Alturas del bottom sheet en móvil. */
@@ -91,7 +91,7 @@ export const createMapUiStore = () =>
         // de modo que el lugar quede visible sobre el sheet.
         ...(id ? { view: "map" as const, sheet: "half" as const } : {}),
       })),
-    // Lista, itinerario y viaje ocupan todo el sheet; al volver al mapa se recoge.
+    // Lista, itinerario, hotel y viaje ocupan todo el sheet; al volver al mapa se recoge.
     setView: (view) =>
       set((state) => ({
         view,
