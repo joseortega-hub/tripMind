@@ -12,7 +12,7 @@ import {
   TramFront,
 } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
-import { DataSource, DemoBadge } from "@/components/data-source";
+import { DataSource } from "@/components/data-source";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -187,12 +187,11 @@ export function LodgingPanel({
           <Heading id="lodging-compare-title" className="text-base font-semibold">
             {trip.hotel ? "Comparar con otros alojamientos" : "Elige dónde dormir"}
           </Heading>
-          {data?.providers.places.isDemo ? <DemoBadge /> : null}
         </div>
 
         <p className="text-muted-foreground text-sm">
-          Alojamientos reales de OpenStreetMap. Sin precios, valoraciones ni disponibilidad:
-          TripMind no tiene un proveedor autorizado. Cada uno enlaza a buscadores con tus fechas.
+          Alojamientos reales de OpenStreetMap. Sin precios ni valoraciones (no hay proveedor
+          autorizado): cada uno enlaza a buscadores con tus fechas.
         </p>
 
         <div className="grid grid-cols-1 gap-2">
@@ -605,6 +604,7 @@ function LodgingResults({
           {warning}
         </p>
       ))}
+      {ranked.length > 0 ? <ScoreLegend /> : null}
       {ranked.length === 0 ? (
         <div
           className="flex flex-col items-start gap-2 rounded-lg border border-dashed p-4"
@@ -685,6 +685,23 @@ function ComparisonNote({
         </p>
       ) : null}
     </div>
+  );
+}
+
+/** Leyenda de la barra: qué aporta cada color a la puntuación. */
+function ScoreLegend() {
+  return (
+    <ul
+      className="text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-xs"
+      aria-label="Leyenda de la barra de puntuación"
+    >
+      {(Object.keys(SCORE_LABELS) as LodgingScoreKey[]).map((key) => (
+        <li key={key} className="inline-flex items-center gap-1.5">
+          <span aria-hidden className={cn("size-2.5 rounded-full", SCORE_COLORS[key])} />
+          {SCORE_LABELS[key]}
+        </li>
+      ))}
+    </ul>
   );
 }
 

@@ -234,10 +234,52 @@ Decisiones Fase 5:
   proveedor con cuota, horarios de llegada/salida del primer y último día, paneles
   redimensionables.
 
-### ⬜ Fase 6 — Hoteles
+### ✅ Fase 6 — Hoteles
 
 Búsqueda, puntuación configurable, ordenación, enlaces de disponibilidad; hotel como centro y
 recálculo completo al cambiarlo. (§7, §14A)
+
+Decisiones Fase 6:
+
+- Búsqueda (`src/server/services/lodging.ts`, `GET /api/trips/[id]/lodging`): capa `lodging` de
+  OSM en el área del destino; filtros estrictos del paso 2 en el servidor (tipo, estrellas OSM
+  mínimas —sin `stars` no pasa—, solo `wheelchair=yes`). Se comparan los 40 más cercanos en línea
+  recta a los puntos clave (más el hotel actual siempre, aunque no cumpla los filtros) y se dice
+  cuántos cumplen y cuántos hay en la zona. Puntos clave: hasta 12 visitas del itinerario
+  repartidas entre los días o, sin plan, los 12 lugares más relevantes del destino.
+- Distancias con la matriz a pie de la Fase 4 (hoteles × puntos clave y hoteles × las dos
+  estaciones más cercanas a ≤ 1,5 km: metro, tren, tranvía y estación de autobuses; las paradas
+  de autobús no cuentan). Dos llamadas a la matriz por búsqueda, con caché.
+- Puntuación pura en el cliente (`src/lib/lodging/score.ts`, pesos 0–5 recordados en
+  `localStorage`): presupuesto (solo con precio de proveedor), cerca del itinerario (media de
+  minutos a pie, 8 → 35), transporte (estación 3 → 15 min) y preferencias (tipo, estrellas,
+  accesibilidad, zona céntrica por distancia al centro o bien comunicada = transporte). Un
+  componente sin datos no cuenta; sin estación cercana el transporte vale 0. Si a algún candidato
+  le faltan tiempos, **todos** se comparan en línea recta y se indica. Ordenar por puntuación,
+  ubicación, transporte y ubicación/transporte; precio y valoración aparecen deshabilitados.
+- Sin precios, valoraciones ni disponibilidad: interfaz `LodgingPriceProvider`
+  (`src/server/providers/lodging/`) con solo el adaptador "no configurado". Enlaces de búsqueda
+  etiquetados como externos y no reserva: Booking (fechas, adultos, menores y habitaciones en la
+  URL pública de resultados) y Google Hotels (solo nombre y ciudad: no documenta parámetros de
+  fecha, la UI lo dice). Servicios OSM en `Place.lodging` (habitaciones, wifi, aire, piscina…).
+- Hotel como centro (§14A): `PUT /api/trips/[id]/hotel { place }` guarda el snapshot (noches del
+  viaje, reserva pendiente, sin precio) y, si hay plan, lo regenera conservando lo bloqueado; si el
+  recálculo falla el hotel queda guardado y se avisa. El cliente actualiza el itinerario, vuelve a
+  medir y refresca el viaje (preguntas «Desde tu hotel», «Cómo llegar», mapa). También se elige
+  desde la ficha de cualquier alojamiento. «Ya tengo hotel» del asistente sigue igual y ese hotel
+  aparece como «Tu hotel» en la comparación.
+- UI: pestaña «Hotel» en escritorio/tablet y quinta vista del sheet móvil. «Tu hotel» con borde
+  coral; lista con puntuación, barra apilada por componente (con leyenda) y desglose en
+  «Detalles». Botón de elegir en contorno en la lista (el coral, solo en la ficha) para no
+  repetir 40 acciones principales.
+- Demo: `routing/fixtures/lodging.json` con matrices reales de FOSSGIS desde los 78 alojamientos
+  del fixture (a pie a 70 lugares y 18 estaciones; ida y vuelta a pie y en coche), grabadas con
+  `scripts/record-lodging-fixtures.mts`. La matriz demo ahora compone celdas de todas las tablas,
+  así que cambiar de hotel en demo sigue teniendo tiempos reales.
+- Arreglo heredado: generar el itinerario de un viaje sin hotel fallaba (vuelta a un hotel
+  inexistente).
+- Pendiente: proveedor autorizado de precios (requiere acuerdo), alta manual de un hotel fuera de
+  la zona de ~4 × 4 km, filtro "abierto/cancelación" (sin fuente) y paneles redimensionables.
 
 ### ⬜ Fase 7 — Restaurantes contextuales
 

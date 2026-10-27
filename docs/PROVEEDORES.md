@@ -22,7 +22,7 @@ matriz de tiempos, transporte público y estaciones/paradas (Fase 4).
 | Cambio de hora | Base de datos IANA (`Intl` / `date-fns-tz`) | No | Local, sin llamadas externas |
 | Vídeos enlazados | oEmbed de TikTok / Instagram | Instagram sí (Meta) | Solo metadatos y reproductor embebido de enlaces que aporta el usuario; sin scraping ni descargas |
 | Popularidad | Wikimedia Pageviews API | No | Mide visitas a Wikipedia, no redes sociales; etiquetarlo así |
-| Hoteles (precios) | — | — | Requiere acuerdo con proveedor autorizado; hasta entonces solo OSM + enlaces de búsqueda |
+| Hoteles (precios) | — (adaptador "no configurado") | — | Requiere acuerdo con proveedor autorizado; hasta entonces solo OSM + enlaces de búsqueda (Booking con fechas y viajeros, Google Hotels solo con nombre) |
 
 ## Arquitectura (`src/server/providers/`)
 
@@ -79,6 +79,17 @@ User-Agent. Nominatim **nunca** se usa para autocompletar (lo prohíbe su polít
   cercanas de cada tipo (estaciones y autobús por separado); "¿qué puedo visitar a pie?" filtra
   primero por línea recta (cota a 100 m/min) y decide solo con tiempos reales de la matriz.
 
+### Hoteles: precios (Fase 6)
+
+`src/server/providers/lodging/` define `LodgingPriceProvider.quote({ places, checkIn, checkOut,
+adults, children, rooms, currency })` → precio por noche con `source` e `isDemo` por lugar, o
+`not_configured`. Hoy solo existe el adaptador "no configurado" y la UI muestra "Sin precio
+disponible". Para activar uno real haría falta: un acuerdo con un proveedor autorizado (programa
+de afiliados o API de distribución de Booking, Expedia, Hotelbeds…), su clave solo en el servidor,
+casar sus hoteles con los de OSM (por coordenadas y nombre, o por un identificador común), caché
+corta (los precios caducan) y mostrar su atribución y condiciones (cancelación) tal como las dé.
+Si es afiliado, los enlaces deben decirlo. Nunca se rellenan precios ni disponibilidad.
+
 ### Capas del mapa y categorías OSM (`pois/categories.ts`)
 
 | Capa | Categorías (etiquetas OSM) |
@@ -112,6 +123,11 @@ Respuesta: `{ results, provider: { id, name, isDemo, notice? }, fromCache, warni
 - `GET /api/trips/[id]/itinerary` (`{ days, meta }`), `POST` (genera o regenera conservando lo
   bloqueado) y `PATCH` con `{ op: add | remove | move | set_time | lock | reorganize, … }`:
   recalcula los días afectados. 409 `invalid_edit`, 502 si fallan los lugares (con mapa de OSM).
+- `GET /api/trips/[id]/lodging[?types=hotel,hostel,apartment,other&minStars=1-5&accessible=1]`:
+  alojamientos de OSM con distancia/tiempo a pie a los puntos clave y a la estación más cercana,
+  `pricing` "no configurado"; 502 con mapa de OSM si falla Overpass.
+- `PUT /api/trips/[id]/hotel { place }`: elige o cambia el hotel y recalcula el itinerario
+  (`{ hotel, itinerary, regenerated, itineraryError? }`).
 - `GET|POST /api/trips/[id]/favorites` y `DELETE /api/trips/[id]/favorites?placeId=…`: lugares
   guardados del viaje (snapshot `Place` con `source` e `isDemo`); 404 si el viaje no existe,
   503 `storage_unavailable` si la BD falla.
@@ -120,7 +136,8 @@ Errores: 400 `invalid_request` (con `issues`), 502 `provider_unavailable` (con `
 ### Fixtures demo
 
 Son respuestas reales grabadas con `npx tsx scripts/record-fixtures.mts` y, las de la Fase 4, con
-`npx tsx scripts/record-route-fixtures.mts [--routes|--transit]` (fecha en `recordedAt`, que se
+`npx tsx scripts/record-route-fixtures.mts [--routes|--transit]` y, las de alojamientos (Fase 6),
+con `npx tsx scripts/record-lodging-fixtures.mts` (fecha en `recordedAt`, que se
 usa como `source.retrievedAt`). De Transitous se recortan alertas, alternativas y pasos a pie.
 La demo de transporte devuelve el plan grabado con sus horas reales (la UI dice de qué día son). En Wikidata solo se conservan las declaraciones P18 y P856.
 Los adaptadores demo pasan los fixtures por los mismos mapeadores que los reales y, fuera de la zona
