@@ -23,6 +23,19 @@ pnpm dev
 
 Abre http://localhost:3000.
 
+### Sin Docker (equipos con poca RAM)
+`prisma dev` levanta un Postgres local ligero (PGlite) sin Docker ni contraseñas:
+
+```bash
+npx prisma dev -n tripmind --detach
+npx prisma dev ls
+```
+
+Copia la URL `TCP` que muestra `ls` (p. ej.
+`postgres://postgres:postgres@localhost:51214/template1?sslmode=disable`) en `DATABASE_URL` del
+`.env` y ejecuta `npx prisma migrate deploy`. Tras reiniciar el equipo:
+`npx prisma dev start tripmind`. Con `psql` hay que usar `PGSSLMODE=disable`.
+
 ## Scripts
 | Comando | Qué hace |
 |---|---|
