@@ -578,10 +578,12 @@ function Results({
   return (
     <div className="flex flex-col gap-3" aria-busy={query.isFetching}>
       <p role="status" className="text-muted-foreground text-sm">
-        {data.results.length === 0
-          ? null
-          : `${data.results.length} sitio${data.results.length === 1 ? "" : "s"} abierto${data.results.length === 1 ? "" : "s"} a esa hora o sin horario, del más cercano al más lejano.`}
-        {data.totals.closed > 0 ? ` Ocultos ${data.totals.closed} que OSM da por cerrados.` : null}
+        {data.results.length > 0
+          ? `${data.results.length} sitio${data.results.length === 1 ? "" : "s"}, del más cercano al más lejano.`
+          : null}
+        {data.totals.closed > 0
+          ? ` ${data.totals.closed} cerrado${data.totals.closed === 1 ? "" : "s"} a esa hora según OSM (no se muestran).`
+          : null}
       </p>
       {justChosen && chosenId ? (
         <p
