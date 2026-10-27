@@ -335,7 +335,10 @@ function Layouts({
     return (
       <div className="flex min-h-0 flex-1 flex-col">
         <div ref={mobileRef} className="relative min-h-0 flex-1">
-          {map}
+          {/* Con el sheet desplegado el mapa queda tapado: fuera del foco y de la accesibilidad. */}
+          <div className="absolute inset-0" inert={sheet === "full"}>
+            {map}
+          </div>
           {available > 0 ? (
             <BottomSheet
               snap={sheet}

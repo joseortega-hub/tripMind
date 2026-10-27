@@ -70,7 +70,8 @@
   --muted-foreground: #5b666c;
   --accent: #e8f0f2;
   --accent-foreground: #17424f;
-  --destructive: oklch(0.577 0.245 27.325);
+  /* Más oscuro que el de shadcn: el texto de alerta (al 90 %) debe pasar 4,5:1 sobre blanco. */
+  --destructive: #b42318;
   --border: #e3e1db;
   --input: #858b8f;
   --ring: #2f7f96;
