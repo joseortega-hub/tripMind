@@ -139,10 +139,43 @@ Decisiones Fase 3:
   con autor y licencia vía `next/image` (`upload.wikimedia.org`, `thumb.wikimedia.org`).
 - Pendiente: paneles redimensionables en escritorio (ahora anchos fijos) y el itinerario (Fase 5).
 
-### ⬜ Fase 4 — Rutas y transporte
+### ✅ Fase 4 — Rutas y transporte
 
 Adaptadores OSRM/ORS (a pie, coche) y Transitous (público); matriz de tiempos con caché; capa 4
 (estaciones/paradas OSM); comparador de modos; preguntas desde el hotel; enlaces de fallback. (§11)
+
+Decisiones Fase 4:
+
+- Dominio en `src/domain/route.ts`: `RouteResult` = `routed` (duración, distancia, geometría,
+  fuente, `isDemo`; en transporte público salida/llegada, transbordos y tramos con línea, colores y
+  operador del feed GTFS) o `approximate` (línea recta, motivo y enlaces externos, **sin
+  duración**). `TravelMatrix` para el optimizador: tiempos por par o `unavailable` con solo la
+  distancia en línea recta.
+- Rutas: OSRM de **FOSSGIS** (`routing.openstreetmap.de`, perfiles reales `routed-foot` y
+  `routed-car`, 1 req/s) en vez del demo de project-osrm.org, que solo calcula en coche aunque se
+  pida `foot`. Con `OPENROUTESERVICE_API_KEY`, ORS (clave en cabecera, solo servidor). Caché 7 días;
+  la matriz envía cada punto una vez (máx. 100 puntos únicos).
+- Transporte público: Transitous con `fastestDirectFactor=1.5` (el comparador ya enseña la opción a
+  pie) y el itinerario que llega antes; caché 6 h. Comprobado: en Madrid solo tiene Cercanías e
+  interurbanos (sin Metro ni EMT), así que en el centro casi siempre gana andar y se dice así.
+- Hora de salida: día del viaje + hora local; zona IANA con `@photostructure/tz-lookup` y desfase
+  real de ese día. La demo devuelve el plan grabado con sus horas reales y la UI indica la fecha.
+- Fallos: cada modo es independiente; un fallo o falta de cobertura devuelve `approximate` con
+  enlaces a Google Maps y openstreetmap.org con origen y destino, etiquetados como enlaces externos
+  (no ruta calculada); el mapa dibuja la recta discontinua. Sin precio de taxi (no hay fuente).
+- Capa 4: categorías `tram_stop` y `bus_stop` y `Place.transit` (líneas `route_ref`, red,
+  operador de OSM, marcadas como etiquetas del mapa, no horarios). Se piden aparte y solo al
+  activar la capa (apagada por defecto: cientos de paradas). Token `--layer-transport` + icono.
+- Ficha de lugar: «Cómo llegar» (desde el hotel o desde el lugar abierto antes; día y hora de
+  salida; transporte público con franja de tramos proporcional y lista accesible, a pie, taxi o
+  coche; «Ver en el mapa» dibuja la ruta y encuadra), «¿Hay metro o transporte cerca?» (≤ 800 m,
+  tiempo a pie real a las más cercanas de cada tipo) y «¿Qué puedo visitar a pie?» (≤ N min según
+  la matriz). En «Viaje», «Desde tu hotel» con las dos preguntas.
+- Fixtures demo (`scripts/record-route-fixtures.mts`): paradas de Overpass, rutas OSRM desde Hotel
+  México a 70 lugares y 18 estaciones, matrices 71×71 (pie, coche) y 71×18, y 57 planes de
+  Transitous del 28-10-2026 a las 10:00 (8 con Cercanías, p. ej. a Sol).
+- Pendiente: transporte público en la matriz (Transitous pide uso ligero de `/plan`; se decidirá
+  en la Fase 5), enlaces a webs oficiales de operadores, frecuencia y tarifas (sin fuente fiable).
 
 ### ⬜ Fase 5 — Itinerario y optimizador
 
