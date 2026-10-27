@@ -98,6 +98,19 @@ export const FoodFactsSchema = z.object({
 });
 export type FoodFacts = z.infer<typeof FoodFactsSchema>;
 
+/** Etiquetas OSM de tarifa y reserva de una visita (sin interpretar más allá de su valor). */
+export const TicketFactsSchema = z.object({
+  /** `fee` tal cual: "yes", "no", "donation", o un texto libre ("15€. 2h before closing free."). */
+  fee: z.string().min(1).max(300).optional(),
+  /** `charge`: importe publicado (p. ej. "12 EUR"). */
+  charge: z.string().min(1).max(300).optional(),
+  /** `reservation`: yes / no / required / recommended. */
+  reservation: z.enum(["yes", "no", "required", "recommended"]).optional(),
+  /** Página de venta o reserva publicada en OSM (`website:tickets`, `reservation:website`…). */
+  ticketsUrl: z.url().optional(),
+});
+export type TicketFacts = z.infer<typeof TicketFactsSchema>;
+
 /** Imagen con autoría y licencia obligatorias (Wikimedia Commons exige mostrarlas). */
 export const PlaceImageSchema = z.object({
   url: z.url(),
@@ -133,6 +146,8 @@ export const PlaceSchema = ExternalDataSchema.extend({
   website: z.url().optional(),
   /** De dónde sale `website`: la web oficial (P856) tiene prioridad (REQUISITOS §12). */
   websiteSource: z.enum(["wikidata", "osm"]).optional(),
+  /** Fecha de la consulta a Wikidata cuando `website` sale de P856 (la de OSM está en `source`). */
+  websiteRetrievedAt: z.iso.datetime().optional(),
   phone: z.string().optional(),
   /** Horario en formato `opening_hours` de OSM, sin interpretar. */
   openingHours: z.string().optional(),
@@ -175,6 +190,11 @@ export const PlaceSchema = ExternalDataSchema.extend({
    * existen en la fuente; pueden estar desactualizadas y la UI las presenta "según OSM".
    */
   food: FoodFactsSchema.optional(),
+  /**
+   * Entradas: etiquetas de OSM sobre tarifa y reserva (`fee`, `charge`, `reservation`) y enlace de
+   * venta publicado en la fuente. Se conservan tal cual; el estado informativo se deriva de ellas.
+   */
+  tickets: TicketFactsSchema.optional(),
   /**
    * Estaciones y paradas: líneas según OSM (`route_ref`), red y operador. Son las etiquetas del
    * mapa, no un horario: pueden estar desactualizadas y la UI lo indica.

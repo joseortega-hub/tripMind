@@ -189,6 +189,7 @@ export function applyEnrichment(places: Place[], enrichment: Enrichment): Place[
     if (facts.website) {
       enriched.website = facts.website;
       enriched.websiteSource = "wikidata";
+      enriched.websiteRetrievedAt = enrichment.retrievedAt;
     }
     const image = facts.imageFile ? enrichment.images[commonsTitle(facts.imageFile)] : undefined;
     if (image) {

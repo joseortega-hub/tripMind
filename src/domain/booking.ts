@@ -32,6 +32,28 @@ export const BookingLinkSchema = z.object({
   kind: BookingLinkKindSchema,
   /** true si el enlace lleva a la web general y no a la página de entradas. */
   isGeneralWebsite: z.boolean(),
+  /** Nombre del proveedor autorizado (solo `authorized_reseller`). */
+  providerName: z.string().min(1).optional(),
   source: SourceSchema,
+  /** true si el enlace sale de datos de demostración. */
+  isDemo: z.boolean().optional(),
 });
 export type BookingLink = z.infer<typeof BookingLinkSchema>;
+
+/** Importe que introduce el usuario como pagado (total para todos los viajeros). */
+export const PaidPriceSchema = z.object({
+  amount: z.number().nonnegative().max(1_000_000),
+  currency: z.string().regex(/^[A-Z]{3}$/, "Código ISO 4217"),
+});
+export type PaidPrice = z.infer<typeof PaidPriceSchema>;
+
+/**
+ * Lo que el usuario anota de una reserva (REQUISITOS §12). Nunca se rellena solo: abrir un
+ * enlace de compra no cambia nada.
+ */
+export const BookingUpdateSchema = z.object({
+  status: BookingStatusSchema,
+  note: z.string().trim().max(500).nullable().optional(),
+  paid: PaidPriceSchema.nullable().optional(),
+});
+export type BookingUpdate = z.infer<typeof BookingUpdateSchema>;

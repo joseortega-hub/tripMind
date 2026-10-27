@@ -134,6 +134,26 @@ export function foodOf(tags: Record<string, string>): Place["food"] {
   return Object.keys(present).length > 0 ? present : undefined;
 }
 
+/** Tarifa y reserva de una visita según OSM; sin etiquetas, `undefined`. */
+export function ticketsOf(tags: Record<string, string>): Place["tickets"] {
+  const text = (value: string | undefined) => {
+    const trimmed = value?.trim();
+    return trimmed ? trimmed.slice(0, 300) : undefined;
+  };
+  const tickets: NonNullable<Place["tickets"]> = {
+    fee: text(tags.fee),
+    charge: text(tags.charge),
+    reservation: oneOf(tags.reservation, ["yes", "no", "required", "recommended"] as const),
+    ticketsUrl: parseWebsite(
+      tags["website:tickets"] ?? tags["reservation:website"] ?? tags["website:booking"],
+    ),
+  };
+  const present = Object.fromEntries(
+    Object.entries(tickets).filter(([, value]) => value !== undefined),
+  );
+  return Object.keys(present).length > 0 ? present : undefined;
+}
+
 function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): Place | undefined {
   const tags = el.tags ?? {};
   const name = tags.name;
@@ -171,6 +191,7 @@ function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): 
     stars: Number.isFinite(stars) && stars >= 0 && stars <= 7 ? stars : undefined,
     lodging: layer === "lodging" ? lodgingOf(tags) : undefined,
     food: layer === "food" ? foodOf(tags) : undefined,
+    tickets: layer === "tourism" ? ticketsOf(tags) : undefined,
     transit: layer === "transport" ? transitOf(tags) : undefined,
     source: osmSource(OVERPASS_NAME, el.type, el.id, retrievedAt),
     isDemo,
