@@ -1,3 +1,4 @@
+import { env } from "@/lib/env";
 import { getCacheStore } from "../core/cache-store";
 import { getProvidersConfig, type ProvidersConfig } from "../core/config";
 import { userAgent } from "../core/http";
@@ -21,6 +22,7 @@ export function getGeocodingProvider(
       createRealGeocodingProvider({
         userAgent: userAgent(config.contactEmail),
         cache: getCacheStore(),
+        geoapifyApiKey: env.GEOAPIFY_API_KEY?.trim() || undefined,
       }),
     demo: createDemoGeocodingProvider,
   });

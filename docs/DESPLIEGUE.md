@@ -25,6 +25,7 @@ Objetivo: una URL pública para probar TripMind en el móvil. Cada push a `main`
 | `PROVIDERS_MODE` | `auto` (datos reales) o `demo` (solo Madrid grabado) | Sí |
 | `CONTACT_EMAIL` | Un email tuyo de contacto. Nominatim, Overpass y Wikimedia lo exigen en el User-Agent; **sin él, todo cae a demo** | Sí para datos reales |
 | `MAP_STYLE_URL` | `https://tiles.openfreemap.org/styles/liberty` | Sí |
+| `GEOAPIFY_API_KEY` | Clave gratuita de https://myprojects.geoapify.com (autocompletado en español) | No (sin ella: Photon, nombres en inglés) |
 | `OPENROUTESERVICE_API_KEY` | Clave gratuita de https://openrouteservice.org/dev/#/signup | No (sin ella se usa OSRM de FOSSGIS) |
 | `TICKETMASTER_API_KEY` | Clave gratuita de https://developer.ticketmaster.com | No (Fase 9) |
 | `ANTHROPIC_API_KEY` | Clave de https://console.anthropic.com | No (aún no se usa) |

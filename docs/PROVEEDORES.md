@@ -7,6 +7,7 @@ matriz de tiempos, transporte público y estaciones/paradas (Fase 4).
 | Área | Proveedor | Clave | Limitaciones / condiciones |
 |---|---|---|---|
 | Teselas de mapa | OpenFreeMap | No | Atribución OSM obligatoria. Sin SLA. Alternativa con clave: MapTiler, Stadia |
+| Autocompletado (español) | Geoapify (datos OSM) | Sí (gratis) | 3.000 créditos/día y uso comercial limitado en el plan gratuito; atribución "Powered by Geoapify". Si falla o se agotan créditos → Photon |
 | Autocompletado | Photon (komoot) | No | Servidor público con uso razonable; para volumen, autoalojar |
 | Geocodificación | Nominatim (OSM) | No | Máx. 1 petición/s, User-Agent con contacto, **prohibido autocompletado** |
 | Lugares | Overpass API | No | Cuotas por IP; consultas acotadas por bbox y caché obligatoria |

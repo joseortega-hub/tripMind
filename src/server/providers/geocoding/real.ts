@@ -4,6 +4,7 @@ import { type CacheStore, cached, cacheKey } from "../core/cache";
 import type { FetchLike } from "../core/http";
 import { normalizeText } from "../core/osm";
 import type { RateLimiter } from "../core/rate-limit";
+import { geoapifyAutocomplete, GEOAPIFY_NAME } from "./geoapify";
 import { nominatimSearch } from "./nominatim";
 import { PHOTON_NAME, photonSearch } from "./photon";
 import type { GeocodeQuery, GeocodingProvider } from "./types";
@@ -16,6 +17,8 @@ export interface RealGeocodingDeps {
   cache: CacheStore;
   fetch?: FetchLike;
   nominatimLimiter?: RateLimiter;
+  /** Con clave, el autocompletado usa Geoapify (nombres en español); si no, Photon. */
+  geoapifyApiKey?: string;
 }
 
 /** Clave independiente de mayúsculas/tildes y con el sesgo redondeado (~1 km). */
@@ -41,6 +44,19 @@ export function createRealGeocodingProvider(deps: RealGeocodingDeps): GeocodingP
       () => photonSearch(query, http),
     );
 
+  const geoapifyApiKey = deps.geoapifyApiKey;
+  const geoapify = (query: GeocodeQuery, apiKey: string) =>
+    cached(
+      deps.cache,
+      {
+        key: cacheKey("geoapify", "es", ...queryKey(query)),
+        provider: "geoapify",
+        ttlMs: 7 * DAY,
+        schema: ResultsSchema,
+      },
+      () => geoapifyAutocomplete(query, { ...http, apiKey }),
+    );
+
   const nominatim = (query: GeocodeQuery) =>
     cached(
       deps.cache,
@@ -54,11 +70,19 @@ export function createRealGeocodingProvider(deps: RealGeocodingDeps): GeocodingP
     );
 
   return {
-    id: "photon",
-    name: PHOTON_NAME,
+    id: geoapifyApiKey ? "geoapify" : "photon",
+    name: geoapifyApiKey ? GEOAPIFY_NAME : PHOTON_NAME,
     isDemo: false,
 
     async autocomplete(query) {
+      if (geoapifyApiKey) {
+        try {
+          const { value, fromCache } = await geoapify(query, geoapifyApiKey);
+          return { results: value, providerId: "geoapify", fromCache };
+        } catch {
+          // Clave inválida, créditos agotados o caída: seguimos con Photon.
+        }
+      }
       const { value, fromCache } = await photon(query);
       return { results: value, providerId: "photon", fromCache };
     },
