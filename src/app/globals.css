@@ -40,6 +40,7 @@
   --color-layer-tourism: var(--layer-tourism);
   --color-layer-food: var(--layer-food);
   --color-layer-lodging: var(--layer-lodging);
+  --color-layer-transport: var(--layer-transport);
   --color-layer-saved: var(--layer-saved);
   --color-layer-foreground: var(--layer-foreground);
   --color-popover-foreground: var(--popover-foreground);
@@ -95,6 +96,7 @@
   --layer-tourism: #6b3fa0;
   --layer-food: #94560a;
   --layer-lodging: #2f5f9e;
+  --layer-transport: #2e6b30;
   --layer-saved: #b0245a;
   --layer-foreground: #ffffff;
 }
@@ -136,6 +138,7 @@
   --layer-tourism: #c4a5f0;
   --layer-food: #e8b360;
   --layer-lodging: #9cc0f0;
+  --layer-transport: #9fd8a0;
   --layer-saved: #f490b6;
   --layer-foreground: #17191b;
 }

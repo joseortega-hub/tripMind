@@ -29,8 +29,8 @@ async function deleteFavorite(tripId: string, placeId: string) {
 /** Máximo de lugares que se piden a `/api/places` (el límite del endpoint). */
 export const PLACES_LIMIT = 500;
 
-/** Lugares del destino (capas 1–3) y guardados del viaje (capa 7). */
-export function useTripPlaces(trip: Trip) {
+/** Lugares del destino (capas 1–3), estaciones y paradas (capa 4) y guardados (capa 7). */
+export function useTripPlaces(trip: Trip, { transport }: { transport: boolean }) {
   const area = areaAround(trip.destination.location);
   const queryClient = useQueryClient();
   const favoritesKey = ["favorites", trip.id] as const;
@@ -41,6 +41,18 @@ export function useTripPlaces(trip: Trip) {
     queryFn: ({ signal }) =>
       getJson<PlacesResponse>(
         `/api/places?${new URLSearchParams({ bbox: area, layers: PLACE_LAYERS.join(","), limit: String(PLACES_LIMIT) })}`,
+        signal,
+      ),
+    retry: false,
+  });
+
+  // Hay muchas paradas: se piden solo al activar la capa de transporte.
+  const stops = useQuery({
+    queryKey: ["places", area, "transport"],
+    enabled: transport,
+    queryFn: ({ signal }) =>
+      getJson<PlacesResponse>(
+        `/api/places?${new URLSearchParams({ bbox: area, layers: "transport", limit: String(PLACES_LIMIT) })}`,
         signal,
       ),
     retry: false,
@@ -88,6 +100,7 @@ export function useTripPlaces(trip: Trip) {
   return {
     area: BBoxStringSchema.parse(area),
     places,
+    stops,
     favorites,
     toggleFavorite: (place: Place, save: boolean) => toggle.mutate({ place, save }),
     favoritePending: toggle.isPending,

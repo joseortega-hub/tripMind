@@ -2,19 +2,23 @@ import { type BBox, bboxContains, type LatLng } from "@/domain/geo";
 import type { Place, PlaceCategory } from "@/domain/place";
 
 /**
- * Capas del mapa de esta fase (REQUISITOS §8): 1 turismo, 2 gastronomía, 3 alojamiento y
- * 7 guardados. Transporte (4), itinerario (5) y entradas (6) llegan en fases posteriores.
+ * Capas del mapa (REQUISITOS §8): 1 turismo, 2 gastronomía, 3 alojamiento, 4 transporte
+ * (estaciones y paradas de OSM) y 7 guardados. Itinerario (5) y entradas (6) llegan después.
  */
-export const MAP_LAYERS = ["tourism", "food", "lodging", "saved"] as const;
+export const MAP_LAYERS = ["tourism", "food", "lodging", "transport", "saved"] as const;
 export type MapLayerKey = (typeof MAP_LAYERS)[number];
 
-/** Capas que se piden a `/api/places`; "guardados" sale de los favoritos del viaje. */
+/**
+ * Capas que se piden juntas a `/api/places`; "guardados" sale de los favoritos del viaje y
+ * transporte se pide aparte solo cuando se activa (hay muchas paradas de autobús).
+ */
 export const PLACE_LAYERS = ["tourism", "food", "lodging"] as const;
 
 export const LAYER_LABELS: Record<MapLayerKey, string> = {
   tourism: "Turismo",
   food: "Gastronomía",
   lodging: "Alojamiento",
+  transport: "Transporte",
   saved: "Guardados",
 };
 
@@ -35,6 +39,11 @@ export const CATEGORY_LABELS: Partial<Record<PlaceCategory, string>> = {
   hostel: "Hostal / albergue",
   apartment: "Apartamento",
   guest_house: "Casa de huéspedes",
+  train_station: "Estación de tren",
+  metro_station: "Estación de metro",
+  bus_station: "Estación de autobuses",
+  tram_stop: "Parada de tranvía o metro ligero",
+  bus_stop: "Parada de autobús",
 };
 
 export type ActiveLayers = Record<MapLayerKey, boolean>;
@@ -43,6 +52,7 @@ export const DEFAULT_LAYERS: ActiveLayers = {
   tourism: true,
   food: true,
   lodging: true,
+  transport: false,
   saved: true,
 };
 
@@ -79,7 +89,7 @@ export function visiblePlaces(
     const isFavorite = favoriteIds.has(place.id);
     if (isFavorite && active.saved) {
       result.push({ place, layer: "saved", isFavorite });
-    } else if (place.layer !== "transport" && active[place.layer]) {
+    } else if (active[place.layer]) {
       result.push({ place, layer: place.layer, isFavorite });
     }
   }

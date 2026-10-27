@@ -16,6 +16,7 @@ export function PlacesPanel({
   items,
   total,
   places,
+  stops,
   favorites,
   mapAvailable,
 }: {
@@ -24,6 +25,8 @@ export function PlacesPanel({
   /** Lugares de las capas activas en todo el destino. */
   total: number;
   places: UseQueryResult<PlacesResponse>;
+  /** Estaciones y paradas (capa 4), solo con la capa activa. */
+  stops: UseQueryResult<PlacesResponse>;
   favorites: UseQueryResult<Place[]>;
   mapAvailable: boolean;
 }) {
@@ -57,6 +60,17 @@ export function PlacesPanel({
         <p className="text-muted-foreground text-xs">
           Se muestran los {PLACES_LIMIT} primeros lugares de la zona; puede haber más.
         </p>
+      ) : null}
+
+      {layers.transport && stops.isLoading ? (
+        <p className="text-muted-foreground text-sm">Cargando estaciones y paradas…</p>
+      ) : null}
+      {layers.transport && stops.isError ? (
+        <PlacesError
+          title="No se pueden cargar las estaciones y paradas"
+          error={stops.error}
+          retry={() => stops.refetch()}
+        />
       ) : null}
 
       {favorites.isError ? (
@@ -127,11 +141,19 @@ function Empty({ title, text, action }: { title: string; text: string; action: R
   );
 }
 
-function PlacesError({ error, retry }: { error: Error; retry: () => void }) {
+function PlacesError({
+  error,
+  retry,
+  title = "No se pueden cargar los lugares",
+}: {
+  error: Error;
+  retry: () => void;
+  title?: string;
+}) {
   const externalUrl = error instanceof ApiError ? error.externalUrl : undefined;
   return (
     <Alert variant="destructive">
-      <AlertTitle>No se pueden cargar los lugares</AlertTitle>
+      <AlertTitle>{title}</AlertTitle>
       <AlertDescription>
         <p>{error.message}</p>
         <div className="mt-2 flex flex-wrap items-center gap-3">

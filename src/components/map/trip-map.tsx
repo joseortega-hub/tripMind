@@ -6,14 +6,17 @@ import { getVersion, setWorkerUrl } from "maplibre-gl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, {
   AttributionControl,
+  Layer,
   type MapRef,
   Marker,
   NavigationControl,
+  Source,
   type ViewStateChangeEvent,
 } from "react-map-gl/maplibre";
 import type { BBox, LatLng } from "@/domain/geo";
 import { buildClusterIndex, markerHighlighted, SELECTION_ZOOM } from "@/lib/map/clusters";
 import type { MapPlace } from "@/lib/map/layers";
+import type { MapRoute } from "@/lib/map/store";
 import { cn } from "@/lib/utils";
 import { LAYER_BG, LAYER_ICONS } from "./layer-style";
 import { useMapUi } from "./workspace-context";
@@ -49,6 +52,37 @@ export interface TripMapProps {
   onFailure: (reason: "style" | "webgl") => void;
 }
 
+/** Colores de la ruta: el petróleo de la marca (MapLibre no lee variables CSS). */
+const ROUTE_COLOR = "#1f5c6e";
+const ROUTE_CASING = "#ffffff";
+
+function routeBounds(route: MapRoute): BBox {
+  const lngs = route.geometry.map(([lng]) => lng);
+  const lats = route.geometry.map(([, lat]) => lat);
+  return [Math.min(...lngs), Math.min(...lats), Math.max(...lngs), Math.max(...lats)];
+}
+
+function routeFeature(route: MapRoute) {
+  return {
+    type: "Feature" as const,
+    properties: {},
+    geometry: { type: "LineString" as const, coordinates: route.geometry },
+  };
+}
+
+function endpoints(route: MapRoute) {
+  const first = route.geometry[0]!;
+  const last = route.geometry[route.geometry.length - 1]!;
+  return {
+    type: "FeatureCollection" as const,
+    features: [first, last].map((coordinates) => ({
+      type: "Feature" as const,
+      properties: {},
+      geometry: { type: "Point" as const, coordinates },
+    })),
+  };
+}
+
 function readBounds(map: MapRef): BBox {
   const bounds = map.getBounds();
   return [bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth()];
@@ -71,6 +105,7 @@ export default function TripMap({
   const recenterRequest = useMapUi((state) => state.recenterRequest);
   const select = useMapUi((state) => state.select);
   const setBounds = useMapUi((state) => state.setBounds);
+  const route = useMapUi((state) => state.route);
 
   const index = useMemo(() => buildClusterIndex(items), [items]);
   const markers = useMemo(
@@ -110,6 +145,17 @@ export default function TripMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusRequest]);
 
+  // Al mostrar un trayecto se encuadra entero (respetando el sheet en móvil).
+  useEffect(() => {
+    if (!route) return;
+    mapRef.current?.fitBounds(routeBounds(route), {
+      padding,
+      maxZoom: 17,
+      animate: !prefersReducedMotion(),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [route]);
+
   useEffect(() => {
     if (recenterRequest === 0) return;
     mapRef.current?.fitBounds(area, { padding, animate: !prefersReducedMotion() });
@@ -139,6 +185,41 @@ export default function TripMap({
     >
       <AttributionControl position={attributionPosition} compact={false} />
       <NavigationControl position="top-right" showCompass={false} />
+      {route ? (
+        <>
+          <Source id="trip-route" type="geojson" data={routeFeature(route)}>
+            <Layer
+              id="trip-route-casing"
+              type="line"
+              layout={{ "line-cap": "round", "line-join": "round" }}
+              paint={{ "line-color": ROUTE_CASING, "line-width": 8 }}
+            />
+            <Layer
+              id="trip-route-line"
+              type="line"
+              layout={{ "line-cap": "round", "line-join": "round" }}
+              paint={{
+                "line-color": ROUTE_COLOR,
+                "line-width": 5,
+                // Sin ruta real: línea recta discontinua (REQUISITOS §8).
+                ...(route.quality === "approximate" ? { "line-dasharray": [1.5, 1.5] } : {}),
+              }}
+            />
+          </Source>
+          <Source id="trip-route-ends" type="geojson" data={endpoints(route)}>
+            <Layer
+              id="trip-route-ends"
+              type="circle"
+              paint={{
+                "circle-radius": 6,
+                "circle-color": ROUTE_CASING,
+                "circle-stroke-color": ROUTE_COLOR,
+                "circle-stroke-width": 3,
+              }}
+            />
+          </Source>
+        </>
+      ) : null}
       {markers.map((marker) => {
         const highlighted = markerHighlighted(marker, selectedId);
         if (marker.kind === "cluster") {

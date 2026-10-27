@@ -15,6 +15,8 @@ import { DemoBadge } from "@/components/data-source";
 import { TripOverview } from "@/components/trip-overview";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { LatLng } from "@/domain/geo";
+import type { Place } from "@/domain/place";
 import type { Trip } from "@/domain/trip";
 import { placesInBounds, visiblePlaces } from "@/lib/map/layers";
 import type { WorkspaceView } from "@/lib/map/store";
@@ -23,8 +25,11 @@ import { cn } from "@/lib/utils";
 import { BottomSheet, sheetHeights } from "./bottom-sheet";
 import { LayerToggles } from "./layer-toggles";
 import { MapFailure, type MapFailureReason } from "./map-failure";
+import { HotelQuestions } from "./hotel-questions";
+import { NearbyTransit, WalkableFrom } from "./nearby-questions";
 import { PlaceDetail } from "./place-detail";
 import { ItineraryPlaceholder, PlacesPanel } from "./places-panel";
+import { type RouteOrigin, RouteComparator } from "./route-comparator";
 import { useTripPlaces } from "./use-trip-places";
 import { type Layout, MapUiProvider, useLayout, useMapUi } from "./workspace-context";
 
@@ -53,20 +58,44 @@ export function TripWorkspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: 
   );
 }
 
+/** Días del viaje ("YYYY-MM-DD"), para elegir la salida del transporte público. */
+function tripDays(trip: Trip) {
+  const days: string[] = [];
+  for (
+    let day = new Date(`${trip.startDate}T00:00:00Z`);
+    day <= new Date(`${trip.endDate}T00:00:00Z`);
+    day.setUTCDate(day.getUTCDate() + 1)
+  ) {
+    days.push(day.toISOString().slice(0, 10));
+  }
+  return days;
+}
+
+const samePoint = (a: LatLng, b: LatLng) =>
+  a.lat.toFixed(5) === b.lat.toFixed(5) && a.lng.toFixed(5) === b.lng.toFixed(5);
+
 function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
   const layout = useLayout();
-  const data = useTripPlaces(trip);
   const layers = useMapUi((state) => state.layers);
+  const data = useTripPlaces(trip, { transport: layers.transport });
   const bounds = useMapUi((state) => state.bounds);
   const selectedId = useMapUi((state) => state.selectedId);
+  const previousId = useMapUi((state) => state.previousId);
   const select = useMapUi((state) => state.select);
+  const toggleLayer = useMapUi((state) => state.toggleLayer);
+  const days = useMemo(() => tripDays(trip), [trip]);
   const [mapFailure, setMapFailure] = useState<MapFailureReason>();
 
   useEffect(() => {
     if (!hasWebGL()) setMapFailure("webgl");
   }, []);
 
-  const results = data.places.data?.results;
+  const placeResults = data.places.data?.results;
+  const stopResults = layers.transport ? data.stops.data?.results : undefined;
+  const results = useMemo(
+    () => [...(placeResults ?? []), ...(stopResults ?? [])],
+    [placeResults, stopResults],
+  );
   const favorites = data.favorites.data;
   const items = useMemo(
     () => visiblePlaces(results ?? [], favorites ?? [], layers),
@@ -82,18 +111,43 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       tourism: true,
       food: true,
       lodging: true,
+      transport: true,
       saved: true,
     });
+    const count = (layer: Place["layer"]) =>
+      all.filter((item) => item.place.layer === layer).length;
     return {
-      tourism: all.filter((item) => item.place.layer === "tourism").length,
-      food: all.filter((item) => item.place.layer === "food").length,
-      lodging: all.filter((item) => item.place.layer === "lodging").length,
+      tourism: count("tourism"),
+      food: count("food"),
+      lodging: count("lodging"),
+      transport: stopResults ? count("transport") : undefined,
       saved: favorites?.length ?? 0,
     };
-  }, [results, favorites]);
+  }, [results, favorites, stopResults]);
 
   const selected = items.find((item) => item.place.id === selectedId);
   const favoriteIds = new Set((favorites ?? []).map((place) => place.id));
+  const previous = previousId
+    ? [...results, ...(favorites ?? [])].find((place) => place.id === previousId)
+    : undefined;
+  const tourism = useMemo(() => results.filter((place) => place.layer === "tourism"), [results]);
+
+  /** Elegir un lugar desde una respuesta (estación cercana, lugar a pie): enciende su capa. */
+  const selectPlace = (place: Place) => {
+    if (!layers[place.layer]) toggleLayer(place.layer);
+    select(place.id, "list");
+  };
+
+  const routeOrigins = (target: Place): RouteOrigin[] => {
+    const origins: RouteOrigin[] = [];
+    if (trip.hotel && !samePoint(trip.hotel.location, target.location)) {
+      origins.push({ key: "hotel", name: trip.hotel.name, location: trip.hotel.location });
+    }
+    if (previous && previous.id !== target.id && !samePoint(previous.location, target.location)) {
+      origins.push({ key: "previous", name: previous.name, location: previous.location });
+    }
+    return origins;
+  };
   const detail = selected ? (
     <PlaceDetail
       key={selected.place.id}
@@ -107,7 +161,23 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         error: data.favoriteError,
         toggle: () => data.toggleFavorite(selected.place, !favoriteIds.has(selected.place.id)),
       }}
-    />
+    >
+      <RouteComparator
+        destination={{ name: selected.place.name, location: selected.place.location }}
+        origins={routeOrigins(selected.place)}
+        tripDays={days}
+        headingLevel={layout === "desktop" ? 3 : 4}
+      />
+      <section aria-label="Alrededores" className="flex flex-col gap-2 border-t pt-4">
+        <NearbyTransit at={selected.place.location} onSelect={selectPlace} />
+        <WalkableFrom
+          origin={selected.place.location}
+          originId={selected.place.id}
+          candidates={tourism}
+          onSelect={selectPlace}
+        />
+      </section>
+    </PlaceDetail>
   ) : null;
 
   const mobileToggles = (
@@ -127,12 +197,16 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       items={listItems}
       total={items.length}
       places={data.places}
+      stops={data.stops}
       favorites={data.favorites}
       mapAvailable={!mapFailure}
     />
   );
   const overview = (
     <div className="flex flex-col gap-3">
+      {trip.hotel ? (
+        <HotelQuestions hotel={trip.hotel} tourism={tourism} onSelect={selectPlace} />
+      ) : null}
       <TripOverview trip={trip} />
     </div>
   );

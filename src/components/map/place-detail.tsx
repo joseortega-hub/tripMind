@@ -9,6 +9,7 @@ import {
   MapPin,
   Phone,
   Star,
+  TramFront,
   X,
 } from "lucide-react";
 import Image from "next/image";
@@ -49,12 +50,15 @@ export function PlaceDetail({
   favorite,
   onClose,
   headingLevel = 2,
+  children,
 }: {
   place: Place;
   layer: MapLayerKey;
   favorite: FavoriteControl;
   onClose: () => void;
   headingLevel?: 2 | 3;
+  /** Secciones añadidas por el espacio de trabajo (cómo llegar, qué hay cerca). */
+  children?: React.ReactNode;
 }) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
   const address = addressText(place);
@@ -64,7 +68,7 @@ export function PlaceDetail({
     <article aria-labelledby="place-detail-title" className="flex flex-col gap-4">
       <div className="flex items-start gap-3">
         <LayerGlyph
-          layer={place.layer === "transport" ? layer : place.layer}
+          layer={layer === "saved" ? place.layer : layer}
           className="mt-0.5 size-9"
           iconClassName="size-4.5"
         />
@@ -78,7 +82,7 @@ export function PlaceDetail({
           <p
             className={cn(
               "text-sm font-medium",
-              LAYER_TEXT[place.layer === "transport" ? layer : place.layer],
+              LAYER_TEXT[layer === "saved" ? place.layer : layer],
             )}
           >
             {CATEGORY_LABELS[place.category]}
@@ -199,12 +203,23 @@ export function PlaceDetail({
             </a>
           </Row>
         ) : null}
+        {place.transit && place.transit.lines.length > 0 ? (
+          <Row icon={TramFront} label="Líneas">
+            Líneas {place.transit.lines.join(", ")}
+            {place.transit.network ? ` (${place.transit.network})` : ""}
+            <span className="text-muted-foreground block text-xs">
+              Según las etiquetas de OpenStreetMap; no es un horario y puede estar desactualizado.
+            </span>
+          </Row>
+        ) : null}
         {place.wheelchair ? (
           <Row icon={Accessibility} label="Accesibilidad">
             {WHEELCHAIR_LABELS[place.wheelchair]} (según OpenStreetMap)
           </Row>
         ) : null}
       </dl>
+
+      {children}
 
       <div className="flex flex-col gap-2 border-t pt-3">
         <DataSource source={place.source} isDemo={place.isDemo} />

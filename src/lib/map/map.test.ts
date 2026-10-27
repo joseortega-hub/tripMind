@@ -33,12 +33,21 @@ const hotel = place("osm:node/3", "hotel", 40.409, -3.699, "Hotel Mediodía");
 const station = place("osm:node/4", "train_station", 40.406, -3.69, "Atocha");
 
 describe("capas del mapa", () => {
-  it("muestra las capas activas y deja fuera transporte (Fase 4)", () => {
+  it("muestra las capas activas; transporte empieza apagado y se puede activar", () => {
     const items = visiblePlaces([prado, cafe, hotel, station], [], DEFAULT_LAYERS);
     expect(items.map((item) => item.place.name)).toEqual([
       "Café Central",
       "Hotel Mediodía",
       "Museo del Prado",
+    ]);
+    const withTransport = visiblePlaces(
+      [prado, station],
+      [],
+      toggleLayer(DEFAULT_LAYERS, "transport"),
+    );
+    expect(withTransport.map((item) => [item.place.name, item.layer])).toEqual([
+      ["Atocha", "transport"],
+      ["Museo del Prado", "tourism"],
     ]);
   });
 
@@ -51,7 +60,7 @@ describe("capas del mapa", () => {
   });
 
   it("dibuja los favoritos en la capa guardados aunque su capa esté apagada", () => {
-    const layers = { tourism: false, food: false, lodging: false, saved: true };
+    const layers = { tourism: false, food: false, lodging: false, transport: false, saved: true };
     const items = visiblePlaces([prado, cafe], [cafe], layers);
     expect(items).toEqual([{ place: cafe, layer: "saved", isFavorite: true }]);
   });
@@ -72,7 +81,9 @@ describe("capas del mapa", () => {
 
   it("detecta todas las capas apagadas", () => {
     expect(allLayersOff(DEFAULT_LAYERS)).toBe(false);
-    expect(allLayersOff({ tourism: false, food: false, lodging: false, saved: false })).toBe(true);
+    expect(
+      allLayersOff({ tourism: false, food: false, lodging: false, transport: false, saved: false }),
+    ).toBe(true);
   });
 
   it("la lista equivale a la zona visible del mapa", () => {
@@ -180,5 +191,37 @@ describe("estado de la vista", () => {
     expect(nearestSnap(0.3, heights)).toBe("peek");
     expect(nearestSnap(0.6, heights)).toBe("half");
     expect(nearestSnap(0.8, heights)).toBe("full");
+  });
+});
+
+describe("trayectos en el estado del mapa", () => {
+  const route = {
+    key: "a>b:walk",
+    mode: "walk" as const,
+    quality: "routed" as const,
+    geometry: [
+      [-3.69, 40.41],
+      [-3.7, 40.42],
+    ] as [number, number][],
+  };
+
+  it("recuerda el lugar anterior aunque se cierre la ficha", () => {
+    const store = createMapUiStore();
+    store.getState().select("a", "list");
+    store.getState().select(undefined, "list");
+    store.getState().select("b", "map");
+    expect(store.getState().previousId).toBe("a");
+    store.getState().select("b", "map");
+    expect(store.getState().previousId).toBe("a");
+  });
+
+  it("la ruta mostrada se borra al cambiar de lugar", () => {
+    const store = createMapUiStore();
+    store.getState().select("a", "list");
+    store.getState().showRoute(route);
+    store.getState().select("a", "map");
+    expect(store.getState().route).toEqual(route);
+    store.getState().select("b", "map");
+    expect(store.getState().route).toBeUndefined();
   });
 });

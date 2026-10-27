@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { BBox } from "@/domain/geo";
+import type { LineGeometry, RouteMode } from "@/domain/route";
 import { type ActiveLayers, DEFAULT_LAYERS, type MapLayerKey, toggleLayer } from "./layers";
 
 /** Vistas de la barra inferior en móvil (docs/DISENO.md). */
@@ -25,10 +26,24 @@ export function nearestSnap(fraction: number, heights: Record<SheetSnap, number>
 /** Quién pidió la selección: si viene de la lista, el mapa se centra en el lugar. */
 export type SelectionOrigin = "map" | "list";
 
+/** Trayecto dibujado en el mapa (uno cada vez). `approximate` se dibuja discontinuo. */
+export interface MapRoute {
+  /** Identifica el trayecto (origen, destino y modo) para el botón "Ver en el mapa". */
+  key: string;
+  mode: RouteMode;
+  quality: "routed" | "approximate";
+  geometry: LineGeometry;
+}
+
 export interface MapUiState {
   layers: ActiveLayers;
   selectedId?: string;
   selectionOrigin?: SelectionOrigin;
+  /** Último lugar abierto antes del actual: origen "desde el punto anterior". */
+  previousId?: string;
+  /** Último lugar abierto (aunque ya se haya cerrado su ficha). */
+  lastId?: string;
+  route?: MapRoute;
   /** Contador para repetir el centrado aunque se elija el mismo lugar otra vez. */
   focusRequest: number;
   view: WorkspaceView;
@@ -44,6 +59,7 @@ export interface MapUiState {
   setSheet: (sheet: SheetSnap) => void;
   setBounds: (bounds: BBox | undefined) => void;
   recenter: () => void;
+  showRoute: (route: MapRoute | undefined) => void;
 }
 
 export const createMapUiStore = () =>
@@ -58,6 +74,11 @@ export const createMapUiStore = () =>
     select: (id, origin) =>
       set((state) => ({
         selectedId: id,
+        // Al cerrar la ficha se recuerda el lugar; al abrir otro distinto pasa a ser el anterior.
+        previousId: id && state.lastId && state.lastId !== id ? state.lastId : state.previousId,
+        lastId: id ?? state.lastId,
+        // La ruta pertenece a la ficha abierta: se borra al cambiar de lugar.
+        route: id === state.selectedId ? state.route : undefined,
         selectionOrigin: id ? origin : undefined,
         focusRequest: state.focusRequest + 1,
         // En móvil, al elegir un lugar se abre su ficha a media altura en la vista mapa,
@@ -73,6 +94,7 @@ export const createMapUiStore = () =>
     setSheet: (sheet) => set({ sheet }),
     setBounds: (bounds) => set({ bounds }),
     recenter: () => set((state) => ({ recenterRequest: state.recenterRequest + 1 })),
+    showRoute: (route) => set({ route }),
   }));
 
 export type MapUiStore = ReturnType<typeof createMapUiStore>;
