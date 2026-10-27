@@ -129,6 +129,13 @@ con fuente actualizada. Si no hay datos, mostrar categorías y permitir investig
   horaria con la zona del usuario si es distinta.
 - Todo se ve en una franja de "Calendario del viaje" del itinerario, en el PDF/archivo
   interactivo y en el `.ics`.
+- **Cada tipo de aviso tiene color y letra propios** (insignia con letra + color + nombre accesible,
+  nunca solo color), con leyenda visible. Tipos iniciales: **F** festivo, **E** evento especial,
+  **H** cambio de hora, **C** cierre o cambio de horario de un lugar, **T** incidencia de transporte
+  (huelga, corte), **M** meteorología (lluvia, calor extremo), **R** reserva o entrada del usuario.
+- **Filtros**: por tipo (chips con la misma letra y color, multiselección), por impacto
+  (oportunidad / afecta al plan), por día y por fuente; "solo lo que afecta a mi itinerario".
+  El filtro se recuerda por viaje y se aplica igual en la vista de calendario, la lista y el mapa.
 
 ## 18. Lugares "trending" y redes sociales (añadido por el usuario)
 Viabilidad (oct. 2026, revisar términos antes de implementar):

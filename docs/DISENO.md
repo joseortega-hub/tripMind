@@ -20,6 +20,9 @@ Si no están instaladas, aplica igualmente esta guía y añade `@axe-core/playwr
   Cifras tabulares en horas, distancias y precios.
 - Colores por categoría de mapa (turismo, comida, alojamiento, transporte, entradas, guardados)
   definidos como tokens y distinguibles también por icono (no solo por color).
+- Avisos del calendario del viaje (REQUISITOS §17): cada tipo con token de color y letra
+  (F, E, H, C, T, M, R) en una insignia de forma fija, con leyenda y chips de filtro idénticos a
+  las insignias. Contraste AA de la letra sobre su color en modo claro y oscuro.
 - Modo oscuro con los mismos tokens.
 - Fotos reales con autor y licencia visibles. Sin fotos de stock que parezcan del lugar.
 
