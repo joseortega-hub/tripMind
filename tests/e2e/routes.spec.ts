@@ -137,7 +137,6 @@ test("sin ruta real de transporte lo dice y ofrece enlaces externos; metro cerca
   const id = await createTripWithHotel(page);
   await page.goto(`/trips/${id}`);
 
-  // (El Prado no entra en los 500 primeros lugares del fixture demo.)
   const detail = await openFromList(page, isMobile, "tourism", "CaixaForum Madrid");
   const transit = detail.getByTestId("route-transit");
   await expect(transit.getByText("Sin ruta calculada")).toBeVisible();

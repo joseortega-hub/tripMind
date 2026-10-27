@@ -1,7 +1,7 @@
 "use client";
 
 import type { UseQueryResult } from "@tanstack/react-query";
-import { CalendarDays, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import type { Place } from "@/domain/place";
@@ -58,7 +58,7 @@ export function PlacesPanel({
 
       {(places.data?.results.length ?? 0) >= PLACES_LIMIT ? (
         <p className="text-muted-foreground text-xs">
-          Se muestran los {PLACES_LIMIT} primeros lugares de la zona; puede haber más.
+          Se muestran los {PLACES_LIMIT} lugares más destacados de la zona; puede haber más.
         </p>
       ) : null}
 
@@ -179,15 +179,3 @@ function PlacesError({
 }
 
 /** Hueco del itinerario hasta la Fase 5. */
-export function ItineraryPlaceholder() {
-  return (
-    <div className="flex flex-col items-start gap-2 rounded-lg border border-dashed p-4">
-      <CalendarDays className="text-primary size-6" aria-hidden />
-      <p className="font-medium">El plan por días llegará pronto</p>
-      <p className="text-muted-foreground text-sm">
-        Mientras tanto, guarda los lugares que te interesen: aparecerán en la capa «Guardados» y
-        servirán para construir tu itinerario.
-      </p>
-    </div>
-  );
-}

@@ -7,6 +7,7 @@ import { straightLineMeters, type TravelMatrix } from "@/domain/route";
 import type { Activity, ItineraryDay, Trip } from "@/domain/trip";
 import { areaAround } from "@/lib/map/layers";
 import type { ProviderSelection } from "@/server/providers/core/registry";
+import { ProviderError } from "@/server/providers/core/types";
 import { getPlacesProvider, type PlacesProvider } from "@/server/providers/pois";
 import { getRoutingProvider, type RoutingProvider } from "@/server/providers/routing";
 import { isDemoMatrixPoint } from "@/server/providers/routing/demo";
@@ -40,6 +41,17 @@ const defaultDeps = (): ItineraryDeps => ({
 export interface Itinerary {
   days: ItineraryDay[];
   meta?: ItineraryMeta;
+}
+
+/** Sin lugares no hay itinerario: el error recuerda dónde, para ofrecer el mapa de OSM. */
+export class PlacesUnavailableError extends ProviderError {
+  constructor(
+    cause: ProviderError,
+    readonly at: LatLng,
+  ) {
+    super(cause.message, cause.providerId);
+    this.name = "PlacesUnavailableError";
+  }
 }
 
 export class ItineraryEditError extends Error {
@@ -153,11 +165,17 @@ export async function computeItinerary(
     [...lockedByDate.values()].flat().flatMap((a) => (a.place ? [a.place.id] : [])),
   );
 
-  const search = await deps.places.provider.searchByBBox({
-    bbox: BBoxStringSchema.parse(areaAround(center)),
-    categories: [...VISIT_CATEGORIES],
-    limit: 500,
-  });
+  let search: Awaited<ReturnType<PlacesProvider["searchByBBox"]>>;
+  try {
+    search = await deps.places.provider.searchByBBox({
+      bbox: BBoxStringSchema.parse(areaAround(center)),
+      categories: [...VISIT_CATEGORIES],
+      limit: 500,
+    });
+  } catch (error) {
+    if (error instanceof ProviderError) throw new PlacesUnavailableError(error, center);
+    throw error;
+  }
   const applicable = hasApplicableInterests(preferences);
   if (!applicable && Object.keys(preferences.interests).length > 0) {
     notices.push(

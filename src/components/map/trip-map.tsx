@@ -1,7 +1,7 @@
 "use client";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Heart } from "lucide-react";
+import { BedDouble, Heart } from "lucide-react";
 import { getVersion, setWorkerUrl } from "maplibre-gl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, {
@@ -50,6 +50,35 @@ export interface TripMapProps {
   /** En móvil arriba (abajo la tapa el sheet); en tablet y escritorio abajo a la derecha. */
   attributionPosition?: "top-right" | "bottom-right";
   onFailure: (reason: "style" | "webgl") => void;
+  /** Capa 5: paradas numeradas del día elegido en el itinerario y el hotel como referencia. */
+  dayRoute?: DayRoute;
+}
+
+export interface DayRoute {
+  stops: { id: string; number: number; name: string; location: LatLng; placeId: string }[];
+  hotel?: { name: string; location: LatLng };
+}
+
+/** Orden de visita (hotel → paradas → hotel): líneas rectas, no el trazado de calles. */
+function dayRouteFeature(route: DayRoute) {
+  const points = route.stops.map((stop) => [stop.location.lng, stop.location.lat]);
+  const hotel = route.hotel ? [[route.hotel.location.lng, route.hotel.location.lat]] : [];
+  return {
+    type: "Feature" as const,
+    properties: {},
+    geometry: { type: "LineString" as const, coordinates: [...hotel, ...points, ...hotel] },
+  };
+}
+
+function dayRouteBounds(route: DayRoute): BBox | undefined {
+  const points = [
+    ...route.stops.map((s) => s.location),
+    ...(route.hotel ? [route.hotel.location] : []),
+  ];
+  if (points.length === 0) return undefined;
+  const lngs = points.map((p) => p.lng);
+  const lats = points.map((p) => p.lat);
+  return [Math.min(...lngs), Math.min(...lats), Math.max(...lngs), Math.max(...lats)];
 }
 
 /** Colores de la ruta: el petróleo de la marca (MapLibre no lee variables CSS). */
@@ -96,6 +125,7 @@ export default function TripMap({
   bottomInset = 0,
   attributionPosition = "top-right",
   onFailure,
+  dayRoute,
 }: TripMapProps) {
   const mapRef = useRef<MapRef>(null);
   const [view, setView] = useState<{ bounds?: BBox; zoom: number }>({ zoom: INITIAL_ZOOM });
@@ -106,8 +136,18 @@ export default function TripMap({
   const select = useMapUi((state) => state.select);
   const setBounds = useMapUi((state) => state.setBounds);
   const route = useMapUi((state) => state.route);
+  const dayFitRequest = useMapUi((state) => state.dayFitRequest);
 
-  const index = useMemo(() => buildClusterIndex(items), [items]);
+  // Los lugares del día se dibujan numerados (capa 5), no como marcador normal.
+  const dayPlaceIds = useMemo(
+    () => new Set(dayRoute?.stops.map((stop) => stop.placeId) ?? []),
+    [dayRoute],
+  );
+  const markerItems = useMemo(
+    () => (dayPlaceIds.size ? items.filter((item) => !dayPlaceIds.has(item.place.id)) : items),
+    [items, dayPlaceIds],
+  );
+  const index = useMemo(() => buildClusterIndex(markerItems), [markerItems]);
   const markers = useMemo(
     () => (view.bounds ? index.markers(view.bounds, view.zoom) : []),
     [index, view],
@@ -131,7 +171,9 @@ export default function TripMap({
 
   // Selección desde la lista → centrar el mapa en el lugar y acercar hasta separarlo del grupo.
   const selected = items.find((item) => item.place.id === selectedId);
-  const selectedLocation = selected?.place.location;
+  const selectedLocation =
+    selected?.place.location ??
+    dayRoute?.stops.find((stop) => stop.placeId === selectedId)?.location;
   useEffect(() => {
     const map = mapRef.current;
     if (!map || selectionOrigin !== "list" || !selectedLocation) return;
@@ -155,6 +197,15 @@ export default function TripMap({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route]);
+
+  // Al elegir un día del itinerario se encuadran sus paradas y el hotel.
+  useEffect(() => {
+    if (!dayRoute || dayFitRequest === 0) return;
+    const bounds = dayRouteBounds(dayRoute);
+    if (!bounds) return;
+    mapRef.current?.fitBounds(bounds, { padding, maxZoom: 16, animate: !prefersReducedMotion() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dayFitRequest, dayRoute?.stops.length]);
 
   useEffect(() => {
     if (recenterRequest === 0) return;
@@ -220,6 +271,63 @@ export default function TripMap({
           </Source>
         </>
       ) : null}
+      {dayRoute && dayRoute.stops.length > 0 ? (
+        <Source id="day-route" type="geojson" data={dayRouteFeature(dayRoute)}>
+          <Layer
+            id="day-route-casing"
+            type="line"
+            layout={{ "line-cap": "round", "line-join": "round" }}
+            paint={{ "line-color": ROUTE_CASING, "line-width": 6, "line-opacity": 0.9 }}
+          />
+          <Layer
+            id="day-route-line"
+            type="line"
+            layout={{ "line-cap": "round", "line-join": "round" }}
+            paint={{ "line-color": ROUTE_COLOR, "line-width": 3, "line-dasharray": [2, 1.5] }}
+          />
+        </Source>
+      ) : null}
+      {dayRoute?.hotel ? (
+        <Marker longitude={dayRoute.hotel.location.lng} latitude={dayRoute.hotel.location.lat}>
+          <div
+            aria-hidden
+            data-testid="day-route-hotel"
+            title={dayRoute.hotel.name}
+            className="bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-full border-2 border-white shadow-md"
+          >
+            <BedDouble className="size-5" strokeWidth={2.25} />
+          </div>
+        </Marker>
+      ) : null}
+      {dayRoute?.stops.map((stop) => {
+        const highlighted = stop.placeId === selectedId;
+        return (
+          <Marker
+            key={stop.id}
+            longitude={stop.location.lng}
+            latitude={stop.location.lat}
+            style={{ zIndex: highlighted ? 4 : 3 }}
+            onClick={(event) => {
+              event.originalEvent.stopPropagation();
+              select(stop.placeId, "map");
+            }}
+          >
+            <div
+              aria-hidden
+              data-testid="day-route-stop"
+              data-place-id={stop.placeId}
+              title={`${stop.number}. ${stop.name}`}
+              className={cn(
+                // Parada del día: blanca con borde petróleo, distinta de los grupos (círculos rellenos).
+                "border-primary text-primary flex cursor-pointer items-center justify-center rounded-lg border-[3px] bg-white font-bold tabular-nums shadow-md",
+                highlighted ? "ring-cta size-10 text-base ring-3" : "size-8 text-sm",
+              )}
+            >
+              {stop.number}
+            </div>
+          </Marker>
+        );
+      })}
       {markers.map((marker) => {
         const highlighted = markerHighlighted(marker, selectedId);
         if (marker.kind === "cluster") {

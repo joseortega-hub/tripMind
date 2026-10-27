@@ -44,10 +44,18 @@ export async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> 
 }
 
 export async function postJson<T>(url: string, body: unknown): Promise<T> {
+  return sendJson<T>(url, "POST", body);
+}
+
+export async function sendJson<T>(
+  url: string,
+  method: "POST" | "PATCH",
+  body?: unknown,
+): Promise<T> {
   let response: Response;
   try {
     response = await fetch(url, {
-      method: "POST",
+      method,
       headers: { "content-type": "application/json" },
       body: JSON.stringify(body),
     });

@@ -52,6 +52,10 @@ export interface MapUiState {
   bounds?: BBox;
   /** Contador para volver a encuadrar el destino (estado vacío de la lista). */
   recenterRequest: number;
+  /** Día elegido en el itinerario (su ruta es la capa 5); sin valor, el primero con plan. */
+  itineraryDate?: string;
+  /** Contador para encuadrar la ruta del día. */
+  dayFitRequest: number;
   toggleLayer: (layer: MapLayerKey) => void;
   showAllLayers: () => void;
   select: (id: string | undefined, origin: SelectionOrigin) => void;
@@ -60,6 +64,7 @@ export interface MapUiState {
   setBounds: (bounds: BBox | undefined) => void;
   recenter: () => void;
   showRoute: (route: MapRoute | undefined) => void;
+  setItineraryDate: (date: string | undefined, fit?: boolean) => void;
 }
 
 export const createMapUiStore = () =>
@@ -67,6 +72,7 @@ export const createMapUiStore = () =>
     layers: DEFAULT_LAYERS,
     focusRequest: 0,
     recenterRequest: 0,
+    dayFitRequest: 0,
     view: "map",
     sheet: "peek",
     toggleLayer: (layer) => set((state) => ({ layers: toggleLayer(state.layers, layer) })),
@@ -95,6 +101,11 @@ export const createMapUiStore = () =>
     setBounds: (bounds) => set({ bounds }),
     recenter: () => set((state) => ({ recenterRequest: state.recenterRequest + 1 })),
     showRoute: (route) => set({ route }),
+    setItineraryDate: (itineraryDate, fit = true) =>
+      set((state) => ({
+        itineraryDate,
+        dayFitRequest: fit ? state.dayFitRequest + 1 : state.dayFitRequest,
+      })),
   }));
 
 export type MapUiStore = ReturnType<typeof createMapUiStore>;

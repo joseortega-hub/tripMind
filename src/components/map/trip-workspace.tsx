@@ -12,13 +12,17 @@ import dynamic from "next/dynamic";
 import { Tabs } from "radix-ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DemoBadge } from "@/components/data-source";
+import { AddToItinerary } from "@/components/itinerary/add-to-itinerary";
+import { ItineraryPanel } from "@/components/itinerary/itinerary-panel";
+import { useItinerary } from "@/components/itinerary/use-itinerary";
 import { TripOverview } from "@/components/trip-overview";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { LatLng } from "@/domain/geo";
 import type { Place } from "@/domain/place";
 import type { Trip } from "@/domain/trip";
-import { placesInBounds, visiblePlaces } from "@/lib/map/layers";
+import { numberedStops } from "@/lib/itinerary-labels";
+import { type MapPlace, placesInBounds, visiblePlaces } from "@/lib/map/layers";
 import type { WorkspaceView } from "@/lib/map/store";
 import { formatLongDate, travelersText } from "@/lib/trip-labels";
 import { cn } from "@/lib/utils";
@@ -28,8 +32,9 @@ import { MapFailure, type MapFailureReason } from "./map-failure";
 import { HotelQuestions } from "./hotel-questions";
 import { NearbyTransit, WalkableFrom } from "./nearby-questions";
 import { PlaceDetail } from "./place-detail";
-import { ItineraryPlaceholder, PlacesPanel } from "./places-panel";
+import { PlacesPanel } from "./places-panel";
 import { type RouteOrigin, RouteComparator } from "./route-comparator";
+import type { DayRoute } from "./trip-map";
 import { useTripPlaces } from "./use-trip-places";
 import { type Layout, MapUiProvider, useLayout, useMapUi } from "./workspace-context";
 
@@ -85,6 +90,39 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
   const toggleLayer = useMapUi((state) => state.toggleLayer);
   const days = useMemo(() => tripDays(trip), [trip]);
   const [mapFailure, setMapFailure] = useState<MapFailureReason>();
+  const itinerary = useItinerary(trip.id, { days: trip.days, meta: trip.itineraryMeta });
+  const itineraryDate = useMapUi((state) => state.itineraryDate);
+  const setItineraryDate = useMapUi((state) => state.setItineraryDate);
+  const planDays = itinerary.data.days;
+  const firstPlanDay = planDays.find((day) => day.activities.length > 0)?.date ?? planDays[0]?.date;
+  const shownDate = itineraryDate ?? firstPlanDay;
+  const shownDay = planDays.find((day) => day.date === shownDate);
+  // Capa 5: la ruta del día se ve por defecto; el usuario puede ocultarla.
+  const [dayRouteHidden, setDayRouteHidden] = useState(false);
+  const dayRoute = useMemo<DayRoute | undefined>(
+    () =>
+      !dayRouteHidden && shownDay && shownDay.activities.length > 0
+        ? {
+            stops: numberedStops(shownDay),
+            hotel: trip.hotel
+              ? { name: trip.hotel.name, location: trip.hotel.location }
+              : undefined,
+          }
+        : undefined,
+    [dayRouteHidden, shownDay, trip.hotel],
+  );
+  // Lugares del plan (y sus alternativas) aunque su capa esté apagada: su ficha debe abrirse.
+  const planPlaces = useMemo(() => {
+    const list: Place[] = [];
+    for (const day of planDays) {
+      for (const activity of day.activities) {
+        if (activity.place) list.push(activity.place);
+        if (activity.planning?.alternative) list.push(activity.planning.alternative);
+      }
+    }
+    for (const entry of itinerary.data.meta?.unscheduled ?? []) list.push(entry.place);
+    return list;
+  }, [planDays, itinerary.data.meta]);
 
   useEffect(() => {
     if (!hasWebGL()) setMapFailure("webgl");
@@ -125,7 +163,19 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
     };
   }, [results, favorites, stopResults]);
 
-  const selected = items.find((item) => item.place.id === selectedId);
+  const selected = useMemo<MapPlace | undefined>(() => {
+    const visible = items.find((item) => item.place.id === selectedId);
+    if (visible) return visible;
+    const planned = planPlaces.find((place) => place.id === selectedId);
+    return planned ? { place: planned, layer: planned.layer, isFavorite: false } : undefined;
+  }, [items, planPlaces, selectedId]);
+  const mapItems = useMemo(
+    () =>
+      selected && !items.some((item) => item.place.id === selected.place.id)
+        ? [...items, selected]
+        : items,
+    [items, selected],
+  );
   const favoriteIds = new Set((favorites ?? []).map((place) => place.id));
   const previous = previousId
     ? [...results, ...(favorites ?? [])].find((place) => place.id === previousId)
@@ -162,6 +212,12 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
         toggle: () => data.toggleFavorite(selected.place, !favoriteIds.has(selected.place.id)),
       }}
     >
+      <AddToItinerary
+        place={selected.place}
+        itinerary={itinerary}
+        preferredDate={shownDate}
+        headingLevel={layout === "desktop" ? 3 : 4}
+      />
       <RouteComparator
         destination={{ name: selected.place.name, location: selected.place.location }}
         origins={routeOrigins(selected.place)}
@@ -202,6 +258,25 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
       mapAvailable={!mapFailure}
     />
   );
+  const itineraryPanel = (
+    <ItineraryPanel
+      trip={trip}
+      itinerary={itinerary}
+      date={shownDate}
+      onDateChange={(date) => {
+        setDayRouteHidden(false);
+        setItineraryDate(date);
+      }}
+      onSelectPlace={(place) => select(place.id, "list")}
+      selectedPlaceId={selectedId}
+      headingLevel={layout === "mobile" ? 3 : 2}
+      routeShown={dayRoute !== undefined}
+      onToggleRoute={() => {
+        if (dayRouteHidden) setItineraryDate(shownDate);
+        setDayRouteHidden(!dayRouteHidden);
+      }}
+    />
+  );
   const overview = (
     <div className="flex flex-col gap-3">
       {trip.hotel ? (
@@ -232,7 +307,8 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
           <MapArea
             trip={trip}
             styleUrl={mapStyleUrl}
-            items={items}
+            items={mapItems}
+            dayRoute={dayRoute}
             area={data.area}
             failure={mapFailure}
             onFailure={setMapFailure}
@@ -244,6 +320,7 @@ function Workspace({ trip, mapStyleUrl }: { trip: Trip; mapStyleUrl: string }) {
           />
         }
         list={panel}
+        itinerary={itineraryPanel}
         overview={overview}
         detail={detail}
         mobileToggles={mobileToggles}
@@ -289,10 +366,12 @@ function MapArea({
   loading,
   layout,
   toggles,
+  dayRoute,
 }: {
   trip: Trip;
   styleUrl: string;
   items: ReturnType<typeof visiblePlaces>;
+  dayRoute?: DayRoute;
   area: [number, number, number, number];
   failure?: MapFailureReason;
   onFailure: (reason: MapFailureReason) => void;
@@ -330,6 +409,7 @@ function MapArea({
           bottomInset={bottomInset}
           attributionPosition={layout === "mobile" ? "top-right" : "bottom-right"}
           onFailure={onFailure}
+          dayRoute={dayRoute}
         />
       )}
       {toggles ? (
@@ -358,6 +438,7 @@ function Layouts({
   layout,
   map,
   list,
+  itinerary,
   overview,
   detail,
   mobileMapContent,
@@ -366,6 +447,7 @@ function Layouts({
   layout: Layout;
   map: React.ReactNode;
   list: React.ReactNode;
+  itinerary: React.ReactNode;
   overview: React.ReactNode;
   detail: React.ReactNode;
   mobileMapContent: React.ReactNode;
@@ -389,7 +471,15 @@ function Layouts({
     return () => observer.disconnect();
   }, [layout]);
 
-  const tabs = <PanelTabs value={tab} onChange={setTab} list={list} overview={overview} />;
+  const tabs = (
+    <PanelTabs
+      value={tab}
+      onChange={setTab}
+      list={list}
+      itinerary={itinerary}
+      overview={overview}
+    />
+  );
 
   if (layout === "mobile") {
     const content =
@@ -401,7 +491,7 @@ function Layouts({
           {list}
         </div>
       ) : view === "itinerary" ? (
-        <ItineraryPlaceholder />
+        itinerary
       ) : (
         overview
       );
@@ -526,11 +616,13 @@ function PanelTabs({
   value,
   onChange,
   list,
+  itinerary,
   overview,
 }: {
   value: "list" | "itinerary" | "trip";
   onChange: (value: "list" | "itinerary" | "trip") => void;
   list: React.ReactNode;
+  itinerary: React.ReactNode;
   overview: React.ReactNode;
 }) {
   const trigger =
@@ -555,7 +647,7 @@ function PanelTabs({
         {list}
       </Tabs.Content>
       <Tabs.Content value="itinerary" className="outline-none">
-        <ItineraryPlaceholder />
+        {itinerary}
       </Tabs.Content>
       <Tabs.Content value="trip" className="outline-none">
         {overview}
