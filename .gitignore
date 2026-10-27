@@ -51,3 +51,6 @@ next-env.d.ts
 
 # worker de MapLibre copiado en postinstall
 /public/vendor/
+
+# buzón descargado con `pnpm feedback` (comentarios e imágenes de usuarios)
+/data/privado/
