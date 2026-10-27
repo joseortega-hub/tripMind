@@ -142,7 +142,8 @@ export function scheduleSequence(sequence: readonly PlanItem[], ctx: DayContext)
   }
 
   let endTime = lastEnd;
-  if (prev !== undefined && prev !== ANCHOR_ID) {
+  // Vuelta al hotel solo si lo hay (sin hotel el día termina en la última visita).
+  if (ctx.hasAnchor && prev !== undefined && prev !== ANCHOR_ID) {
     const estimate = ctx.travel(prev, ANCHOR_ID);
     legs.push({ fromId: prev, toId: ANCHOR_ID, estimate });
     travelMinutes += travelTotal(estimate);

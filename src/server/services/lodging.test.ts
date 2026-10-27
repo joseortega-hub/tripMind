@@ -151,6 +151,23 @@ describe("búsqueda de alojamientos (demo)", () => {
 });
 
 describe("hotel como centro del viaje (recálculo)", () => {
+  it("sin hotel se genera el plan y al elegir uno los días salen y vuelven a él", async () => {
+    const withoutHotel = await computeItinerary(baseTrip, deps);
+    const visits = withoutHotel.days.flatMap((d) => d.activities).filter((a) => a.place);
+    expect(visits.length).toBeGreaterThan(0);
+    expect(withoutHotel.days.every((d) => d.legs.every((l) => l.fromActivityId))).toBe(true);
+
+    const lodging = await demoLodging();
+    const chosen = lodging.find((place) => place.category === "hotel")!;
+    const withHotel = await computeItinerary(
+      { ...baseTrip, hotel: hotelFromPlace(baseTrip, chosen), days: withoutHotel.days },
+      deps,
+    );
+    const day = withHotel.days.find((d) => d.legs.length > 0)!;
+    expect(day.legs[0]!.from).toEqual(chosen.location);
+    expect(day.legs.at(-1)!.to).toEqual(chosen.location);
+  });
+
   it("cambiar de hotel recalcula los trayectos desde el nuevo y conserva lo bloqueado", async () => {
     const lodging = await demoLodging();
     const first = lodging.find((place) => place.id === DEMO_ROUTING_HOTEL.id)!;
