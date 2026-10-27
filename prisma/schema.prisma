@@ -188,3 +188,34 @@ model ProviderCache {
 
   @@index([expiresAt])
 }
+
+enum FeedbackKind {
+  error
+  idea
+  mejora
+}
+
+enum FeedbackStatus {
+  new
+  read
+  done
+}
+
+/// Buzón de ideas, mejoras y errores que envía el usuario desde la app (Fase 8b).
+/// `tripId` no es una relación: el comentario se conserva aunque se borre el viaje.
+model Feedback {
+  id        String         @id @default(cuid())
+  kind      FeedbackKind
+  message   String
+  /// FeedbackImage[] (base64 comprimido en el navegador)
+  images    Json
+  /// Contexto automático sin datos personales (viewport, dpr, modo, navegador)
+  context   Json
+  path      String
+  tripId    String?
+  status    FeedbackStatus @default(new)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([status, createdAt])
+}
