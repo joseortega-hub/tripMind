@@ -54,6 +54,19 @@ function addressOf(tags: Record<string, string>): Address | undefined {
   return Object.values(address).some(Boolean) ? address : undefined;
 }
 
+/** Líneas (`route_ref`, separadas por ";"), red y operador de una estación o parada. */
+function transitOf(tags: Record<string, string>): NonNullable<Place["transit"]> {
+  const lines = (tags.route_ref ?? "")
+    .split(";")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  return {
+    lines: [...new Set(lines)].sort((a, b) => a.localeCompare(b, "es", { numeric: true })),
+    network: tags.network,
+    operator: tags.operator,
+  };
+}
+
 function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): Place | undefined {
   const tags = el.tags ?? {};
   const name = tags.name;
@@ -66,11 +79,12 @@ function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): 
   const wheelchair = tags.wheelchair;
   const stars = Number.parseFloat(tags.stars ?? "");
   const wikidata = tags.wikidata;
+  const layer = CATEGORY_LAYER[category];
   return {
     id: osmId(el.type, el.id),
     name,
     category,
-    layer: CATEGORY_LAYER[category],
+    layer,
     location: { lat, lng },
     address: addressOf(tags),
     website,
@@ -88,6 +102,7 @@ function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): 
       .map((c) => c.trim())
       .filter(Boolean),
     stars: Number.isFinite(stars) && stars >= 0 && stars <= 7 ? stars : undefined,
+    transit: layer === "transport" ? transitOf(tags) : undefined,
     source: osmSource(OVERPASS_NAME, el.type, el.id, retrievedAt),
     isDemo,
   };

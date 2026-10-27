@@ -27,9 +27,11 @@ export const OVERPASS_FILTERS: Record<PlaceCategory, string[]> = {
   hostel: ['["tourism"="hostel"]'],
   apartment: ['["tourism"="apartment"]'],
   guest_house: ['["tourism"="guest_house"]'],
-  train_station: ['["railway"="station"]["station"!="subway"]'],
+  train_station: ['["railway"="station"]["station"!~"^(subway|light_rail)$"]'],
   metro_station: ['["railway"="station"]["station"="subway"]'],
   bus_station: ['["amenity"="bus_station"]'],
+  tram_stop: ['["railway"="tram_stop"]', '["railway"="station"]["station"="light_rail"]'],
+  bus_stop: ['["highway"="bus_stop"]'],
 };
 
 /**
@@ -49,7 +51,12 @@ export function classifyOsmTags(tags: Tags): PlaceCategory | undefined {
   if (amenity === "cafe") return "cafe";
   if (amenity === "bar" || amenity === "pub") return "bar";
   if (amenity === "fast_food") return "fast_food";
-  if (railway === "station") return station === "subway" ? "metro_station" : "train_station";
+  if (railway === "station") {
+    if (station === "subway") return "metro_station";
+    return station === "light_rail" ? "tram_stop" : "train_station";
+  }
+  if (railway === "tram_stop") return "tram_stop";
+  if (tags.highway === "bus_stop") return "bus_stop";
   if (amenity === "bus_station") return "bus_station";
   if (historic && ["monument", "castle", "palace"].includes(historic)) return "monument";
   if (

@@ -33,6 +33,10 @@ export interface HttpOptions {
   method?: "GET" | "POST";
   /** Cuerpo `application/x-www-form-urlencoded` (Overpass). */
   form?: Record<string, string>;
+  /** Cuerpo JSON (OpenRouteService). */
+  json?: unknown;
+  /** Cabeceras adicionales, p. ej. `Authorization` (clave solo en servidor). */
+  headers?: Record<string, string>;
 }
 
 /** Petición JSON con timeout. Cualquier fallo de red o estado no 2xx se convierte en ProviderError. */
@@ -41,11 +45,15 @@ export async function fetchJson(url: string, options: HttpOptions): Promise<unkn
   const headers: Record<string, string> = {
     "User-Agent": options.userAgent,
     Accept: "application/json",
+    ...options.headers,
   };
   let body: string | undefined;
   if (options.form) {
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     body = new URLSearchParams(options.form).toString();
+  } else if (options.json !== undefined) {
+    headers["Content-Type"] = "application/json";
+    body = JSON.stringify(options.json);
   }
 
   let response: Response;

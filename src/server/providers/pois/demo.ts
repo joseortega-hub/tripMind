@@ -2,6 +2,7 @@ import { type BBox, bboxContains } from "@/domain/geo";
 import type { Place } from "@/domain/place";
 import commonsFixture from "./fixtures/commons.json";
 import overpassFixture from "./fixtures/overpass.json";
+import stopsFixture from "./fixtures/stops.json";
 import wikidataFixture from "./fixtures/wikidata.json";
 import { mapOverpassResponse, OverpassResponseSchema } from "./overpass";
 import { assertBBoxSize } from "./real";
@@ -26,6 +27,13 @@ function loadPlaces(): Place[] {
     retrievedAt: overpassFixture.recordedAt,
     isDemo: true,
   });
+  // Estaciones y paradas (capa 4) grabadas aparte en una zona algo más amplia (Fase 4).
+  const known = new Set(places.map((place) => place.id));
+  const stops = mapOverpassResponse(OverpassResponseSchema.parse(stopsFixture.response), {
+    retrievedAt: stopsFixture.recordedAt,
+    isDemo: true,
+  });
+  places.push(...stops.filter((stop) => stop.layer === "transport" && !known.has(stop.id)));
   const enrichment: Enrichment = { retrievedAt: wikidataFixture.recordedAt, facts: {}, images: {} };
   for (const entry of wikidataFixture.entries) {
     Object.assign(

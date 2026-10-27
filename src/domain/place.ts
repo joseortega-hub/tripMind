@@ -30,6 +30,8 @@ export const PlaceCategorySchema = z.enum([
   "train_station",
   "metro_station",
   "bus_station",
+  "tram_stop",
+  "bus_stop",
 ]);
 export type PlaceCategory = z.infer<typeof PlaceCategorySchema>;
 
@@ -53,6 +55,8 @@ export const CATEGORY_LAYER: Record<PlaceCategory, MapLayer> = {
   train_station: "transport",
   metro_station: "transport",
   bus_station: "transport",
+  tram_stop: "transport",
+  bus_stop: "transport",
 };
 
 export function categoriesForLayers(layers: readonly MapLayer[]): PlaceCategory[] {
@@ -110,5 +114,16 @@ export const PlaceSchema = ExternalDataSchema.extend({
   cuisine: z.array(z.string()).optional(),
   /** Estrellas declaradas en OSM (`stars`), solo alojamiento. */
   stars: z.number().min(0).max(7).optional(),
+  /**
+   * Estaciones y paradas: líneas según OSM (`route_ref`), red y operador. Son las etiquetas del
+   * mapa, no un horario: pueden estar desactualizadas y la UI lo indica.
+   */
+  transit: z
+    .object({
+      lines: z.array(z.string().min(1)).default([]),
+      network: z.string().optional(),
+      operator: z.string().optional(),
+    })
+    .optional(),
 });
 export type Place = z.infer<typeof PlaceSchema>;
