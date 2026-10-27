@@ -132,7 +132,10 @@ test("buscar dónde comer desde la franja y añadir el sitio al itinerario", asy
   await expect(finder.getByText("Sitio elegido:")).toBeVisible();
 
   await finder.getByRole("button", { name: "Volver al día" }).click();
-  await expect(page.getByRole("button", { name: new RegExp(`Comida: ${name}`) })).toBeVisible();
+  // El nombre de la parada (no el botón "Anotar reserva de Comida: …").
+  await expect(
+    page.getByRole("button", { name: new RegExp(`^Parada [0-9]+: Comida: ${name}`) }),
+  ).toBeVisible();
   await expectNoSeriousA11yViolations(page);
 });
 
