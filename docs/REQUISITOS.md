@@ -152,6 +152,44 @@ Viabilidad (oct. 2026, revisar términos antes de implementar):
 - **Futuro**: vídeos de TikTok embebidos en fichas si un creador/socio los aporta, o acuerdos con
   creadores; Ticketdoor podría aportar sus atracciones más vendidas (ver `docs/TICKETDOOR.md`).
 
+## 19. "Inspírame": destinos según presupuesto y fechas (idea del usuario)
+El usuario da presupuesto, fechas y origen; TripMind propone destinos en auge que encajen.
+- **Viable ya**: popularidad con Wikimedia Pageviews (§18), clima típico/previsión de las fechas
+  (Open-Meteo), festivos y eventos en esas fechas (§17), y afinidad con sus intereses.
+- **Presupuesto**: solo puede filtrar con precios de una fuente. Vuelos y hoteles con precio real
+  exigen proveedor autorizado (p. ej. Duffel, Travelpayouts/Aviasales, Booking/Expedia afiliados:
+  revisar condiciones y costes antes). Sin fuente: no se estima un coste; se muestra "sin precio"
+  y enlaces de búsqueda con las fechas puestas. Nunca precios inventados.
+
+## 20. Cruceros (idea del usuario; viabilidad por confirmar)
+- No hay APIs abiertas de itinerarios ni precios de navieras; las comerciales (p. ej. Widgety,
+  afiliados de agencias) son de pago o por acuerdo. **No se inventan escalas ni horarios.**
+- **Viable sin proveedor**: el usuario introduce su crucero (barco, puertos, fechas y horas de
+  llegada/salida, o los copia de su reserva) y TripMind planifica cada escala: qué ver en el tiempo
+  en tierra, distancia desde la terminal (puertos y terminales de OSM), transporte, margen de vuelta
+  al barco ("hora límite a bordo") y alternativas. Reutiliza el modo "tengo N horas" (§14C).
+- Futuro: proveedor de cruceros si se consigue acceso; Ticketdoor encaja en las excursiones de escala.
+
+## 21. Mapa del tesoro y recuerdos (idea del usuario)
+- **Exportación con estética de mapa del tesoro** (Fase 10): estilo de mapa ilustrado/pergamino,
+  ruta del día como camino punteado, cada parada como una "X" numerada con su pista (hora, qué ver),
+  leyenda con las letras/colores del calendario (§17). Mismo contenido verificable que el plan normal.
+- **Modo viaje con recuerdos**: al llegar a una parada (geolocalización del móvil con permiso
+  explícito, radio ~75 m, o botón "Ya estoy aquí" sin GPS) aparece "Guarda una foto de este
+  recuerdo" (cámara o galería) y una nota. Las paradas visitadas se "desbloquean" en el mapa.
+- Al final, **mapa de recuerdos**: el mapa del tesoro con las fotos del usuario en cada X,
+  exportable en PDF y en el `.html` interactivo.
+- Privacidad: fotos privadas del usuario, sin ubicación continua (solo comprobar la parada actual),
+  borrables; almacenamiento a decidir (local en el dispositivo o almacenamiento de objetos).
+
+## 22. Del aeropuerto al hotel (idea del usuario)
+- Detectar el aeropuerto de llegada (OSM `aeroway=aerodrome` con código IATA) o elegirlo, y
+  mostrar en el mapa los recorridos al hotel con sus opciones: tren/metro/bus (Transitous, con
+  horarios reales), a pie si aplica, taxi/coche (OSRM/ORS: tiempo y distancia; precio solo si hay
+  fuente oficial, p. ej. tarifa fija publicada por el aeropuerto). Cada opción con su línea en el
+  mapa, tiempo, transbordos y enlace oficial; sin cobertura → "aproximado" + enlace externo.
+- Igual para la vuelta (hotel → aeropuerto) con margen según la hora del vuelo que indique el usuario.
+
 ## 16. Integración con Ticketdoor (propuesta)
 Ver `docs/TICKETDOOR.md`. Ticketdoor como proveedor de entradas autorizado y "planifica tu día
 alrededor de tu entrada". Sin acuerdo firmado: solo adaptador demo y señalizado como propuesta.
