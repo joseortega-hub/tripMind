@@ -139,3 +139,6 @@ export const TripSchema = z
   })
   .refine(datesInOrder, datesMessage);
 export type Trip = z.infer<typeof TripSchema>;
+
+/** Ids generados por Prisma (`cuid`): evita consultar la BD con rutas arbitrarias. */
+export const isTripId = (id: string) => /^[a-z0-9]{20,40}$/i.test(id);

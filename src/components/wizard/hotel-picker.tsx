@@ -8,8 +8,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { GeocodeResult, LatLng, Place } from "@/domain";
+import type { GeocodeResult, Place } from "@/domain";
 import { getJson, type ProviderMeta } from "@/lib/api-client";
+import { areaAround } from "@/lib/map/layers";
 import { LODGING_LABELS } from "@/lib/trip-labels";
 import { cn } from "@/lib/utils";
 import { ProviderErrorAlert } from "./destination-search";
@@ -21,15 +22,7 @@ interface PlacesResponse {
   warnings?: string[];
 }
 
-/** Medio lado del área de búsqueda en grados (~4 × 4 km, el máximo que admite `/api/places`). */
-const HALF_SIDE = 0.019;
 const MAX_VISIBLE = 40;
-
-export function lodgingBBox({ lat, lng }: LatLng): string {
-  return [lng - HALF_SIDE, lat - HALF_SIDE, lng + HALF_SIDE, lat + HALF_SIDE]
-    .map((value) => value.toFixed(5))
-    .join(",");
-}
 
 const normalize = (text: string) =>
   text
@@ -52,7 +45,7 @@ export function HotelPicker({
   onChange: (place: Place | undefined) => void;
 }) {
   const [filter, setFilter] = useState("");
-  const bbox = destination ? lodgingBBox(destination.location) : undefined;
+  const bbox = destination ? areaAround(destination.location) : undefined;
   const {
     data,
     isLoading,
