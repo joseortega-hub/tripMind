@@ -85,7 +85,7 @@ Decisiones Fase 2:
   `storage_unavailable` si falla la BD). Al leer se valida el JSON guardado con `TripSchema`.
   `/trips/[id]` es un Server Component con `loading`, `error` y `not-found`; muestra la etiqueta
   "Datos de demostración" si el destino o el hotel son demo, y reserva la zona del mapa/itinerario.
-- Diseño (`docs/DISENO.md`): tokens petróleo `#1f5c6e` + coral `#b94b36` (variante de botón `cta`,
+- Diseño (`docs/DISENO.md`): tokens petróleo `#1f5c6e` + coral `#a8432f` (variante de botón `cta`,
   solo acciones principales y selección) sobre `#fbfaf7`; Geist con cifras tabulares; navegación
   del asistente fija abajo en móvil con `safe-area-inset-bottom`; objetivos táctiles de 44 px;
   `prefers-reduced-motion`. Selects nativos (mejor en móvil). E2E con `@axe-core/playwright`
