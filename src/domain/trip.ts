@@ -3,6 +3,7 @@ import { BookingLinkSchema, BookingRequirementSchema, BookingStatusSchema } from
 import { BudgetSchema, PriceSchema } from "./budget";
 import { LatLngSchema } from "./geo";
 import { GeocodeResultSchema } from "./geocoding";
+import { ActivityPlanningSchema, ItineraryMetaSchema } from "./itinerary";
 import { AddressSchema, PlaceSchema } from "./place";
 import {
   AccommodationPreferencesSchema,
@@ -58,6 +59,8 @@ export const ActivitySchema = z.object({
   bookingLinks: z.array(BookingLinkSchema).default([]),
   price: PriceSchema.optional(),
   notes: z.string().max(2000).optional(),
+  /** Datos del optimizador (franja, estimaciones, horario, avisos, alternativa). */
+  planning: ActivityPlanningSchema.optional(),
 });
 export type Activity = z.infer<typeof ActivitySchema>;
 
@@ -85,6 +88,12 @@ export const LegSchema = z
     externalUrl: z.url().optional(),
     source: SourceSchema.optional(),
     isDemo: z.boolean().optional(),
+    /**
+     * Minutos que reserva el optimizador además de (o, sin ruta calculada, en lugar de) la duración
+     * del proveedor: margen para tomar un taxi o, en un tramo aproximado, una estimación prudente.
+     * Es una estimación local y la UI la presenta como tal.
+     */
+    reservedMinutes: z.number().nonnegative().optional(),
   })
   .refine(
     (leg) =>
@@ -134,6 +143,7 @@ export const TripSchema = z
     ...tripFields,
     id: z.string().min(1),
     days: z.array(ItineraryDaySchema).default([]),
+    itineraryMeta: ItineraryMetaSchema.optional(),
     createdAt: z.iso.datetime(),
     updatedAt: z.iso.datetime(),
   })

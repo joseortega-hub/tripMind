@@ -65,6 +65,8 @@ model Trip {
   hotel                    Hotel?
   days                     ItineraryDay[]
   favorites                Favorite[]
+  /// ItineraryMeta (último cálculo del optimizador)
+  itineraryMeta            Json?
   createdAt                DateTime       @default(now())
   updatedAt                DateTime       @updatedAt
 }
@@ -123,6 +125,8 @@ model Activity {
   /// Price
   price              Json?
   notes              String?
+  /// ActivityPlanning (franja, estimaciones, horario, avisos, alternativa)
+  planning           Json?
 
   @@index([dayId, position])
 }
@@ -148,6 +152,8 @@ model Leg {
   /// Source (obligatoria si quality = routed)
   source          Json?
   isDemo          Boolean?
+  /// Margen reservado por el optimizador (estimación local, minutos)
+  reservedMinutes Float?
 
   @@index([dayId, position])
 }

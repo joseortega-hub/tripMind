@@ -39,6 +39,14 @@ export const DEMO_ROUTE_COVERAGE =
   `Los datos de demostración solo incluyen trayectos desde ${recorded.hotel.name} ` +
   "a los lugares turísticos de Madrid centro.";
 
+let matrixPoints: Set<string> | undefined;
+
+/** true si la demo tiene tiempos grabados para este punto (las matrices 71×71 de Madrid centro). */
+export function isDemoMatrixPoint(point: LatLng) {
+  matrixPoints ??= new Set(recorded.tables[0]?.origins.map(pointKey) ?? []);
+  return matrixPoints.has(pointKey(point));
+}
+
 const routeKey = (mode: StreetMode, from: LatLng, to: LatLng) =>
   `${mode}|${pointKey(from)}|${pointKey(to)}`;
 

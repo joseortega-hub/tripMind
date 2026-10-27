@@ -1,11 +1,18 @@
 import "server-only";
-import type { Hotel as HotelRow, Prisma, Trip as TripRow } from "@/generated/prisma/client";
+import type {
+  Activity as ActivityRow,
+  Hotel as HotelRow,
+  ItineraryDay as DayRow,
+  Leg as LegRow,
+  Prisma,
+  Trip as TripRow,
+} from "@/generated/prisma/client";
 import { type Trip, type TripInput, TripSchema } from "@/domain/trip";
 import { prisma } from "@/server/db";
 
-const toDbDate = (date: string) => new Date(`${date}T00:00:00.000Z`);
-const fromDbDate = (date: Date) => date.toISOString().slice(0, 10);
-const json = (value: unknown) => value as Prisma.InputJsonValue;
+export const toDbDate = (date: string) => new Date(`${date}T00:00:00.000Z`);
+export const fromDbDate = (date: Date) => date.toISOString().slice(0, 10);
+export const json = (value: unknown) => value as Prisma.InputJsonValue;
 
 /** Traduce los datos del asistente a la fila de Prisma (los objetos anidados van como JSON). */
 export function toTripCreateData(input: TripInput): Prisma.TripCreateInput {
@@ -46,8 +53,56 @@ export function toTripCreateData(input: TripInput): Prisma.TripCreateInput {
 
 const undef = <T>(value: T | null) => value ?? undefined;
 
+export type DayRowWithItems = DayRow & { activities: ActivityRow[]; legs: LegRow[] };
+
+/** Día guardado → objeto plano que valida `ItineraryDaySchema` (dentro de `TripSchema`). */
+export function fromDayRow(day: DayRowWithItems) {
+  return {
+    id: day.id,
+    date: fromDbDate(day.date),
+    isRestDay: day.isRestDay,
+    activities: [...day.activities]
+      .sort((a, b) => a.position - b.position)
+      .map((a) => ({
+        id: a.id,
+        kind: a.kind,
+        title: a.title,
+        place: undef(a.place),
+        startTime: undef(a.startTime),
+        durationMinutes: a.durationMinutes,
+        locked: a.locked,
+        bookingRequirement: a.bookingRequirement,
+        bookingStatus: undef(a.bookingStatus),
+        bookingLinks: a.bookingLinks,
+        price: undef(a.price),
+        notes: undef(a.notes),
+        planning: undef(a.planning),
+      })),
+    legs: [...day.legs]
+      .sort((a, b) => a.position - b.position)
+      .map((l) => ({
+        id: l.id,
+        fromActivityId: undef(l.fromActivityId),
+        toActivityId: undef(l.toActivityId),
+        from: { lat: l.fromLat, lng: l.fromLng },
+        to: { lat: l.toLat, lng: l.toLng },
+        mode: l.mode,
+        quality: l.quality,
+        durationMinutes: undef(l.durationMinutes),
+        distanceMeters: undef(l.distanceMeters),
+        geometry: undef(l.geometry),
+        externalUrl: undef(l.externalUrl),
+        source: undef(l.source),
+        isDemo: undef(l.isDemo),
+        reservedMinutes: undef(l.reservedMinutes),
+      })),
+  };
+}
+
 /** Reconstruye el viaje de dominio y valida con Zod el JSON guardado. */
-export function fromTripRow(row: TripRow & { hotel: HotelRow | null }): Trip {
+export function fromTripRow(
+  row: TripRow & { hotel: HotelRow | null; days?: DayRowWithItems[] },
+): Trip {
   const { hotel } = row;
   return TripSchema.parse({
     id: row.id,
@@ -74,8 +129,8 @@ export function fromTripRow(row: TripRow & { hotel: HotelRow | null }): Trip {
     preferences: row.preferences,
     pace: row.pace,
     budget: row.budget,
-    // El itinerario por días llega en la Fase 5.
-    days: [],
+    days: [...(row.days ?? [])].sort((a, b) => a.date.getTime() - b.date.getTime()).map(fromDayRow),
+    itineraryMeta: undef(row.itineraryMeta),
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),
   });
@@ -86,6 +141,9 @@ export async function createTrip(input: TripInput): Promise<{ id: string }> {
 }
 
 export async function getTrip(id: string): Promise<Trip | null> {
-  const row = await prisma.trip.findUnique({ where: { id }, include: { hotel: true } });
+  const row = await prisma.trip.findUnique({
+    where: { id },
+    include: { hotel: true, days: { include: { activities: true, legs: true } } },
+  });
   return row ? fromTripRow(row) : null;
 }
