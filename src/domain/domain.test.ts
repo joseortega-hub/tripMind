@@ -42,7 +42,15 @@ describe("PlaceSchema", () => {
   });
 
   it("cada categoría pertenece a una capa", () => {
-    expect(categoriesForLayers(["food"])).toEqual(["restaurant", "cafe", "bar", "fast_food"]);
+    expect(categoriesForLayers(["food"])).toEqual([
+      "restaurant",
+      "cafe",
+      "bar",
+      "fast_food",
+      "ice_cream",
+      "food_court",
+      "marketplace",
+    ]);
     expect(Object.values(CATEGORY_LAYER)).not.toContain(undefined);
   });
 });

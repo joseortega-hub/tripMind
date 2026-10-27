@@ -21,6 +21,9 @@ export const PlaceCategorySchema = z.enum([
   "cafe",
   "bar",
   "fast_food",
+  "ice_cream",
+  "food_court",
+  "marketplace",
   // Alojamiento
   "hotel",
   "hostel",
@@ -48,6 +51,9 @@ export const CATEGORY_LAYER: Record<PlaceCategory, MapLayer> = {
   cafe: "food",
   bar: "food",
   fast_food: "food",
+  ice_cream: "food",
+  food_court: "food",
+  marketplace: "food",
   hotel: "lodging",
   hostel: "lodging",
   apartment: "lodging",
@@ -64,6 +70,33 @@ export function categoriesForLayers(layers: readonly MapLayer[]): PlaceCategory[
     layers.includes(CATEGORY_LAYER[category]),
   );
 }
+
+/** `diet:*` de OSM: "only" = solo ese tipo de cocina; "limited" = algunas opciones. */
+export const DietValueSchema = z.enum(["yes", "only", "limited", "no"]);
+export type DietValue = z.infer<typeof DietValueSchema>;
+
+/** Categorías de precio de TripMind (REQUISITOS §10); solo con un rango publicado por una fuente. */
+export const PriceCategorySchema = z.enum(["budget", "mid", "special", "luxury"]);
+export type PriceCategory = z.infer<typeof PriceCategorySchema>;
+
+export const FoodFactsSchema = z.object({
+  vegetarian: DietValueSchema.optional(),
+  vegan: DietValueSchema.optional(),
+  glutenFree: DietValueSchema.optional(),
+  /** `outdoor_seating`: terraza. */
+  outdoorSeating: z.boolean().optional(),
+  /** `takeaway`: "only" = solo para llevar. */
+  takeaway: z.enum(["yes", "only", "no"]).optional(),
+  /** `reservation`: si se puede (o hay que) reservar; no es un enlace ni disponibilidad. */
+  reservation: z.enum(["yes", "no", "required", "recommended"]).optional(),
+  /** Enlace de reserva publicado en la fuente (`reservation:website`, `website:booking`). */
+  reservationUrl: z.url().optional(),
+  /** Carta en la web del local (`website:menu`). TripMind no muestra ni inventa menús. */
+  menuUrl: z.url().optional(),
+  /** Rango de precio publicado en la fuente (`price_range` con 1–4 símbolos de moneda). */
+  price: z.object({ category: PriceCategorySchema, raw: z.string().min(1) }).optional(),
+});
+export type FoodFacts = z.infer<typeof FoodFactsSchema>;
 
 /** Imagen con autoría y licencia obligatorias (Wikimedia Commons exige mostrarlas). */
 export const PlaceImageSchema = z.object({
@@ -137,6 +170,11 @@ export const PlaceSchema = ExternalDataSchema.extend({
       email: z.string().optional(),
     })
     .optional(),
+  /**
+   * Gastronomía: etiquetas de OSM (dietas, terraza, reservas, rango de precio). Solo las que
+   * existen en la fuente; pueden estar desactualizadas y la UI las presenta "según OSM".
+   */
+  food: FoodFactsSchema.optional(),
   /**
    * Estaciones y paradas: líneas según OSM (`route_ref`), red y operador. Son las etiquetas del
    * mapa, no un horario: pueden estar desactualizadas y la UI lo indica.

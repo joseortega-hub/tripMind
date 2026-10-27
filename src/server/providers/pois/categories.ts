@@ -23,6 +23,9 @@ export const OVERPASS_FILTERS: Record<PlaceCategory, string[]> = {
   cafe: ['["amenity"="cafe"]'],
   bar: ['["amenity"~"^(bar|pub)$"]'],
   fast_food: ['["amenity"="fast_food"]'],
+  ice_cream: ['["amenity"="ice_cream"]'],
+  food_court: ['["amenity"="food_court"]'],
+  marketplace: ['["amenity"="marketplace"]'],
   hotel: ['["tourism"="hotel"]'],
   hostel: ['["tourism"="hostel"]'],
   apartment: ['["tourism"="apartment"]'],
@@ -51,6 +54,9 @@ export function classifyOsmTags(tags: Tags): PlaceCategory | undefined {
   if (amenity === "cafe") return "cafe";
   if (amenity === "bar" || amenity === "pub") return "bar";
   if (amenity === "fast_food") return "fast_food";
+  if (amenity === "ice_cream") return "ice_cream";
+  if (amenity === "food_court") return "food_court";
+  if (amenity === "marketplace") return "marketplace";
   if (railway === "station") {
     if (station === "subway") return "metro_station";
     return station === "light_rail" ? "tram_stop" : "train_station";

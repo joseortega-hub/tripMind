@@ -94,6 +94,46 @@ export function lodgingOf(tags: Record<string, string>): Place["lodging"] {
   return Object.keys(present).length > 0 ? present : undefined;
 }
 
+const DIET_VALUES = new Set(["yes", "only", "limited", "no"]);
+const dietOf = (value: string | undefined) =>
+  value && DIET_VALUES.has(value) ? (value as "yes" | "only" | "limited" | "no") : undefined;
+
+const oneOf = <T extends string>(value: string | undefined, allowed: readonly T[]) =>
+  allowed.find((option) => option === value);
+
+const PRICE_CATEGORIES = ["budget", "mid", "special", "luxury"] as const;
+
+/**
+ * Rango de precio publicado en OSM (`price_range`, `price:range`) solo si es una escala de 1 a 4
+ * símbolos de moneda ("€", "€€"…, "$$"): cualquier otro valor no se interpreta.
+ */
+export function priceOf(tags: Record<string, string>) {
+  const raw = (tags.price_range ?? tags["price:range"])?.trim();
+  const match = raw?.match(/^(€{1,4}|\${1,4}|£{1,4})$/u);
+  if (!raw || !match) return undefined;
+  return { category: PRICE_CATEGORIES[[...match[1]!].length - 1]!, raw };
+}
+
+/** Datos gastronómicos según las etiquetas OSM; sin etiquetas, `undefined`. */
+export function foodOf(tags: Record<string, string>): Place["food"] {
+  const food: NonNullable<Place["food"]> = {
+    vegetarian: dietOf(tags["diet:vegetarian"]),
+    vegan: dietOf(tags["diet:vegan"]),
+    glutenFree: dietOf(tags["diet:gluten_free"]),
+    // "sidewalk", "garden", "pedestrian_zone"… también son terraza.
+    outdoorSeating: tags.outdoor_seating === undefined ? undefined : tags.outdoor_seating !== "no",
+    takeaway: oneOf(tags.takeaway, ["yes", "only", "no"] as const),
+    reservation: oneOf(tags.reservation, ["yes", "no", "required", "recommended"] as const),
+    reservationUrl: parseWebsite(tags["reservation:website"] ?? tags["website:booking"]),
+    menuUrl: parseWebsite(tags["website:menu"]),
+    price: priceOf(tags),
+  };
+  const present = Object.fromEntries(
+    Object.entries(food).filter(([, value]) => value !== undefined),
+  );
+  return Object.keys(present).length > 0 ? present : undefined;
+}
+
 function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): Place | undefined {
   const tags = el.tags ?? {};
   const name = tags.name;
@@ -130,6 +170,7 @@ function mapElement(el: OverpassElement, retrievedAt: string, isDemo: boolean): 
       .filter(Boolean),
     stars: Number.isFinite(stars) && stars >= 0 && stars <= 7 ? stars : undefined,
     lodging: layer === "lodging" ? lodgingOf(tags) : undefined,
+    food: layer === "food" ? foodOf(tags) : undefined,
     transit: layer === "transport" ? transitOf(tags) : undefined,
     source: osmSource(OVERPASS_NAME, el.type, el.id, retrievedAt),
     isDemo,

@@ -1,6 +1,7 @@
 import { type BBox, bboxContains } from "@/domain/geo";
 import type { Place } from "@/domain/place";
 import commonsFixture from "./fixtures/commons.json";
+import foodFixture from "./fixtures/food.json";
 import overpassFixture from "./fixtures/overpass.json";
 import stopsFixture from "./fixtures/stops.json";
 import wikidataFixture from "./fixtures/wikidata.json";
@@ -35,6 +36,12 @@ function loadPlaces(): Place[] {
     isDemo: true,
   });
   places.push(...stops.filter((stop) => stop.layer === "transport" && !known.has(stop.id)));
+  // Heladerías, zonas de restauración y mercados, grabados en la misma zona en la Fase 7.
+  const food = mapOverpassResponse(OverpassResponseSchema.parse(foodFixture.response), {
+    retrievedAt: foodFixture.recordedAt,
+    isDemo: true,
+  });
+  places.push(...food.filter((place) => !known.has(place.id)));
   const enrichment: Enrichment = { retrievedAt: wikidataFixture.recordedAt, facts: {}, images: {} };
   for (const entry of wikidataFixture.entries) {
     Object.assign(
