@@ -64,6 +64,9 @@ async function createTripWithHotel(page: Page): Promise<string> {
   return (await response.json()).id as string;
 }
 
+// Compilan rutas nuevas en modo dev y encadenan varias peticiones: margen amplio.
+test.describe.configure({ timeout: 120_000 });
+
 async function openView(page: Page, isMobile: boolean, view: "Lista" | "Mapa" | "Viaje") {
   if (isMobile) {
     await page
@@ -81,7 +84,7 @@ async function openFromList(page: Page, isMobile: boolean, layer: string, name: 
     .locator(`section[aria-labelledby='list-${layer}'] button`)
     .filter({ has: page.locator("span.truncate", { hasText: new RegExp(`^${name}$`) }) })
     .first()
-    .click();
+    .click({ timeout: 60_000 });
   const detail = page.getByRole("article", { name });
   await expect(detail).toBeVisible();
   return detail;
@@ -134,7 +137,8 @@ test("sin ruta real de transporte lo dice y ofrece enlaces externos; metro cerca
   const id = await createTripWithHotel(page);
   await page.goto(`/trips/${id}`);
 
-  const detail = await openFromList(page, isMobile, "tourism", "Museo del Prado");
+  // (El Prado no entra en los 500 primeros lugares del fixture demo.)
+  const detail = await openFromList(page, isMobile, "tourism", "CaixaForum Madrid");
   const transit = detail.getByTestId("route-transit");
   await expect(transit.getByText("Sin ruta calculada")).toBeVisible();
   await expect(transit.getByText(/andando se llega antes/)).toBeVisible();

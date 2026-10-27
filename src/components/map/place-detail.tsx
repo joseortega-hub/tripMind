@@ -251,12 +251,13 @@ function Row({
   children: React.ReactNode;
 }) {
   return (
+    // Solo <dt> y <dd> dentro del <div> de cada grupo (estructura válida de <dl>).
     <div className="flex gap-2.5">
-      <Icon className="text-muted-foreground mt-0.5 size-4 shrink-0" aria-hidden />
-      <div className="min-w-0">
-        <dt className="sr-only">{label}</dt>
-        <dd>{children}</dd>
-      </div>
+      <dt className="shrink-0">
+        <Icon className="text-muted-foreground mt-0.5 size-4" aria-hidden />
+        <span className="sr-only">{label}</span>
+      </dt>
+      <dd className="min-w-0">{children}</dd>
     </div>
   );
 }
