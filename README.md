@@ -44,6 +44,7 @@ Copia la URL `TCP` que muestra `ls` (p. ej.
 | `pnpm test` | Tests unitarios (Vitest) |
 | `pnpm e2e` | Tests end-to-end (Playwright, proveedores en modo demo) |
 | `pnpm db:up` / `pnpm db:migrate` | Arranca Postgres en Docker / aplica migraciones |
+| `pnpm feedback [--prod] [--done <id>] [--keep-new] [--all]` | Lee el buzón de ideas y errores (BD local o de producción con `PROD_DATABASE_URL`) y guarda `data/privado/buzon/` |
 
 ## Proveedores de datos
 Todos los proveedores funcionan en modo demo sin claves. La tabla de proveedores, cómo activarlos

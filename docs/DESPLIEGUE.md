@@ -29,6 +29,7 @@ Objetivo: una URL pública para probar TripMind en el móvil. Cada push a `main`
 | `OPENROUTESERVICE_API_KEY` | Clave gratuita de https://openrouteservice.org/dev/#/signup | No (sin ella se usa OSRM de FOSSGIS) |
 | `TICKETMASTER_API_KEY` | Clave gratuita de https://developer.ticketmaster.com | No (Fase 9) |
 | `ANTHROPIC_API_KEY` | Clave de https://console.anthropic.com | No (aún no se usa) |
+| `FEEDBACK_ADMIN_KEY` | Clave larga aleatoria (≥16 caracteres, p. ej. `openssl rand -hex 24`) para leer el buzón por API (`GET`/`PATCH /api/feedback` con la cabecera `x-feedback-key`) | No (sin ella la lectura por API está cerrada; enviar sigue funcionando) |
 
 Nunca con prefijo `NEXT_PUBLIC_`: todas se usan solo en el servidor.
 `TRIPMIND_DB_PORT` y `GOOGLE_PLACES_API_KEY` no hacen falta en producción.
@@ -37,7 +38,21 @@ Nunca con prefijo `NEXT_PUBLIC_`: todas se usan solo en el servidor.
 - Abre la URL `https://<proyecto>.vercel.app` en el móvil; para usarla como app:
   Chrome → menú → *Añadir a pantalla de inicio* (Safari: Compartir → *Añadir a inicio*).
 
-## 5. Precauciones
+## 5. Buzón de ideas y errores (Fase 8b)
+El botón **Buzón** de la cabecera guarda los comentarios (con capturas) en la tabla `Feedback` de
+Neon; la migración se aplica sola en el build. Para leerlos desde el PC:
+1. En tu `.env` local añade `PROD_DATABASE_URL` con la cadena de Neon (la misma de `DATABASE_URL`
+   en Vercel). **No** la añadas a Vercel: solo la usa el comando.
+2. `pnpm feedback --prod` imprime los pendientes, guarda `pendientes.md` e imágenes en
+   `data/privado/buzon/` (ignorado por Git) y pasa los nuevos a «leído».
+   Opciones: `--keep-new` (no marcarlos), `--all` (incluye los hechos),
+   `--done <id o principio del id>` (marcar uno como hecho).
+
+Límites del envío: texto de 3 a 2000 caracteres, hasta 3 imágenes comprimidas en el navegador
+(≤ 300 000 caracteres base64 cada una, 800 000 entre todas), cuerpo ≤ 1 MB y 10 envíos cada
+10 minutos por IP (contador en memoria de cada instancia de Vercel).
+
+## 6. Precauciones
 - **No hay login todavía**: quien tenga la URL puede crear viajes. No la publiques; para una
   demo, crea un viaje de prueba y comparte solo ese enlace.
 - Las APIs abiertas (Nominatim, Overpass, OSRM de FOSSGIS, Transitous) piden uso moderado; la

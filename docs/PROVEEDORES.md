@@ -162,6 +162,12 @@ Respuesta: `{ results, provider: { id, name, isDemo, notice? }, fromCache, warni
 - `GET|POST /api/trips/[id]/favorites` y `DELETE /api/trips/[id]/favorites?placeId=…`: lugares
   guardados del viaje (snapshot `Place` con `source` e `isDemo`); 404 si el viaje no existe,
   503 `storage_unavailable` si la BD falla.
+- `POST /api/feedback { kind: error|idea|mejora, message, path, tripId?, context?, images? }`
+  (público; buzón de la Fase 8b): 201 `{ id }`, 400 `invalid_request`, 413 si el cuerpo pasa de
+  1 MB, 429 `rate_limited` (10 cada 10 min por IP), 503 `storage_unavailable`.
+  `GET /api/feedback?status=new,read` (sin imágenes, con `imageCount`) y
+  `PATCH /api/feedback/[id] { status: new|read|done }`: exigen la cabecera
+  `x-feedback-key` = `FEEDBACK_ADMIN_KEY`; sin la variable responden siempre 401.
 Errores: 400 `invalid_request` (con `issues`), 502 `provider_unavailable` (con `externalUrl`).
 
 ### Fixtures demo

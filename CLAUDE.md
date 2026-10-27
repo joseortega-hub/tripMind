@@ -8,6 +8,8 @@ que pida la fase.
 - Un commit por funcionalidad (mensajes en español, estilo `feat: ...`, `fix: ...`) y `git push origin main`.
 - Al terminar una fase: marcarla ✅ en `docs/ROADMAP.md` y anotar decisiones relevantes.
 - Ejecutar `pnpm lint`, `pnpm typecheck` y `pnpm test` antes de cada commit.
+- «Mira si hay comentarios nuevos» = `pnpm feedback --prod`: leer `data/privado/buzon/pendientes.md`
+  y sus imágenes; al resolver uno, `pnpm feedback --prod --done <id>`.
 
 ## Reglas de producto (no negociables)
 - Nunca inventar lugares, coordenadas, precios, horarios, disponibilidad, valoraciones, eventos,

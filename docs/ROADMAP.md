@@ -372,7 +372,7 @@ Decisiones Fase 8:
   entrada): actividades del plan con insignia (✓ anotada, ! por reservar, × cancelada); la lista
   muestra el estado en texto.
 
-### ⬜ Fase 8b — Buzón de ideas y mejoras
+### ✅ Fase 8b — Buzón de ideas y mejoras
 Igual que en Proyecto W (`C:\Proyecto X`, `apps/web/src/lib/feedback.ts`, `FeedbackSheet`,
 `apps/api/src/feedback`): botón "Buzón" accesible desde cualquier pantalla (también en móvil),
 tipo error/idea/mejora, texto (2000), hasta 3 capturas comprimidas en el navegador y contexto
@@ -380,6 +380,32 @@ automático (ruta, viaje, viewport, navegador; nada personal). Tabla `Feedback`,
 público con límites, `GET`/`PATCH` protegidos con `FEEDBACK_ADMIN_KEY`. Comando
 `pnpm feedback [--prod] [--done <id>]` que imprime los pendientes y guarda imágenes en
 `data/privado/buzon/` (ignorado por Git). «Mira si hay comentarios nuevos» = `pnpm feedback --prod`.
+
+Decisiones Fase 8b:
+
+- Botón «Buzón» en `SiteHeader` (cabecera común de portada, asistente y `/trips/[id]`, encima del
+  mapa: no tapa la barra inferior ni el bottom sheet). `FeedbackDialog` se monta una vez en el
+  layout y se abre con `openFeedback()` (evento `tripmind:feedback`); al cerrar devuelve el foco a
+  quien lo abrió. Radix Dialog: hoja inferior a todo el ancho en móvil (`92dvh`, safe area) y
+  diálogo centrado desde `sm`. Sin `sonner`: el éxito se muestra dentro del diálogo («Enviar otro»).
+  Si se cierra a medias se conserva el borrador.
+- Límites (`src/domain/feedback.ts`, compartidos por cliente y servidor) iguales que Proyecto W:
+  texto 3–2000, 3 imágenes, 300 000 caracteres base64 por imagen y 800 000 entre todas; la
+  compresión (`src/lib/feedback.ts`) reduce a 1600/1200/900 px y prueba WebP→JPEG con calidad
+  0,82→0,45. El tipo por defecto es «Error».
+- Contexto automático sin datos personales: `path`, `tripId` (solo si la ruta es `/trips/<id>`),
+  `viewport`, `dpr`, `mode` (clase `dark`) y `browser` (user agent recortado). Nada de IP: la IP
+  solo se usa en memoria para el límite de frecuencia.
+- `Feedback.tripId` no es relación: el comentario sobrevive al borrado del viaje. Estados
+  `new/read/done`; migración `20261029000000_feedback` generada con `prisma migrate diff`
+  (`migrate dev` falla con el shadow DB de `prisma dev`).
+- API: `POST` público (≤ 1 MB por `content-length` y por bytes leídos; 10 envíos/10 min por IP en
+  memoria, por instancia); `GET`/`PATCH` con `x-feedback-key` comparada en tiempo constante;
+  sin `FEEDBACK_ADMIN_KEY` (o con menos de 16 caracteres) siempre 401.
+- `pnpm feedback` (`scripts/feedback.mts` con `tsx`, ahora devDependency) lee la BD con su propio
+  `PrismaClient` (no importa `server-only`); el formato Markdown y los argumentos son puros en
+  `src/server/services/feedback/format.ts`. `--done` exige ≥ 4 caracteres y un único comentario
+  que coincida.
 
 ### ⬜ Fase 9 — Descubrimiento y diferenciales
 
